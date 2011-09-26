@@ -32,6 +32,7 @@
 
 
 #include "wx/wxprec.h"
+#include "wx/dcbuffer.h"
 #include "Target.h"
 
 #ifndef  WX_PRECOMP

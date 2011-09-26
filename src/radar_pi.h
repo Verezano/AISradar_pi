@@ -1,5 +1,5 @@
 /******************************************************************************
- * $Id: grib_pi.h,v 1.8 2010/06/21 01:54:37 bdbcat Exp $
+ * $Id:  $
  *
  * Project:  OpenCPN
  * Purpose:  Radar Plugin
@@ -55,6 +55,7 @@ class radar_pi : public opencpn_plugin
 {
 public:
       radar_pi(void *ppimgr);
+	  ~radar_pi();
 
 //    The required PlugIn Methods
       int Init(void);
@@ -90,7 +91,7 @@ public:
 	double           GetSog            (void)   { return m_sog;           }
 	int              GetSats           (void)   { return m_sats;          }
 	wxFileConfig    *GetConfig         (void)   { return m_pconfig;       }
-	ArrayOfPlugIn_AIS_Targets  *GetAisTargets() { return  GetAISTargetArray(); }    
+	ArrayOfPlugIn_AIS_Targets  *GetAisTargets();    
 	void OnRadarFrameClose();
 
 private:
@@ -108,6 +109,8 @@ private:
       int               m_radar_frame_x, m_radar_frame_y;
       int               m_radar_frame_sx, m_radar_frame_sy;
 	  int               m_radar_range;
+      double            m_lat;
+	  double            m_lon;
 	  double            m_cog;
 	  double            m_sog;
 	  int               m_sats;

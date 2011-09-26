@@ -1,5 +1,5 @@
 /******************************************************************************
- * $Id: radar_pi.cpp,v 1.8 2010/06/21 01:54:37 bdbcat Exp $
+ * $Id:  $
  *
  * Project:  OpenCPN
  * Purpose:  Radar Plugin
@@ -57,7 +57,6 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 //
 //---------------------------------------------------------------------------------------------------------
 #include "my_icons.h"
-#include "icons.h"
 
 
 //---------------------------------------------------------------------------------------------------------
@@ -68,8 +67,14 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 
 radar_pi::radar_pi(void *ppimgr) : opencpn_plugin(ppimgr), m_pRadarFrame(0)
 {
-	// Initialise my images
       initialize_my_images();
+}
+
+radar_pi::~radar_pi()
+{
+	if ( AisTargets ) {
+		delete AisTargets;
+	}
 }
 
 int radar_pi::Init(void) {
@@ -79,21 +84,21 @@ int radar_pi::Init(void) {
       m_radar_frame_sx = 200;
       m_radar_frame_sy = 200;
       m_pRadarFrame = 0;
+	  m_lat=0.;
+	  m_lon=0.;
 	  m_cog=0.;
 	  m_sog=0.;
 	  m_sats=0;
       ::wxDisplaySize(&m_display_width, &m_display_height);
       m_pconfig = GetOCPNConfigObject();
       LoadConfig();
+	  AisTargets = GetAISTargetArray();
       m_parent_window = GetOCPNCanvasWindow();
       if(m_radar_show_icon) {
             m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
                   _("Radar"), _T(""), 0,
                    RADAR_TOOL_POSITION, 0, this);
 
-	  }
-	  if (m_radar_use_ais) {
-		  AisTargets = GetAISTargetArray();
 	  }
       return (WANTS_TOOLBAR_CALLBACK   |
            INSTALLS_TOOLBAR_TOOL       |
@@ -102,7 +107,6 @@ int radar_pi::Init(void) {
 		   WANTS_AIS_SENTENCES         |
 		   WANTS_NMEA_EVENTS           |
 		   USES_AUI_MANAGER
-
       );
 }
 
@@ -141,12 +145,12 @@ wxBitmap *radar_pi::GetPlugInBitmap() {
 
 
 wxString radar_pi::GetCommonName() {
-      return _("Radar");
+      return _("AIS Radar view");
 }
 
 
 wxString radar_pi::GetShortDescription() {
-      return _("Radar PlugIn for OpenCPN");
+      return _("AIS Radar view PlugIn");
 }
 
 
@@ -160,7 +164,7 @@ void radar_pi::SetDefaults(void) {
       {
             m_radar_show_icon = true;
             m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
-                  _("Radar"), _T(""), 0,
+                  _("AIS Radar"), _T(""), 0,
                    RADAR_TOOL_POSITION, 0, this);
       }
 }
@@ -248,7 +252,7 @@ void radar_pi::SetAISSentence(wxString &sentence) {
 	// The targets are already updated to reflect the current message
 	// So we re-use that information
 	if (m_radar_use_ais) {
-		AisTargets = GetAISTargetArray();
+		GetAisTargets();
 	}
 	if ( m_pRadarFrame ) {
 		m_pRadarFrame->Refresh();
@@ -257,11 +261,18 @@ void radar_pi::SetAISSentence(wxString &sentence) {
 
 
 void radar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {
-	m_cog  = pfix.Cog;
-	m_sog  = pfix.Sog;
-	m_sats = pfix.nSats;
-	if ( m_pRadarFrame ) {
-		m_pRadarFrame->Refresh();
+	// Check if our position changed
+	// If so, update view otherwise not, 
+	// to prevent a blinking view on slower machines
+	if ( m_lat != pfix.Lat || m_lon != pfix.Lon ) {
+		m_lat  = pfix.Lat;
+		m_lon  = pfix.Lon;
+		m_cog  = pfix.Cog;
+		m_sog  = pfix.Sog;
+		m_sats = pfix.nSats;
+		if ( m_pRadarFrame ) {
+			m_pRadarFrame->Refresh();
+		}
 	}
 }
 
@@ -277,6 +288,16 @@ void radar_pi::SetColorScheme(PI_ColorScheme cs) {
 	if ( m_pRadarFrame ) {
 		m_pRadarFrame->SetColourScheme(cs);
 	}
+}
+
+
+ArrayOfPlugIn_AIS_Targets  *radar_pi::GetAisTargets() {
+		if ( AisTargets ) {
+			delete AisTargets;
+			AisTargets = 0;
+		}
+		AisTargets = GetAISTargetArray();
+		return AisTargets;
 }
 
 

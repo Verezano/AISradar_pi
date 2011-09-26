@@ -27,18 +27,11 @@
  *
  */
 #include "wx/wx.h"
-#include <wx/wfstream.h>
 #include <wx/debug.h>
-#include <wx/graphics.h>
 #include <wx/fileconf.h>
-
-#include <stdlib.h>
 #include <math.h>
-#include <time.h>
 #include <minmax.h>
-
 #include "radar_pi.h"
-#include "icons.h"
 
 static const double    RangeData[9] = {
 	0.25, 0.5, 1, 2, 4, 8, 12, 16, 32
@@ -72,7 +65,7 @@ END_EVENT_TABLE()
 
 
 RadarFrame::RadarFrame() 
-: m_Width(0), m_Height(0), m_pCanvas(0), m_pRange(0), m_pNorthUp(0), m_Timer(0) {
+: pParent(0), pPlugIn(0), m_Timer(0), m_pConfig(0), m_pCanvas(0), m_pNorthUp(0), m_pRange(0), m_Width(0), m_Height(0), m_Range(0) {
       Init();
 }
 
@@ -113,6 +106,7 @@ bool RadarFrame::Create ( wxWindow *parent, radar_pi *ppi, wxWindowID id,
 	int tmp_size = max(min(size_min.GetWidth(),size_min.GetHeight()),MIN_RADIUS*2);
 	size_min.Set(tmp_size, tmp_size);
     m_pCanvas = new wxPanel(panel, wxID_ANY, pos, size_min);
+	m_pCanvas->SetBackgroundStyle(wxBG_STYLE_CUSTOM);
     canvas->Add(m_pCanvas, 1, wxEXPAND);
     vbox->Add(canvas, 1, wxALL | wxEXPAND, 5);
   
@@ -153,6 +147,7 @@ bool RadarFrame::Create ( wxWindow *parent, radar_pi *ppi, wxWindowID id,
 
 
 void RadarFrame::SetColourScheme(PI_ColorScheme cs) {
+//	wxLogMessage(_T("SetColourScheme"));
 	  GetGlobalColor(_T("DILG1"), &m_BgColour);
       SetBackgroundColour(m_BgColour);
       this->Refresh();
@@ -163,10 +158,6 @@ void RadarFrame::OnClose ( wxCloseEvent& event ) {
 	// Stop timer if still running
 	m_Timer->Stop();
 
-	// Save settings 
-	pPlugIn->SetRadarNorthUp(m_pNorthUp->GetValue());
-	pPlugIn->SetRadarRange(m_pRange->GetSelection());
-
 	// Cleanup
 	RequestRefresh(pParent);
 	Destroy();
@@ -175,16 +166,21 @@ void RadarFrame::OnClose ( wxCloseEvent& event ) {
 
 
 void RadarFrame::OnRange ( wxCommandEvent& event ) {
+//	wxLogMessage(_T("OnRange"));
+	pPlugIn->SetRadarRange(m_pRange->GetSelection());
 	this->Refresh();
 }
 
 
 void RadarFrame::OnNorthUp ( wxCommandEvent& event ) {
+//wxLogMessage(_T("onNothrUp"));
+	pPlugIn->SetRadarNorthUp(m_pNorthUp->GetValue());
 	this->Refresh();
 }
 
 
 void RadarFrame::OnTimer( wxTimerEvent& event ) {
+//wxLogMessage(_T("onTimer"));
 	this->Refresh();
 }
 
@@ -197,42 +193,41 @@ void RadarFrame::OnMove ( wxMoveEvent& event ) {
 }
 
 void RadarFrame::OnSize ( wxSizeEvent& event ) {
-	  // Update Config to reflect new size
-	  event.Skip();
-	  wxClientDC dc(m_pCanvas);
-	  dc.Clear();
-	  render(dc);
+	event.Skip();
+	wxClientDC dc(m_pCanvas);
+	m_Width  = dc.GetSize().GetWidth();
+	m_Height = dc.GetSize().GetHeight();
+	pPlugIn->SetRadarFrameSizeX(m_Width);
+	pPlugIn->SetRadarFrameSizeY(m_Height);
+	render(dc);
 }
 
 
 void RadarFrame::paintEvent(wxPaintEvent & event) {
     event.Skip();
-	wxPaintDC dc(m_pCanvas);
-	dc.Clear();
-    render(dc);
+//wxLogMessage(_T("paintEvent"));
+	wxAutoBufferedPaintDC dc(m_pCanvas);
+	render(dc);
+	dc.UnMask();
 }
 
 
 void RadarFrame::render(wxDC& dc)	 {
 	m_Timer->Start(RESTART);
 
-	// Store current size of drawing area
-	int da_width  = dc.GetSize().GetWidth();
-	int da_height = dc.GetSize().GetHeight();
-    pPlugIn->SetRadarFrameSizeX(da_width);
-    pPlugIn->SetRadarFrameSizeY(da_height);
-
 	// Calculate the size based on paint area size, if smaller then the minimum
 	// then the default minimum size applies
-	int width  = max(da_width, (MIN_RADIUS)*2 );
-	int height = max(da_height,(MIN_RADIUS)*2 );
+	int width  = max(m_Width, (MIN_RADIUS)*2 );
+	int height = max(m_Height,(MIN_RADIUS)*2 );
 	wxSize       size(width, height);
 	wxPoint      center(width/2, height/2);
 	int radius = max((min(width,height)/2),MIN_RADIUS);
 	
 	m_pCanvas->SetBackgroundColour (m_BgColour);
 	renderRange(dc, center, size, radius);    
-	renderBoats(dc, center, size, radius);
+	if ( pPlugIn->GetAisTargets() ) {
+		renderBoats(dc, center, size, radius);
+	}
 }
 
 
@@ -267,11 +262,11 @@ void RadarFrame::renderBoats(wxDC &dc, wxPoint &center, wxSize &size, int radius
 	}
 
 	// Show own boat
-    Target Self;
-	Self.SetCanvas(center, radius, m_BgColour);
-	Self.SetNavDetails(RangeData[m_pRange->GetSelection()], 0., m_ShowCogArrows, m_CogArrowMinutes);
-	Self.SetState(0, wxT("Us"), 0., 0., mycog, pPlugIn->GetSog(), 1, PI_AIS_NO_ALARM, 0 );
-	Self.Render(dc);
+    //Target Self;
+	//Self.SetCanvas(center, radius, m_BgColour);
+	//Self.SetNavDetails(RangeData[m_pRange->GetSelection()], 0., m_ShowCogArrows, m_CogArrowMinutes);
+	//Self.SetState(0, wxT("Us"), 0., 0., mycog, pPlugIn->GetSog(), 1, PI_AIS_NO_ALARM, 0 );
+	//Self.Render(dc);
 
 	// Show other boats and base stations
 	Target    dt;
@@ -293,7 +288,6 @@ void RadarFrame::renderBoats(wxDC &dc, wxPoint &center, wxSize &size, int radius
 				|| t->Class == BASE_STATION
 				||(!m_ShowMoored && t->SOG > m_MooredSpeed)
 			) {
-				wxLogMessage(wxString::Format(_T("target rotation = %d"),t->ROTAIS));
 				Name     = wxString::From8BitData(t->ShipName);
 				CallSign = wxString::From8BitData(t->CallSign);
 				TrimAisField(&Name);
