@@ -96,7 +96,7 @@ int radar_pi::Init(void) {
       m_parent_window = GetOCPNCanvasWindow();
       if(m_radar_show_icon) {
             m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
-                  _("Radar"), _T(""), 0,
+                  _("AIS Radar view"), _T(""), 0,
                    RADAR_TOOL_POSITION, 0, this);
 
 	  }
