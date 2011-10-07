@@ -93,6 +93,10 @@ public:
 	wxFileConfig    *GetConfig         (void)   { return m_pconfig;       }
 	ArrayOfPlugIn_AIS_Targets  *GetAisTargets();    
 	void OnRadarFrameClose();
+    bool             ShowMoored        (void);
+	double           GetMooredSpeed    (void);
+	bool             ShowCogArrows     (void);
+	int              GetCogArrowMinutes(void);
 
 private:
       bool LoadConfig(void);

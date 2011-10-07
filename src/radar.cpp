@@ -32,6 +32,7 @@
 #include <math.h>
 #include <minmax.h>
 #include "radar_pi.h"
+#include "Canvas.h"
 
 static const double    RangeData[9] = {
 	0.25, 0.5, 1, 2, 4, 8, 12, 16, 32
@@ -39,7 +40,9 @@ static const double    RangeData[9] = {
 
 enum    Ids { cbRangeId = 10001,
 				cbNorthUpId,
-				tmRefreshId
+				cbBearingLineId,
+				tmRefreshId,
+				plCanvasId,
 };
 
 static const int RESTART  = -1;
@@ -59,13 +62,15 @@ BEGIN_EVENT_TABLE ( RadarFrame, wxDialog )
 			EVT_PAINT    ( RadarFrame::paintEvent)
 			EVT_COMBOBOX ( cbRangeId, RadarFrame::OnRange)
 			EVT_CHECKBOX ( cbNorthUpId, RadarFrame::OnNorthUp )
+			EVT_CHECKBOX ( cbBearingLineId, RadarFrame::OnBearingLine )
 			EVT_TIMER    ( tmRefreshId, RadarFrame::OnTimer )
 
 END_EVENT_TABLE()
 
-
 RadarFrame::RadarFrame() 
-: pParent(0), pPlugIn(0), m_Timer(0), m_pConfig(0), m_pCanvas(0), m_pNorthUp(0), m_pRange(0), m_Width(0), m_Height(0), m_Range(0) {
+: pParent(0), pPlugIn(0), m_Timer(0), m_pCanvas(0), m_pNorthUp(0), m_pRange(0), m_pBearingLine(0), m_Width(0), m_Height(0), m_Range(0),
+	m_Ebl(0.)
+{
       Init();
 }
 
@@ -90,11 +95,8 @@ bool RadarFrame::Create ( wxWindow *parent, radar_pi *ppi, wxWindowID id,
           return false;
 	}
 
-    // Get config object from parent
-	m_pConfig = pPlugIn->GetConfig();
-
 	// Add panel to contents of frame
-	wxPanel *panel = new wxPanel(this, -1);
+	wxPanel *panel = new wxPanel(this, plCanvasId );
 	panel->SetAutoLayout(true);
 	wxBoxSizer *vbox = new wxBoxSizer(wxVERTICAL);
     panel->SetSizer(vbox);
@@ -105,9 +107,11 @@ bool RadarFrame::Create ( wxWindow *parent, radar_pi *ppi, wxWindowID id,
     wxBoxSizer *canvas = new wxBoxSizer(wxHORIZONTAL);
 	int tmp_size = max(min(size_min.GetWidth(),size_min.GetHeight()),MIN_RADIUS*2);
 	size_min.Set(tmp_size, tmp_size);
-    m_pCanvas = new wxPanel(panel, wxID_ANY, pos, size_min);
+    m_pCanvas = new Canvas(panel, this, wxID_ANY, pos, size_min);
 	m_pCanvas->SetBackgroundStyle(wxBG_STYLE_CUSTOM);
-    canvas->Add(m_pCanvas, 1, wxEXPAND);
+	wxBoxSizer *cbox = new wxBoxSizer(wxVERTICAL);
+	cbox->FitInside(m_pCanvas);
+	canvas->Add(m_pCanvas, 1, wxEXPAND);
     vbox->Add(canvas, 1, wxALL | wxEXPAND, 5);
   
 	// Add controls
@@ -128,12 +132,16 @@ bool RadarFrame::Create ( wxWindow *parent, radar_pi *ppi, wxWindowID id,
 	m_pRange->SetSelection(pPlugIn->GetRadarRange());
     controls->Add(m_pRange);
 
-    wxStaticText *st2 = new wxStaticText(panel,wxID_ANY,_("Mile"));
+    wxStaticText *st2 = new wxStaticText(panel,wxID_ANY,_("Miles"));
     controls->Add(st2,0,wxRIGHT|wxLEFT,5);
 
 	m_pNorthUp = new wxCheckBox(panel, cbNorthUpId, _("North Up"));
 	m_pNorthUp->SetValue(pPlugIn->GetRadarNorthUp());
     controls->Add(m_pNorthUp, 0, wxLEFT, 10);
+
+	m_pBearingLine = new wxCheckBox(panel, cbBearingLineId, _("Bearing line"));
+	m_pBearingLine->SetValue(false);
+    controls->Add(m_pBearingLine, 0, wxLEFT, 10);
     vbox->Add(controls, 0, wxEXPAND | wxALL, 5);
 
 	// Add timer
@@ -147,7 +155,6 @@ bool RadarFrame::Create ( wxWindow *parent, radar_pi *ppi, wxWindowID id,
 
 
 void RadarFrame::SetColourScheme(PI_ColorScheme cs) {
-//	wxLogMessage(_T("SetColourScheme"));
 	  GetGlobalColor(_T("DILG1"), &m_BgColour);
       SetBackgroundColour(m_BgColour);
       this->Refresh();
@@ -166,22 +173,50 @@ void RadarFrame::OnClose ( wxCloseEvent& event ) {
 
 
 void RadarFrame::OnRange ( wxCommandEvent& event ) {
-//	wxLogMessage(_T("OnRange"));
 	pPlugIn->SetRadarRange(m_pRange->GetSelection());
 	this->Refresh();
 }
 
 
 void RadarFrame::OnNorthUp ( wxCommandEvent& event ) {
-//wxLogMessage(_T("onNothrUp"));
 	pPlugIn->SetRadarNorthUp(m_pNorthUp->GetValue());
+	if (m_pNorthUp->GetValue()) {
+		m_Ebl += pPlugIn->GetCog();
+	} else {
+		m_Ebl -= pPlugIn->GetCog();
+	}
 	this->Refresh();
 }
 
 
 void RadarFrame::OnTimer( wxTimerEvent& event ) {
-//wxLogMessage(_T("onTimer"));
 	this->Refresh();
+}
+
+
+void RadarFrame::OnBearingLine( wxCommandEvent& event ) {
+	this->Refresh();
+}
+
+
+void RadarFrame::OnLeftMouse(const wxPoint &curpos) {
+	if (m_pBearingLine->GetValue()) {
+		int width      = max(m_Width, (MIN_RADIUS)*2 );
+		int height     = max(m_Height,(MIN_RADIUS)*2 );
+		int radius     = max((min(width,height)/2),MIN_RADIUS);
+		wxPoint center(width/2, height/2);
+		int dx = curpos.x - center.x;
+		int dy = center.y - curpos.y;    // top of screen y=0
+		double tmpradius = sqrt((double)(dx*dx)+(double)(dy*dy));
+		double angle= dy/tmpradius;
+		m_Ebl = asin(angle)*(double)((double)180./(double)3.141592653589);
+		if ( dx >= 0 ) {
+			m_Ebl = 90 - m_Ebl;
+		} else {
+			m_Ebl = 360 - (90 - m_Ebl);
+		}
+		this->Refresh();
+	}
 }
 
 
@@ -191,6 +226,7 @@ void RadarFrame::OnMove ( wxMoveEvent& event ) {
       pPlugIn->SetRadarFrameY(p.y);
       event.Skip();
 }
+
 
 void RadarFrame::OnSize ( wxSizeEvent& event ) {
 	event.Skip();
@@ -205,7 +241,6 @@ void RadarFrame::OnSize ( wxSizeEvent& event ) {
 
 void RadarFrame::paintEvent(wxPaintEvent & event) {
     event.Skip();
-//wxLogMessage(_T("paintEvent"));
 	wxAutoBufferedPaintDC dc(m_pCanvas);
 	render(dc);
 	dc.UnMask();
@@ -248,18 +283,10 @@ void RadarFrame::renderBoats(wxDC &dc, wxPoint &center, wxSize &size, int radius
 	}
 
 	// Get display settings
-	bool   m_ShowMoored=true;
-	double m_MooredSpeed=0.0;
-	bool   m_ShowCogArrows=true;
-	int    m_CogArrowMinutes=0;
-
-	if (m_pConfig) {
-		m_pConfig->SetPath ( _T( "/Settings/AIS" ) );
-		m_pConfig->Read ( _T( "bShowMooredTargets" ),  &m_ShowMoored, 1 );
-		m_pConfig->Read ( _T( "MooredTargetMaxSpeedKnots" ),  &m_MooredSpeed, 0.0 );
-		m_pConfig->Read ( _T("bShowCOGArrows"), &m_ShowCogArrows, 1);
-		m_pConfig->Read ( _T("CogArrowMinutes"), &m_CogArrowMinutes, 6);
-	}
+	bool   m_ShowMoored=pPlugIn->ShowMoored();
+	double m_MooredSpeed=pPlugIn->GetMooredSpeed();
+	bool   m_ShowCogArrows=pPlugIn->ShowCogArrows();
+	int    m_CogArrowMinutes=pPlugIn->GetCogArrowMinutes();
 
 	// Show own boat
     //Target Self;
@@ -334,8 +361,30 @@ void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius
 	// Draw the orientation info
 	if (m_pNorthUp->GetValue()) {
 		dc.DrawText(_("North Up"),  size.GetWidth()-dc.GetCharWidth()*11, 0); 
+		// Draw north, east, south and west indicators
+		dc.SetTextForeground(wxColour(128,128,128));
+		dc.DrawText(_("N"), size.GetWidth()/2 + 5, 0);
+		dc.DrawText(_("S"), size.GetWidth()/2 + 5, size.GetHeight()-dc.GetCharHeight());
+		dc.DrawText(_("W"), 5, size.GetHeight()/2 - dc.GetCharHeight());
+		dc.DrawText(_("E"), size.GetWidth() - 7 - dc.GetCharWidth(), size.GetHeight()/2 - dc.GetCharHeight());
 	} else {
 		dc.DrawText(_("Course Up"), size.GetWidth()-dc.GetCharWidth()*11, 0); 
+	
+		// Display our own course at to top
+		double offset=pPlugIn->GetCog();
+		dc.SetTextForeground(wxColour(128,128,128));
+		int cpos=0;
+		dc.DrawText(wxString::Format(_T("%3.0f°"),offset), size.GetWidth()/2 - dc.GetCharWidth()*2, cpos);
+
+	}
+	if (m_pBearingLine->GetValue()) {
+		// Display and estimated bearing line
+		int x = center.x;
+		int y = center.y;
+		double angle = m_Ebl *(double)((double)3.141592653589/(double)180.);
+		x += sin(angle) * (radius + 20);
+		y -= cos(angle) * (radius + 20);
+		dc.DrawLine(center.x, center.y, x, y);
 	}
 }
 

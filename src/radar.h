@@ -1,4 +1,3 @@
-
 /******************************************************************************
  * $Id:  $
  *
@@ -65,11 +64,13 @@ public:
 			const wxPoint& pos = wxDefaultPosition,
 			const wxSize& size = wxDefaultSize );
 		void SetColourScheme(PI_ColorScheme cs);
+		void OnLeftMouse( const wxPoint &curpos );
 
 private:
 		    void OnClose(wxCloseEvent& event);
             void OnRange( wxCommandEvent& event );
             void OnNorthUp( wxCommandEvent& event );
+            void OnBearingLine( wxCommandEvent& event );
             void OnTimer( wxTimerEvent& event );
             void OnMove( wxMoveEvent& event );
             void OnSize( wxSizeEvent& event );
@@ -83,11 +84,12 @@ private:
             wxWindow          *pParent;
             radar_pi          *pPlugIn;
 			wxTimer           *m_Timer;
-			wxFileConfig      *m_pConfig;
 			wxPanel           *m_pCanvas;
 			wxCheckBox        *m_pNorthUp;
 			wxComboBox        *m_pRange;
+			wxCheckBox        *m_pBearingLine;
 			wxColor            m_BgColour;
+			double             m_Ebl;
 			int                m_Width;
 			int                m_Height;
 			int                m_Range;

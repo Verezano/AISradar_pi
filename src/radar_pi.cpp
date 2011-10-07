@@ -237,7 +237,7 @@ void radar_pi::OnToolbarToolCallback(int id) {
      ::wxBell();
       if(!m_pRadarFrame) {
             m_pRadarFrame = new RadarFrame();
-			m_pRadarFrame->Create ( m_parent_window, this, -1, _("Radar Display Control"),
+			m_pRadarFrame->Create ( m_parent_window, this, -1, _("AIS Radar view"),
                                wxPoint( m_radar_frame_x, m_radar_frame_y), wxSize( m_radar_frame_sx, m_radar_frame_sy));
   	        m_pRadarFrame->Show();
 	  } else {
@@ -263,8 +263,7 @@ void radar_pi::SetAISSentence(wxString &sentence) {
 void radar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {
 	// Check if our position changed
 	// If so, update view otherwise not, 
-	// to prevent a blinking view on slower machines
-	if ( m_lat != pfix.Lat || m_lon != pfix.Lon ) {
+	if ( m_lat != pfix.Lat || m_lon != pfix.Lon || m_cog != pfix.Cog || m_sog != pfix.Sog ) {
 		m_lat  = pfix.Lat;
 		m_lon  = pfix.Lon;
 		m_cog  = pfix.Cog;
@@ -280,6 +279,38 @@ void radar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {
 void radar_pi::OnRadarFrameClose() {
 	  m_pRadarFrame = 0;
       SaveConfig();
+}
+
+
+bool radar_pi::ShowMoored(void) {
+	bool Result=true;
+	m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
+	m_pconfig->Read ( _T( "bShowMooredTargets" ),  &Result, 1 );
+	return Result;
+}
+
+
+double radar_pi::GetMooredSpeed(void) {
+	double Result=0.;
+	m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
+	m_pconfig->Read ( _T( "MooredTargetMaxSpeedKnots" ),  &Result, 0.0 );
+	return Result;
+}
+
+
+bool radar_pi::ShowCogArrows(void) {
+	bool Result=true;
+	m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
+	m_pconfig->Read ( _T("bShowCOGArrows"), &Result, 1);
+	return Result;
+}
+
+
+int radar_pi::GetCogArrowMinutes(void) {
+	int Result=6;
+	m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
+	m_pconfig->Read ( _T("CogArrowMinutes"), &Result, 6);
+	return Result;
 }
 
 
