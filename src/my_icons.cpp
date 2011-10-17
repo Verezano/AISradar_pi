@@ -19,3 +19,8 @@ void initialize_my_images(void)
 	}
 	return;
 }
+
+void cleanup_my_images(void) {
+	delete _img_radar_pi;
+	delete _img_radar;
+}

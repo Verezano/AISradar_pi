@@ -77,22 +77,22 @@ private:
 			void paintEvent( wxPaintEvent& event );
 			void render( wxDC& dc );
 			void renderRange( wxDC& dc, wxPoint &center, wxSize &size, int radius );
-			void renderBoats(wxDC &dc, wxPoint &center, wxSize &size, int radius);
+			void renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius);
 			void TrimAisField(wxString *fld);
 
             //    Data
-            wxWindow          *pParent;
-            radar_pi          *pPlugIn;
-			wxTimer           *m_Timer;
-			wxPanel           *m_pCanvas;
-			wxCheckBox        *m_pNorthUp;
-			wxComboBox        *m_pRange;
-			wxCheckBox        *m_pBearingLine;
-			wxColor            m_BgColour;
-			double             m_Ebl;
-			int                m_Width;
-			int                m_Height;
-			int                m_Range;
+            wxWindow               *pParent;
+            radar_pi               *pPlugIn;
+			wxTimer                *m_Timer;
+			wxPanel                *m_pCanvas;
+			wxCheckBox             *m_pNorthUp;
+			wxComboBox             *m_pRange;
+			wxCheckBox             *m_pBearingLine;
+			wxColor                 m_BgColour;
+			double                  m_Ebl;
+			int                     m_Width;
+			int                     m_Height;
+			int                     m_Range;
 };
 
 

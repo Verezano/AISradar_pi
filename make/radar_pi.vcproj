@@ -402,6 +402,10 @@
 			Name="Source Files"
 			>
 			<File
+				RelativePath="..\src\Canvas.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\plugins\radar_pi\src\my_icons.cpp"
 				>
 			</File>
@@ -421,6 +425,10 @@
 		<Filter
 			Name="Header Files"
 			>
+			<File
+				RelativePath="..\src\Canvas.h"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\plugins\radar_pi\src\my_icons.h"
 				>

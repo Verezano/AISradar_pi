@@ -60,6 +60,7 @@ void Canvas::mouseMoved(wxMouseEvent& event) {
 			pv->OnLeftMouse(event.GetPosition());
 		}
 	}
+	event.Skip();
 }
 
 
@@ -68,9 +69,11 @@ void Canvas::mouseDown(wxMouseEvent& event) {
 	if (pv) {
 		pv->OnLeftMouse(event.GetPosition());
 	}
+	event.Skip();
 }
 
 
 void Canvas::mouseReleased(wxMouseEvent& event) {
 	MouseDown=false;
+	event.Skip();
 }

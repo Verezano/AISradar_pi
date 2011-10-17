@@ -8,6 +8,7 @@
 #endif
 
 extern void initialize_my_images(void);
+extern void cleanup_my_images(void);
 
 extern wxBitmap *_img_radar;
 extern wxBitmap *_img_radar_pi;

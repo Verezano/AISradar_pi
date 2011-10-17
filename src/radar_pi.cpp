@@ -73,6 +73,7 @@ radar_pi::radar_pi(void *ppimgr) : opencpn_plugin(ppimgr), m_pRadarFrame(0)
 radar_pi::~radar_pi()
 {
 	if ( AisTargets ) {
+		WX_CLEAR_ARRAY(*AisTargets); 	
 		delete AisTargets;
 	}
 }
@@ -323,12 +324,12 @@ void radar_pi::SetColorScheme(PI_ColorScheme cs) {
 
 
 ArrayOfPlugIn_AIS_Targets  *radar_pi::GetAisTargets() {
-		if ( AisTargets ) {
-			delete AisTargets;
-			AisTargets = 0;
-		}
-		AisTargets = GetAISTargetArray();
-		return AisTargets;
+	if ( AisTargets ) {
+		WX_CLEAR_ARRAY(*AisTargets); 	
+		delete AisTargets;
+	}
+	AisTargets = GetAISTargetArray();
+	return AisTargets;
 }
 
 

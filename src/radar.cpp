@@ -241,9 +241,8 @@ void RadarFrame::OnSize ( wxSizeEvent& event ) {
 
 void RadarFrame::paintEvent(wxPaintEvent & event) {
     event.Skip();
-	wxAutoBufferedPaintDC dc(m_pCanvas);
+	wxAutoBufferedPaintDC   dc(m_pCanvas);
 	render(dc);
-	dc.UnMask();
 }
 
 
@@ -258,7 +257,7 @@ void RadarFrame::render(wxDC& dc)	 {
 	wxPoint      center(width/2, height/2);
 	int radius = max((min(width,height)/2),MIN_RADIUS);
 	
-	m_pCanvas->SetBackgroundColour (m_BgColour);
+//	m_pCanvas->SetBackgroundColour (m_BgColour);
 	renderRange(dc, center, size, radius);    
 	if ( pPlugIn->GetAisTargets() ) {
 		renderBoats(dc, center, size, radius);
@@ -273,7 +272,7 @@ void RadarFrame::TrimAisField(wxString *fld) {
 	}
 }
 
-void RadarFrame::renderBoats(wxDC &dc, wxPoint &center, wxSize &size, int radius) {
+void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius) {
 	// Determine orientation
 	double mycog=0.;
 	double offset=pPlugIn->GetCog();
@@ -385,6 +384,13 @@ void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius
 		x += sin(angle) * (radius + 20);
 		y -= cos(angle) * (radius + 20);
 		dc.DrawLine(center.x, center.y, x, y);
+		int tx = center.x + sin(angle) * (radius - 20) - dc.GetCharWidth() * 1.5;
+		int ty = center.y - cos(angle) * (radius - 20);
+		double offset=0.;
+		if ( !m_pNorthUp->GetValue() ) {
+			offset = pPlugIn->GetCog();
+		}
+		dc.DrawText(wxString::Format(_T("%3.1d°"),(int)(m_Ebl+offset)%360),tx,ty);
 	}
 }
 
