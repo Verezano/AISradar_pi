@@ -42,57 +42,96 @@
 #define MIN_RADIUS                  150
 #define TEXT_MARGIN                 5
 #define SPACER_MARGIN               5
+#ifdef WIN32
+	#define   MyFit(a)    Fit(a)
+#else
+	#define   MyFit(a)    FitInside(a)
+#endif
 
 class radar_pi;
 
+class ViewState {
+public:
+	ViewState (const wxPoint& p, const wxSize& s) : Pos(p), Size(s) {};
+	wxPoint  GetPos() { return Pos; }
+	wxSize	GetWindowSize() { 
+#ifdef WIN32
+		return wxDefaultSize;
+#else
+		return Size; 
+#endif
+}
+	wxSize   GetCanvasSize() {
+#ifdef WIN32
+		return Size;
+#else
+		return wxDefaultSize;
+#endif
+	}
+	wxSize   GetSize() { return Size; }
+	void     SetPos(const wxPoint& p) { Pos=p; }
+	void     SetWindowSize(const wxSize& s) { 
+#ifndef WIN32
+		Size=s; 
+#endif
+	}
+	void     SetCanvasSize(const wxSize& s) { 
+#ifdef WIN32
+		Size=s; 
+#endif
+	}
+
+private:
+	wxPoint	Pos;
+	wxSize	Size;
+};
 
 //----------------------------------------------------------------------------------------------------------
 //    RADAR View Specification
 //----------------------------------------------------------------------------------------------------------
 class RadarFrame: public wxDialog
 {
-      DECLARE_CLASS( RadarFrame )
-      DECLARE_EVENT_TABLE()
+	DECLARE_CLASS( RadarFrame )
+	DECLARE_EVENT_TABLE()
 
 public:
-		RadarFrame( );
-		~RadarFrame( );
-		void Init();
-		void Config(int min_radius);
-		bool Create(  wxWindow *parent, radar_pi *ppi, wxWindowID id = wxID_ANY,
-			const wxString& caption = _("Radar Display"), 
-			const wxPoint& pos = wxDefaultPosition,
-			const wxSize& size = wxDefaultSize );
-		void SetColourScheme(PI_ColorScheme cs);
-		void OnLeftMouse( const wxPoint &curpos );
+	RadarFrame( );
+	~RadarFrame( );
+	void Init();
+	void Config(int min_radius);
+	bool Create(  wxWindow *parent, radar_pi *ppi, wxWindowID id = wxID_ANY,
+	const wxString& caption = _("Radar Display"), 
+	const wxPoint& pos = wxDefaultPosition,
+	const wxSize& size = wxDefaultSize );
+	void SetColourScheme(PI_ColorScheme cs);
+	void OnLeftMouse( const wxPoint &curpos );
+	void paintEvent( wxPaintEvent& event );
 
 private:
-		    void OnClose(wxCloseEvent& event);
-            void OnRange( wxCommandEvent& event );
-            void OnNorthUp( wxCommandEvent& event );
-            void OnBearingLine( wxCommandEvent& event );
-            void OnTimer( wxTimerEvent& event );
-            void OnMove( wxMoveEvent& event );
-            void OnSize( wxSizeEvent& event );
-			void paintEvent( wxPaintEvent& event );
-			void render( wxDC& dc );
-			void renderRange( wxDC& dc, wxPoint &center, wxSize &size, int radius );
-			void renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius);
-			void TrimAisField(wxString *fld);
-
-            //    Data
-            wxWindow               *pParent;
-            radar_pi               *pPlugIn;
-			wxTimer                *m_Timer;
-			wxPanel                *m_pCanvas;
-			wxCheckBox             *m_pNorthUp;
-			wxComboBox             *m_pRange;
-			wxCheckBox             *m_pBearingLine;
-			wxColor                 m_BgColour;
-			double                  m_Ebl;
-			int                     m_Width;
-			int                     m_Height;
-			int                     m_Range;
+	void OnClose(wxCloseEvent& event);
+	void OnRange( wxCommandEvent& event );
+	void OnNorthUp( wxCommandEvent& event );
+	void OnBearingLine( wxCommandEvent& event );
+	void OnTimer( wxTimerEvent& event );
+	void OnMove( wxMoveEvent& event );
+	void OnSize( wxSizeEvent& event );
+	void render( wxDC& dc );
+	void renderRange( wxDC& dc, wxPoint &center, wxSize &size, int radius );
+	void renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius);
+	void TrimAisField(wxString *fld);
+	
+	//    Data
+	wxWindow               *pParent;
+	radar_pi               *pPlugIn;
+	wxTimer                *m_Timer;
+	wxPanel                *m_pCanvas;
+	wxCheckBox             *m_pNorthUp;
+	wxComboBox             *m_pRange;
+	wxCheckBox             *m_pBearingLine;
+	wxColor                 m_BgColour;
+	double                  m_Ebl;
+	int                     m_Range;
+	ViewState              *m_pViewState;
 };
 
 

@@ -45,11 +45,12 @@ BEGIN_EVENT_TABLE(Canvas, wxPanel)
  EVT_MOTION(Canvas::mouseMoved)
  EVT_LEFT_DOWN(Canvas::mouseDown)
  EVT_LEFT_UP(Canvas::mouseReleased) 
+ EVT_PAINT (Canvas::paintEvent) 
 END_EVENT_TABLE()
  
 Canvas::Canvas(wxWindow *parent, RadarFrame *view, 
 	wxWindowID id, const wxPoint& pos, const wxSize& size) 
-: wxPanel(parent, id, pos, size), pv(view), MouseDown(false)
+: wxPanel(parent, id, pos, size), pv(view), MouseDown(false), Parent(view)
 {
 }
 
@@ -77,3 +78,10 @@ void Canvas::mouseReleased(wxMouseEvent& event) {
 	MouseDown=false;
 	event.Skip();
 }
+
+
+void Canvas::paintEvent(wxPaintEvent& event) {
+	Parent->paintEvent(event);
+}
+
+
