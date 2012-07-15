@@ -38,11 +38,13 @@ public:
     void mouseMoved(wxMouseEvent& event);
     void mouseDown(wxMouseEvent& event);
     void mouseReleased(wxMouseEvent& event);
+    void paintEvent(wxPaintEvent& event);
     DECLARE_EVENT_TABLE()
 
 private:
 	RadarFrame	*pv;
 	bool         MouseDown;
+	RadarFrame  *Parent;
 };
 
 

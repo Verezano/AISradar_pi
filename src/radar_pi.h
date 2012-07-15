@@ -36,10 +36,10 @@
 #endif //precompiled headers
 
 #define     PLUGIN_VERSION_MAJOR    0
-#define     PLUGIN_VERSION_MINOR    91
+#define     PLUGIN_VERSION_MINOR    94
 
 #define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    5
+#define     MY_API_VERSION_MINOR    7
 
 #include "../../../include/ocpn_plugin.h"
 
@@ -51,7 +51,7 @@
 
 #define RADAR_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class radar_pi : public opencpn_plugin
+class radar_pi : public opencpn_plugin_17
 {
 public:
       radar_pi(void *ppimgr);

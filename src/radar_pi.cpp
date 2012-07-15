@@ -65,7 +65,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
 //
 //---------------------------------------------------------------------------------------------------------
 
-radar_pi::radar_pi(void *ppimgr) : opencpn_plugin(ppimgr), m_pRadarFrame(0)
+radar_pi::radar_pi(void *ppimgr) : opencpn_plugin_17(ppimgr), m_pRadarFrame(0)
 {
       initialize_my_images();
 }
