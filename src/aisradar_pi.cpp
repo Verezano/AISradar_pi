@@ -318,6 +318,7 @@ void aisradar_pi::SetColorScheme(PI_ColorScheme cs) {
 	// Colours changed, pass the event on to the radarframe
 	if ( m_pRadarFrame ) {
 		m_pRadarFrame->SetColourScheme(cs);
+		DimeWindow(m_pRadarFrame);
 	}
 }
 
