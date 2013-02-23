@@ -27,9 +27,9 @@ IF (COMMAND cmake_policy)
   CMAKE_POLICY(SET CMP0011 OLD)
 ENDIF (COMMAND cmake_policy)
 
-PROJECT(radar_pi)
+PROJECT(aisradar_pi)
 
-SET(PACKAGE_NAME radar_pi)
+SET(PACKAGE_NAME aisradar_pi)
 SET(PLUGIN_SOURCE_DIR .)
 MESSAGE (STATUS "*** Staging to build ${PACKAGE_NAME} ***")
 
@@ -74,10 +74,10 @@ FIND_PACKAGE(Gettext REQUIRED)
 
 
 SET(SRC_RADAR
-            src/radar_pi.h
-            src/radar_pi.cpp
-	    src/radar.h
-            src/radar.cpp
+            src/aisradar_pi.h
+            src/aisradar_pi.cpp
+	    src/aisradar.h
+            src/aisradar.cpp
             src/my_icons.h
             src/my_icons.cpp
 	    src/Canvas.h
@@ -148,9 +148,9 @@ ADD_CUSTOM_COMMAND(
    COMMAND ${GETTEXT_XGETTEXT_EXECUTABLE} --force-po --package-name=${PACKAGE_NAME} --package-version="${PACKAGE_VERSION}" --output=po/${PACKAGE_NAME}.pot  --keyword=_ --width=80 --files-from=${CMAKE_CURRENT_SOURCE_DIR}/po/POTFILES.in
    DEPENDS po/POTFILES.in po/${PACKAGE_NAME}.pot
    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-   COMMENT "grib-pot-update [${PACKAGE_NAME}]: Generated pot file."
+   COMMENT "aisradar-pot-update [${PACKAGE_NAME}]: Generated pot file."
 )
-ADD_CUSTOM_TARGET(grib-pot-update COMMENT "grib-pot-update: Done." DEPENDS po/${PACKAGE_NAME}.pot.dummy)
+ADD_CUSTOM_TARGET(aisradar-pot-update COMMENT "aisradar-pot-update: Done." DEPENDS po/${PACKAGE_NAME}.pot.dummy)
 
 ENDIF(GETTEXT_XGETTEXT_EXECUTABLE )
 
@@ -166,14 +166,14 @@ MACRO(GETTEXT_UPDATE_PO _potFile)
          OUTPUT ${_absFile}.dummy
          COMMAND ${GETTEXT_MSGMERGE_EXECUTABLE} --width=80 --strict --quiet --update --backup=none --no-location -s ${_absFile} ${_absPotFile}
          DEPENDS ${_absPotFile} ${_absFile}
-         COMMENT "grib-po-update [${_poBasename}]: Updated po file."
+         COMMENT "aisradar-po-update [${_poBasename}]: Updated po file."
       )
 
       SET(_poFiles ${_poFiles} ${_absFile}.dummy)
 
    ENDFOREACH (_currentPoFile )
 
-   ADD_CUSTOM_TARGET(grib-po-update COMMENT "grib-po-update: Done." DEPENDS ${_poFiles})
+   ADD_CUSTOM_TARGET(aisradar-po-update COMMENT "aisradar-po-update: Done." DEPENDS ${_poFiles})
 ENDMACRO(GETTEXT_UPDATE_PO)
 
 IF (GETTEXT_MSGMERGE_EXECUTABLE)
@@ -192,7 +192,7 @@ MACRO(GETTEXT_BUILD_MO)
          OUTPUT ${_gmoFile}
          COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} --check -o ${_gmoFile} ${_absFile}
          DEPENDS ${_absFile}
-         COMMENT "grib-i18n [${_poBasename}]: Created mo file."
+         COMMENT "aisradar-i18n [${_poBasename}]: Created mo file."
       )
 
 IF(APPLE)
@@ -208,8 +208,8 @@ ENDMACRO(GETTEXT_BUILD_MO)
 if(GETTEXT_MSGFMT_EXECUTABLE)
    FILE(GLOB PACKAGE_PO_FILES po/*.po)
    GETTEXT_BUILD_MO(${PACKAGE_PO_FILES})
-   ADD_CUSTOM_TARGET(grib-i18n COMMENT "grib-i18n: Done." DEPENDS ${_gmoFiles})
-   #ADD_DEPENDENCIES(grib-i18n ${PACKAGE_PO_FILES})
-   ADD_DEPENDENCIES(${PACKAGE_NAME} grib-i18n)
+   ADD_CUSTOM_TARGET(aisradar-i18n COMMENT "aisradar-i18n: Done." DEPENDS ${_gmoFiles})
+   #ADD_DEPENDENCIES(aisradar-i18n ${PACKAGE_PO_FILES})
+   ADD_DEPENDENCIES(${PACKAGE_NAME} aisradar-i18n)
 ENDIF(GETTEXT_MSGFMT_EXECUTABLE)
 

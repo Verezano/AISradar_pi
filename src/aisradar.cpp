@@ -32,7 +32,7 @@
 #include <math.h>
 #define min(a,b)  ( (a>b)? b : a)
 #define max(a,b)  ( (a>b)? a : b)
-#include "radar_pi.h"
+#include "aisradar_pi.h"
 #include "Canvas.h"
 
 static const double    RangeData[9] = {
@@ -83,7 +83,7 @@ void RadarFrame::Init() {
 }
 
 
-bool RadarFrame::Create ( wxWindow *parent, radar_pi *ppi, wxWindowID id,
+bool RadarFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
                               const wxString& caption, 
                               const wxPoint& pos, const wxSize& size )
 {

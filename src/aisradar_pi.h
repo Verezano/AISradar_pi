@@ -42,7 +42,7 @@
 #define     MY_API_VERSION_MINOR    7
 
 #include "../../../include/ocpn_plugin.h"
-#include "radar.h"
+#include "aisradar.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
@@ -50,11 +50,11 @@
 
 #define RADAR_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class radar_pi : public opencpn_plugin_17
+class aisradar_pi : public opencpn_plugin_17
 {
 public:
-      radar_pi(void *ppimgr);
-	  ~radar_pi();
+      aisradar_pi(void *ppimgr);
+	  ~aisradar_pi();
 
 //    The required PlugIn Methods
       int Init(void);

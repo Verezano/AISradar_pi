@@ -47,7 +47,7 @@
 	#define   MyFit(a)    FitInside(a)
 #endif
 
-class radar_pi;
+class aisradar_pi;
 
 class ViewState {
 public:
@@ -98,7 +98,7 @@ public:
 	~RadarFrame( );
 	void Init();
 	void Config(int min_radius);
-	bool Create(  wxWindow *parent, radar_pi *ppi, wxWindowID id = wxID_ANY,
+	bool Create(  wxWindow *parent, aisradar_pi *ppi, wxWindowID id = wxID_ANY,
 	const wxString& caption = _("Radar Display"), 
 	const wxPoint& pos = wxDefaultPosition,
 	const wxSize& size = wxDefaultSize );
@@ -121,7 +121,7 @@ private:
 	
 	//    Data
 	wxWindow               *pParent;
-	radar_pi               *pPlugIn;
+	aisradar_pi               *pPlugIn;
 	wxTimer                *m_Timer;
 	wxPanel                *m_pCanvas;
 	wxCheckBox             *m_pNorthUp;
