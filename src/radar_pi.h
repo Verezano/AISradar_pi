@@ -6,8 +6,8 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2011 by Johan van der Sman                              *
- *   hannes@andcrew.nl                                                     *
+ *   Copyright (C) 2013 Johan van der Sman                                 *
+ *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -36,13 +36,12 @@
 #endif //precompiled headers
 
 #define     PLUGIN_VERSION_MAJOR    0
-#define     PLUGIN_VERSION_MINOR    94
+#define     PLUGIN_VERSION_MINOR    95
 
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    7
 
 #include "../../../include/ocpn_plugin.h"
-
 #include "radar.h"
 
 //----------------------------------------------------------------------------------------------------------
@@ -76,6 +75,7 @@ public:
       void OnToolbarToolCallback(int id);
       void SetAISSentence(wxString &sentence);
 	  void SetPositionFix(PlugIn_Position_Fix &pfix);
+	  void SetPluginMessage(wxString &message_id, wxString &message_body);
 	  void SetColorScheme(PI_ColorScheme cs);
 
 // Other public methods
@@ -126,6 +126,3 @@ private:
 };
 
 #endif
-
-
-

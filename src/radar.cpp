@@ -6,8 +6,8 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2011 Johan van der Sman                                 *
- *   hannes@andcrew.nl                                                     *
+ *   Copyright (C) 2013 Johan van der Sman                                 *
+ *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -53,7 +53,6 @@ static const int BASE_STATION = 3;
 //          Radar Dialog Implementation
 //---------------------------------------------------------------------------------------
 IMPLEMENT_CLASS ( RadarFrame, wxDialog )
-
 
 BEGIN_EVENT_TABLE ( RadarFrame, wxDialog )
 
@@ -275,6 +274,7 @@ void RadarFrame::TrimAisField(wxString *fld) {
 	}
 }
 
+
 void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius) {
 	// Determine orientation
 	double offset=pPlugIn->GetCog();
@@ -294,7 +294,6 @@ void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius
 	PlugIn_AIS_Target *t;
 	ArrayOfPlugIn_AIS_Targets::iterator it;
 	wxString  Name;
-	wxString  CallSign;
 
 	// Set generic details for all targets
 	dt.SetCanvas(center,radius, m_BgColour);
@@ -309,9 +308,7 @@ void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius
 				||(!m_ShowMoored && t->SOG > m_MooredSpeed)
 			) {
 				Name     = wxString::From8BitData(t->ShipName);
-				CallSign = wxString::From8BitData(t->CallSign);
 				TrimAisField(&Name);
-				TrimAisField(&CallSign);
 				dt.SetState(t->MMSI, Name, t->Range_NM, t->Brg, t->COG, t->SOG, 
 					t->Class, t->alarm_state, t->ROTAIS
 				);
@@ -361,13 +358,11 @@ void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius
 		dc.DrawText(_("E"), size.GetWidth() - 7 - dc.GetCharWidth(), size.GetHeight()/2 - dc.GetCharHeight());
 	} else {
 		dc.DrawText(_("Course Up"), size.GetWidth()-dc.GetCharWidth()*11, 0); 
-	
 		// Display our own course at to top
 		double offset=pPlugIn->GetCog();
 		dc.SetTextForeground(wxColour(128,128,128));
 		int cpos=0;
 		dc.DrawText(wxString::Format(_T("%3.0f\u00B0"),offset), size.GetWidth()/2 - dc.GetCharWidth()*2, cpos);
-
 	}
 	if (m_pBearingLine->GetValue()) {
 		// Display and estimated bearing line
@@ -386,4 +381,3 @@ void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius
 		dc.DrawText(wxString::Format(_T("%3.1d\u00B0"),(int)(m_Ebl+offset)%360),tx,ty);
 	}
 }
-

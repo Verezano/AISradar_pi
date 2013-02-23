@@ -6,8 +6,8 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2011 by Johan van der Sman                              *
- *   hannes@andcrew.nl                                                     *
+ *   Copyright (C) 2013 Johan van der Sman                                 *
+ *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -25,28 +25,23 @@
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************
  */
-
-
 #include "wx/wxprec.h"
 
 #ifndef  WX_PRECOMP
   #include "wx/wx.h"
 #endif //precompiled headers
 
-
 #include <wx/fileconf.h>
 #include "radar_pi.h"
 
-
 // the class factories, used to create and destroy instances of the PlugIn
 
-extern "C" DECL_EXP opencpn_plugin* create_pi(void *ppimgr)
-{
+extern "C" DECL_EXP opencpn_plugin* create_pi(void *ppimgr) {
     return new radar_pi(ppimgr);
 }
 
-extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p)
-{
+
+extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) {
     delete p;
 }
 
@@ -70,25 +65,22 @@ radar_pi::radar_pi(void *ppimgr) : opencpn_plugin_17(ppimgr), m_pRadarFrame(0)
       initialize_my_images();
 }
 
-radar_pi::~radar_pi()
-{
+
+radar_pi::~radar_pi() {
 	if ( AisTargets ) {
 		WX_CLEAR_ARRAY(*AisTargets); 	
 		delete AisTargets;
 	}
 }
 
+
 int radar_pi::Init(void) {
 	  AddLocaleCatalog( _T("opencpn-radar_pi") );
-      m_radar_frame_x = 0;
-      m_radar_frame_y = 0;
-      m_radar_frame_sx = 200;
-      m_radar_frame_sy = 200;
+      m_radar_frame_x = m_radar_frame_y = 0;
+      m_radar_frame_sx = m_radar_frame_sy = 200;
       m_pRadarFrame = 0;
-	  m_lat=0.;
-	  m_lon=0.;
-	  m_cog=0.;
-	  m_sog=0.;
+	  m_lat= m_lon=0.;
+	  m_cog= m_sog=0.;
 	  m_sats=0;
       ::wxDisplaySize(&m_display_width, &m_display_height);
       m_pconfig = GetOCPNConfigObject();
@@ -96,18 +88,14 @@ int radar_pi::Init(void) {
 	  AisTargets = GetAISTargetArray();
       m_parent_window = GetOCPNCanvasWindow();
       if(m_radar_show_icon) {
-            m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
-                  _("AIS Radar view"), _T(""), 0,
-                   RADAR_TOOL_POSITION, 0, this);
-
+            m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, 
+				_img_radar, wxITEM_NORMAL, _("AIS Radar view"), _T(""), 0,
+                   RADAR_TOOL_POSITION, 0, this
+			);
 	  }
-      return (WANTS_TOOLBAR_CALLBACK   |
-           INSTALLS_TOOLBAR_TOOL       |
-           WANTS_CONFIG                |
-           WANTS_PREFERENCES           |
-		   WANTS_AIS_SENTENCES         |
-		   WANTS_NMEA_EVENTS           |
-		   USES_AUI_MANAGER
+      return (WANTS_TOOLBAR_CALLBACK | INSTALLS_TOOLBAR_TOOL |
+           WANTS_CONFIG | WANTS_PREFERENCES | WANTS_AIS_SENTENCES  |
+		   WANTS_NMEA_EVENTS | WANTS_PLUGIN_MESSAGING | USES_AUI_MANAGER
       );
 }
 
@@ -161,12 +149,12 @@ wxString radar_pi::GetLongDescription() {
 
 
 void radar_pi::SetDefaults(void) {
-      if(!m_radar_show_icon)
-      {
+	  if(!m_radar_show_icon) {
             m_radar_show_icon = true;
             m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
                   _("AIS Radar"), _T(""), 0,
-                   RADAR_TOOL_POSITION, 0, this);
+                   RADAR_TOOL_POSITION, 0, this
+			);
       }
 }
 
@@ -177,19 +165,6 @@ int radar_pi::GetToolbarToolCount(void) {
 
 
 void radar_pi::ShowPreferencesDialog( wxWindow* parent ) {
-	//
-	//     Panel structure
-	//
-	//     dialog
-	//     - RadarBox
-	//     - PanelSizer
-	//       - RadarBoxSizer
-	//         - m_pRadarShowIcon
-	//         - m_pRadarUseAis
-	//       - DialogButtonSizer
-	//
-	//
-
     wxDialog *dialog = new wxDialog( parent, wxID_ANY, _("Radar Preferences"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE );
     int border_size = 4;
 
@@ -234,6 +209,7 @@ void radar_pi::ShowPreferencesDialog( wxWindow* parent ) {
       }
 }
 
+
 void radar_pi::OnToolbarToolCallback(int id) {
      ::wxBell();
       if(!m_pRadarFrame) {
@@ -274,6 +250,29 @@ void radar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {
 			m_pRadarFrame->Refresh();
 		}
 	}
+}
+
+
+void radar_pi::SetPluginMessage(wxString &message_id, wxString &message_body) {
+// Parse message with radar targets
+// Format:
+//	{
+//		"RadarTargets" :
+//		{
+//			"Source"      : "BR24_pi",
+//          "Orientation" : "North",
+//			"TTL"         : 30,
+//			"Targets" : 
+//			[
+//				{ "Brg" : 180, Range : 1.2 },
+//				{ "Brg" : 359, Range : 8.3 },
+//				{ "Brg" : 34, Range : 0.9 },
+//				{ "Brg" : 13, Range : 0.4 },
+//				{ "Brg" : 57, Range : 0.7 }
+//			]
+//		}
+//	}
+//  TODO: implement parse routine	
 }
 
 
@@ -351,10 +350,10 @@ bool radar_pi::LoadConfig(void) {
 	  }
 }
 
+
 bool radar_pi::SaveConfig(void) {
       wxFileConfig *pConf = (wxFileConfig *)m_pconfig;
-      if(pConf)
-      {
+      if(pConf) {
             pConf->SetPath ( _T ( "/Settings" ) );
             pConf->Write   ( _T ( "ShowRADARIcon" ),      m_radar_show_icon  );
             pConf->Write   ( _T ( "UseAisRadar" ),        m_radar_use_ais    );

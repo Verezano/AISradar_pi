@@ -6,8 +6,8 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2011 Johan van der Sman                                 *
- *   hannes@andcrew.nl                                                     *
+ *   Copyright (C) 2013 Johan van der Sman                                 *
+ *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -46,6 +46,5 @@ private:
 	bool         MouseDown;
 	RadarFrame  *Parent;
 };
-
 
 #endif

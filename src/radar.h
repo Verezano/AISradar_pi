@@ -6,8 +6,8 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2011 Johan van der Sman                                 *
- *   hannes@andcrew.nl                                                     *
+ *   Copyright (C) 2013 Johan van der Sman                                 *
+ *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -28,7 +28,6 @@
 
 #ifndef _RADAR_H_
 #define _RADAR_H_
-
 
 #include "wx/wxprec.h"
 #include "wx/dcbuffer.h"
@@ -134,6 +133,4 @@ private:
 	ViewState              *m_pViewState;
 };
 
-
 #endif
-

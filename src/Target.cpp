@@ -6,8 +6,8 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2011 Johan van der Sman                                 *
- *   hannes@andcrew.nl                                                     *
+ *   Copyright (C) 2013 Johan van der Sman                                 *
+ *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -73,9 +73,8 @@ Target::Target()
 	Tclass(0), Dist(0.), Cog(0.), Sog(0.),
 	TargetCenter(wxPoint(TargetImg[PI_AIS_NO_ALARM]->GetWidth()/2,TargetImg[PI_AIS_NO_ALARM]->GetHeight()/2))
 {
-
-
 }
+
 
 Target::~Target( ) {
 }

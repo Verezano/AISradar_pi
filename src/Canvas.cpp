@@ -6,8 +6,8 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2011 Johan van der Sman                                 *
- *   hannes@andcrew.nl                                                     *
+ *   Copyright (C) 2013 Johan van der Sman                                 *
+ *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
  *   it under the terms of the GNU General Public License as published by  *
@@ -26,20 +26,13 @@
  ***************************************************************************
  *
  */
-
-
 //
 // wxWidgets sends the mouse movement and mouse clicks to the windows objects
 // In this case the panel object that acts as drawing canvas
 // This helper class receives the events and informs the radar view object that owns
 // the canvas
 //
-
 #include "Canvas.h"
-
-
-
-
 
 BEGIN_EVENT_TABLE(Canvas, wxPanel)
  EVT_MOTION(Canvas::mouseMoved)
@@ -83,5 +76,3 @@ void Canvas::mouseReleased(wxMouseEvent& event) {
 void Canvas::paintEvent(wxPaintEvent& event) {
 	Parent->paintEvent(event);
 }
-
-
