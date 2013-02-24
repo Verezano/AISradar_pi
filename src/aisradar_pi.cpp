@@ -62,7 +62,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) {
 
 aisradar_pi::aisradar_pi(void *ppimgr) : opencpn_plugin_17(ppimgr), m_pRadarFrame(0)
 {
-      initialize_my_images();
+    initialize_my_images();
 }
 
 
@@ -75,92 +75,92 @@ aisradar_pi::~aisradar_pi() {
 
 
 int aisradar_pi::Init(void) {
-      AddLocaleCatalog( _T("opencpn-aisradar_pi") );
-      m_radar_frame_x = m_radar_frame_y = 0;
-      m_radar_frame_sx = m_radar_frame_sy = 200;
-      m_pRadarFrame = 0;
-      m_lat= m_lon=0.;
-      m_cog= m_sog=0.;
-      m_sats=0;
-      ::wxDisplaySize(&m_display_width, &m_display_height);
-      m_pconfig = GetOCPNConfigObject();
-      LoadConfig();
-      AisTargets = GetAISTargetArray();
-      m_parent_window = GetOCPNCanvasWindow();
-      if(m_radar_show_icon) {
-            m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, 
-                _img_radar, wxITEM_NORMAL, _("AIS Radar view"), _T(""), 0,
-                   RADAR_TOOL_POSITION, 0, this
-            );
-      }
-      return (WANTS_TOOLBAR_CALLBACK | INSTALLS_TOOLBAR_TOOL |
-           WANTS_CONFIG | WANTS_PREFERENCES | WANTS_AIS_SENTENCES  |
-           WANTS_NMEA_EVENTS | WANTS_PLUGIN_MESSAGING | USES_AUI_MANAGER
-      );
+    AddLocaleCatalog( _T("opencpn-aisradar_pi") );
+    m_radar_frame_x = m_radar_frame_y = 0;
+    m_radar_frame_sx = m_radar_frame_sy = 200;
+    m_pRadarFrame = 0;
+    m_lat= m_lon=0.;
+    m_cog= m_sog=0.;
+    m_sats=0;
+    ::wxDisplaySize(&m_display_width, &m_display_height);
+    m_pconfig = GetOCPNConfigObject();
+    LoadConfig();
+    AisTargets = GetAISTargetArray();
+    m_parent_window = GetOCPNCanvasWindow();
+    if(m_radar_show_icon) {
+        m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, 
+            _img_radar, wxITEM_NORMAL, _("AIS Radar view"), _T(""), 0,
+            RADAR_TOOL_POSITION, 0, this
+        );
+    }
+    return (WANTS_TOOLBAR_CALLBACK | INSTALLS_TOOLBAR_TOOL |
+         WANTS_CONFIG | WANTS_PREFERENCES | WANTS_AIS_SENTENCES  |
+         WANTS_NMEA_EVENTS | WANTS_PLUGIN_MESSAGING | USES_AUI_MANAGER
+    );
 }
 
 
 bool aisradar_pi::DeInit(void) {
-      if(m_pRadarFrame) {
-            m_pRadarFrame->Close();
-      }
-      return true;
+    if(m_pRadarFrame) {
+        m_pRadarFrame->Close();
+    }
+    return true;
 }
 
 
 int aisradar_pi::GetAPIVersionMajor() {
-      return MY_API_VERSION_MAJOR;
+    return MY_API_VERSION_MAJOR;
 }
 
 
 int aisradar_pi::GetAPIVersionMinor() {
-      return MY_API_VERSION_MINOR;
+    return MY_API_VERSION_MINOR;
 }
 
 
 int aisradar_pi::GetPlugInVersionMajor() {
-      return PLUGIN_VERSION_MAJOR;
+    return PLUGIN_VERSION_MAJOR;
 }
 
 
 int aisradar_pi::GetPlugInVersionMinor() {
-      return PLUGIN_VERSION_MINOR;
+    return PLUGIN_VERSION_MINOR;
 }
 
 
 wxBitmap *aisradar_pi::GetPlugInBitmap() {
-      return _img_aisradar_pi;
+    return _img_aisradar_pi;
 }
 
 
 wxString aisradar_pi::GetCommonName() {
-      return _("AIS Radar view");
+    return _("AIS Radar view");
 }
 
 
 wxString aisradar_pi::GetShortDescription() {
-      return _("AIS Radar view PlugIn");
+    return _("AIS Radar view PlugIn");
 }
 
 
 wxString aisradar_pi::GetLongDescription() {
-      return _("Radar PlugIn for OpenCPN\nShows AIS targets in a radar style view \n\n");
+    return _("Radar PlugIn for OpenCPN\nShows AIS targets in a radar style view \n\n");
 }
 
 
 void aisradar_pi::SetDefaults(void) {
-      if(!m_radar_show_icon) {
-            m_radar_show_icon = true;
-            m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
-                  _("AIS Radar"), _T(""), 0,
-                   RADAR_TOOL_POSITION, 0, this
-            );
-      }
+    if(!m_radar_show_icon) {
+        m_radar_show_icon = true;
+        m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
+              _("AIS Radar"), _T(""), 0,
+               RADAR_TOOL_POSITION, 0, this
+        );
+    }
 }
 
 
 int aisradar_pi::GetToolbarToolCount(void) {
-      return 1;
+    return 1;
 }
 
 
@@ -193,33 +193,33 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
     dialog->Fit();
 
     if(dialog->ShowModal() == wxID_OK)       {
-            //    Show Icon changed value?
-            if(m_radar_show_icon != m_pRadarShowIcon->GetValue()) {
-                  m_radar_show_icon= m_pRadarShowIcon->GetValue();
-                  if(m_radar_show_icon) {
-                        m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
-                              _("Radar"), _T(""), 0, RADAR_TOOL_POSITION,
-                              0, this);
-                  } else {
-                        RemovePlugInTool(m_leftclick_tool_id);
-                  }
-            }
-            m_radar_use_ais    = m_pRadarUseAis->GetValue();
-            SaveConfig();
-      }
+         //    Show Icon changed value?
+         if(m_radar_show_icon != m_pRadarShowIcon->GetValue()) {
+              m_radar_show_icon= m_pRadarShowIcon->GetValue();
+              if(m_radar_show_icon) {
+                  m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
+                      _("Radar"), _T(""), 0, RADAR_TOOL_POSITION,
+                      0, this);
+              } else {
+                   RemovePlugInTool(m_leftclick_tool_id);
+              }
+         }
+         m_radar_use_ais    = m_pRadarUseAis->GetValue();
+         SaveConfig();
+    }
 }
 
 
 void aisradar_pi::OnToolbarToolCallback(int id) {
-     ::wxBell();
-      if(!m_pRadarFrame) {
-            m_pRadarFrame = new RadarFrame();
-            m_pRadarFrame->Create ( m_parent_window, this, -1, _("AIS Radar view"),
-                               wxPoint( m_radar_frame_x, m_radar_frame_y), wxSize( m_radar_frame_sx, m_radar_frame_sy));
-              m_pRadarFrame->Show();
-      } else {
-          m_pRadarFrame->Close(true);
-      }
+   ::wxBell();
+    if(!m_pRadarFrame) {
+        m_pRadarFrame = new RadarFrame();
+        m_pRadarFrame->Create ( m_parent_window, this, -1, _("AIS Radar view"),
+                           wxPoint( m_radar_frame_x, m_radar_frame_y), wxSize( m_radar_frame_sx, m_radar_frame_sy));
+        m_pRadarFrame->Show();
+    } else {
+        m_pRadarFrame->Close(true);
+    }
 }
 
 
@@ -277,8 +277,8 @@ void aisradar_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
 
 
 void aisradar_pi::OnRadarFrameClose() {
-      m_pRadarFrame = 0;
-      SaveConfig();
+    m_pRadarFrame = 0;
+    SaveConfig();
 }
 
 
@@ -334,38 +334,38 @@ ArrayOfPlugIn_AIS_Targets  *aisradar_pi::GetAisTargets() {
 
 
 bool aisradar_pi::LoadConfig(void) {
-      wxFileConfig *pConf = (wxFileConfig *)m_pconfig;
-      if(pConf) {
-            pConf->SetPath ( _T( "/Settings" ) );
-            pConf->Read ( _T( "ShowRADARIcon" ),  &m_radar_show_icon, 1 );
-            pConf->Read ( _T( "UseAisRadar" ),  &m_radar_use_ais, 1 );
-            pConf->Read ( _T( "NorthUp" ),  &m_radar_north_up, 0 );
-            m_radar_frame_sx  = pConf->Read ( _T ( "RADARDialogSizeX" ),   300L );
-            m_radar_frame_sy  = pConf->Read ( _T ( "RADARDialogSizeY" ),   300L );
-            m_radar_frame_x   = pConf->Read ( _T ( "RADARDialogPosX" ),     50L );
-            m_radar_frame_y   = pConf->Read ( _T ( "RADARDialogPosY" ),    170L );
-            m_radar_range     = pConf->Read ( _T ( "RADARRange" ),           4L );
-            return true;
-      } else {
-            return false;
-      }
+    wxFileConfig *pConf = (wxFileConfig *)m_pconfig;
+    if(pConf) {
+        pConf->SetPath ( _T( "/Settings" ) );
+        pConf->Read ( _T( "ShowRADARIcon" ),  &m_radar_show_icon, 1 );
+        pConf->Read ( _T( "UseAisRadar" ),  &m_radar_use_ais, 1 );
+        pConf->Read ( _T( "NorthUp" ),  &m_radar_north_up, 0 );
+        m_radar_frame_sx  = pConf->Read ( _T ( "RADARDialogSizeX" ),   300L );
+        m_radar_frame_sy  = pConf->Read ( _T ( "RADARDialogSizeY" ),   300L );
+        m_radar_frame_x   = pConf->Read ( _T ( "RADARDialogPosX" ),     50L );
+        m_radar_frame_y   = pConf->Read ( _T ( "RADARDialogPosY" ),    170L );
+        m_radar_range     = pConf->Read ( _T ( "RADARRange" ),           4L );
+        return true;
+    } else {
+        return false;
+    }
 }
 
 
 bool aisradar_pi::SaveConfig(void) {
-      wxFileConfig *pConf = (wxFileConfig *)m_pconfig;
-      if(pConf) {
-            pConf->SetPath ( _T ( "/Settings" ) );
-            pConf->Write   ( _T ( "ShowRADARIcon" ),      m_radar_show_icon  );
-            pConf->Write   ( _T ( "UseAisRadar" ),        m_radar_use_ais    );
-            pConf->Write   ( _T ( "NorthUp" ),            m_radar_north_up   );
-            pConf->Write   ( _T ( "RADARDialogSizeX" ),   m_radar_frame_sx   );
-            pConf->Write   ( _T ( "RADARDialogSizeY" ),   m_radar_frame_sy   );
-            pConf->Write   ( _T ( "RADARDialogPosX" ),    m_radar_frame_x    );
-            pConf->Write   ( _T ( "RADARDialogPosY" ),    m_radar_frame_y    );
-            pConf->Write   ( _T ( "RADARRange" ),         m_radar_range      );
-            return true;
-      } else {
-            return false;
-      }
+    wxFileConfig *pConf = (wxFileConfig *)m_pconfig;
+    if(pConf) {
+        pConf->SetPath ( _T ( "/Settings" ) );
+        pConf->Write   ( _T ( "ShowRADARIcon" ),      m_radar_show_icon  );
+        pConf->Write   ( _T ( "UseAisRadar" ),        m_radar_use_ais    );
+        pConf->Write   ( _T ( "NorthUp" ),            m_radar_north_up   );
+        pConf->Write   ( _T ( "RADARDialogSizeX" ),   m_radar_frame_sx   );
+        pConf->Write   ( _T ( "RADARDialogSizeY" ),   m_radar_frame_sy   );
+        pConf->Write   ( _T ( "RADARDialogPosX" ),    m_radar_frame_x    );
+        pConf->Write   ( _T ( "RADARDialogPosY" ),    m_radar_frame_y    );
+        pConf->Write   ( _T ( "RADARRange" ),         m_radar_range      );
+        return true;
+    } else {
+        return false;
+    }
 }

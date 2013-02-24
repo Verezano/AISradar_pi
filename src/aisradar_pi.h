@@ -53,30 +53,30 @@
 class aisradar_pi : public opencpn_plugin_17
 {
 public:
-      aisradar_pi(void *ppimgr);
-      ~aisradar_pi();
+    aisradar_pi(void *ppimgr);
+    ~aisradar_pi();
 
-//    The required PlugIn Methods
-      int Init(void);
-      bool DeInit(void);
+// The required PlugIn Methods
+    int Init(void);
+    bool DeInit(void);
 
-      int GetAPIVersionMajor();
-      int GetAPIVersionMinor();
-      int GetPlugInVersionMajor();
-      int GetPlugInVersionMinor();
-      wxBitmap *GetPlugInBitmap();
-      wxString GetCommonName();
-      wxString GetShortDescription();
-      wxString GetLongDescription();
+    int GetAPIVersionMajor();
+    int GetAPIVersionMinor();
+    int GetPlugInVersionMajor();
+    int GetPlugInVersionMinor();
+    wxBitmap *GetPlugInBitmap();
+    wxString GetCommonName();
+    wxString GetShortDescription();
+    wxString GetLongDescription();
 
-      void SetDefaults(void);
-      int  GetToolbarToolCount(void);
-      void ShowPreferencesDialog( wxWindow* parent );
-      void OnToolbarToolCallback(int id);
-      void SetAISSentence(wxString &sentence);
-      void SetPositionFix(PlugIn_Position_Fix &pfix);
-      void SetPluginMessage(wxString &message_id, wxString &message_body);
-      void SetColorScheme(PI_ColorScheme cs);
+    void SetDefaults(void);
+    int  GetToolbarToolCount(void);
+    void ShowPreferencesDialog( wxWindow* parent );
+    void OnToolbarToolCallback(int id);
+    void SetAISSentence(wxString &sentence);
+    void SetPositionFix(PlugIn_Position_Fix &pfix);
+    void SetPluginMessage(wxString &message_id, wxString &message_body);
+    void SetColorScheme(PI_ColorScheme cs);
 
 // Other public methods
     void             SetRadarFrameX    (int x)  { m_radar_frame_x  = x;   }
@@ -99,30 +99,30 @@ public:
     int              GetCogArrowMinutes(void);
 
 private:
-      bool LoadConfig(void);
-      bool SaveConfig(void);
+    bool LoadConfig(void);
+    bool SaveConfig(void);
 
 private:
-      wxFileConfig     *m_pconfig;
-      wxWindow         *m_parent_window;
-      RadarFrame       *m_pRadarFrame;
-      ArrayOfPlugIn_AIS_Targets *AisTargets;
-      PI_ColorScheme    m_cs;
-      int               m_display_width, m_display_height;
-      int               m_leftclick_tool_id;
-      int               m_radar_frame_x, m_radar_frame_y;
-      int               m_radar_frame_sx, m_radar_frame_sy;
-      int               m_radar_range;
-      double            m_lat;
-      double            m_lon;
-      double            m_cog;
-      double            m_sog;
-      int               m_sats;
-      bool              m_radar_show_icon;
-      bool              m_radar_use_ais;
-      bool              m_radar_north_up;
-      wxCheckBox       *m_pRadarShowIcon;
-      wxCheckBox       *m_pRadarUseAis;
+    wxFileConfig     *m_pconfig;
+    wxWindow         *m_parent_window;
+    RadarFrame       *m_pRadarFrame;
+    ArrayOfPlugIn_AIS_Targets *AisTargets;
+    PI_ColorScheme    m_cs;
+    int               m_display_width, m_display_height;
+    int               m_leftclick_tool_id;
+    int               m_radar_frame_x, m_radar_frame_y;
+    int               m_radar_frame_sx, m_radar_frame_sy;
+    int               m_radar_range;
+    double            m_lat;
+    double            m_lon;
+    double            m_cog;
+    double            m_sog;
+    int               m_sats;
+    bool              m_radar_show_icon;
+    bool              m_radar_use_ais;
+    bool              m_radar_north_up;
+    wxCheckBox       *m_pRadarShowIcon;
+    wxCheckBox       *m_pRadarUseAis;
 };
 
 #endif

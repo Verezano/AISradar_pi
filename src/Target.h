@@ -43,17 +43,17 @@
 class Target
 {
 public: 
-                 Target( );
-                ~Target();
-            void SetCanvas(wxPoint &center, int radius, wxColor &cl);     // details of drawing area
-            void SetNavDetails(double range, double mycog,                // details of navigation view
-                        bool ShowCogArrow, int CogArrowMinutes);               
-            void SetState(int mmsi, wxString name, double  dist,          // Target details
-                        double brg, double cog, double sog, 
+    Target( );
+    ~Target();
+    void SetCanvas(wxPoint &center, int radius, wxColor &cl);     // details of drawing area
+    void SetNavDetails(double range, double mycog,                // details of navigation view
+    bool ShowCogArrow, int CogArrowMinutes);               
+    void SetState(int mmsi, wxString name, double  dist,          // Target details
+    			double brg, double cog, double sog, 
                         int tclass, plugin_ais_alarm_type state,
                         int rot
                     );                    
-            bool Render( wxDC& dc);                                       // render the target
+    bool Render( wxDC& dc);                                       // render the target
 
 private:
     plugin_ais_alarm_type     State;
