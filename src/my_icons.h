@@ -4,13 +4,13 @@
 
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
-#	include <wx/wx.h>
+#    include <wx/wx.h>
 #endif
 
 extern void initialize_my_images(void);
 extern void cleanup_my_images(void);
 
 extern wxBitmap *_img_radar;
-extern wxBitmap *_img_radar_pi;
+extern wxBitmap *_img_aisradar_pi;
 
 #endif /* MY_ICONS_H */

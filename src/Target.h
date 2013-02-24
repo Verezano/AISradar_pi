@@ -22,7 +22,7 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.         *
  ***************************************************************************
  */
 
@@ -43,34 +43,34 @@
 class Target
 {
 public: 
-			     Target( );
-			    ~Target();
-            void SetCanvas(wxPoint &center, int radius, wxColor &cl);     // details of drawing area
-			void SetNavDetails(double range, double mycog,                // details of navigation view
-						bool ShowCogArrow, int CogArrowMinutes);               
-			void SetState(int mmsi, wxString name, double  dist,          // Target details
-						double brg, double cog, double sog, 
-						int tclass, plugin_ais_alarm_type state,
-						int rot
-					);                    
-			bool Render( wxDC& dc);                                       // render the target
+    Target( );
+    ~Target();
+    void SetCanvas(wxPoint &center, int radius, wxColor &cl);     // details of drawing area
+    void SetNavDetails(double range, double mycog,                // details of navigation view
+    bool ShowCogArrow, int CogArrowMinutes);               
+    void SetState(int mmsi, wxString name, double  dist,          // Target details
+    			double brg, double cog, double sog, 
+                        int tclass, plugin_ais_alarm_type state,
+                        int rot
+                    );                    
+    bool Render( wxDC& dc);                                       // render the target
 
 private:
-	plugin_ais_alarm_type     State;
-	wxPoint                   CanvasCenter;
-	int                       Radius;
-	double                    Range;
-	double                    Mycog;
-	bool                      ShowArrow;
-	int                       ArrowMinutes;
-	int                       Mmsi;
-	wxString                  Name;
-	int                       Tclass;
-	double                    Dist; 
-	double                    Brg;
-	double                    Cog;
-	double                    Sog;
-	int                       Rot;
+    plugin_ais_alarm_type     State;
+    wxPoint                   CanvasCenter;
+    int                       Radius;
+    double                    Range;
+    double                    Mycog;
+    bool                      ShowArrow;
+    int                       ArrowMinutes;
+    int                       Mmsi;
+    wxString                  Name;
+    int                       Tclass;
+    double                    Dist; 
+    double                    Brg;
+    double                    Cog;
+    double                    Sog;
+    int                       Rot;
     wxPoint                   TargetCenter;
 };
 
