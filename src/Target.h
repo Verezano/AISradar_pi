@@ -43,34 +43,34 @@
 class Target
 {
 public: 
-			     Target( );
-			    ~Target();
+                 Target( );
+                ~Target();
             void SetCanvas(wxPoint &center, int radius, wxColor &cl);     // details of drawing area
-			void SetNavDetails(double range, double mycog,                // details of navigation view
-						bool ShowCogArrow, int CogArrowMinutes);               
-			void SetState(int mmsi, wxString name, double  dist,          // Target details
-						double brg, double cog, double sog, 
-						int tclass, plugin_ais_alarm_type state,
-						int rot
-					);                    
-			bool Render( wxDC& dc);                                       // render the target
+            void SetNavDetails(double range, double mycog,                // details of navigation view
+                        bool ShowCogArrow, int CogArrowMinutes);               
+            void SetState(int mmsi, wxString name, double  dist,          // Target details
+                        double brg, double cog, double sog, 
+                        int tclass, plugin_ais_alarm_type state,
+                        int rot
+                    );                    
+            bool Render( wxDC& dc);                                       // render the target
 
 private:
-	plugin_ais_alarm_type     State;
-	wxPoint                   CanvasCenter;
-	int                       Radius;
-	double                    Range;
-	double                    Mycog;
-	bool                      ShowArrow;
-	int                       ArrowMinutes;
-	int                       Mmsi;
-	wxString                  Name;
-	int                       Tclass;
-	double                    Dist; 
-	double                    Brg;
-	double                    Cog;
-	double                    Sog;
-	int                       Rot;
+    plugin_ais_alarm_type     State;
+    wxPoint                   CanvasCenter;
+    int                       Radius;
+    double                    Range;
+    double                    Mycog;
+    bool                      ShowArrow;
+    int                       ArrowMinutes;
+    int                       Mmsi;
+    wxString                  Name;
+    int                       Tclass;
+    double                    Dist; 
+    double                    Brg;
+    double                    Cog;
+    double                    Sog;
+    int                       Rot;
     wxPoint                   TargetCenter;
 };
 

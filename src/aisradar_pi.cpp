@@ -67,35 +67,35 @@ aisradar_pi::aisradar_pi(void *ppimgr) : opencpn_plugin_17(ppimgr), m_pRadarFram
 
 
 aisradar_pi::~aisradar_pi() {
-	if ( AisTargets ) {
-		WX_CLEAR_ARRAY(*AisTargets); 	
-		delete AisTargets;
-	}
+    if ( AisTargets ) {
+        WX_CLEAR_ARRAY(*AisTargets);     
+        delete AisTargets;
+    }
 }
 
 
 int aisradar_pi::Init(void) {
-	  AddLocaleCatalog( _T("opencpn-aisradar_pi") );
+      AddLocaleCatalog( _T("opencpn-aisradar_pi") );
       m_radar_frame_x = m_radar_frame_y = 0;
       m_radar_frame_sx = m_radar_frame_sy = 200;
       m_pRadarFrame = 0;
-	  m_lat= m_lon=0.;
-	  m_cog= m_sog=0.;
-	  m_sats=0;
+      m_lat= m_lon=0.;
+      m_cog= m_sog=0.;
+      m_sats=0;
       ::wxDisplaySize(&m_display_width, &m_display_height);
       m_pconfig = GetOCPNConfigObject();
       LoadConfig();
-	  AisTargets = GetAISTargetArray();
+      AisTargets = GetAISTargetArray();
       m_parent_window = GetOCPNCanvasWindow();
       if(m_radar_show_icon) {
             m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, 
-				_img_radar, wxITEM_NORMAL, _("AIS Radar view"), _T(""), 0,
+                _img_radar, wxITEM_NORMAL, _("AIS Radar view"), _T(""), 0,
                    RADAR_TOOL_POSITION, 0, this
-			);
-	  }
+            );
+      }
       return (WANTS_TOOLBAR_CALLBACK | INSTALLS_TOOLBAR_TOOL |
            WANTS_CONFIG | WANTS_PREFERENCES | WANTS_AIS_SENTENCES  |
-		   WANTS_NMEA_EVENTS | WANTS_PLUGIN_MESSAGING | USES_AUI_MANAGER
+           WANTS_NMEA_EVENTS | WANTS_PLUGIN_MESSAGING | USES_AUI_MANAGER
       );
 }
 
@@ -103,7 +103,7 @@ int aisradar_pi::Init(void) {
 bool aisradar_pi::DeInit(void) {
       if(m_pRadarFrame) {
             m_pRadarFrame->Close();
-	  }
+      }
       return true;
 }
 
@@ -149,12 +149,12 @@ wxString aisradar_pi::GetLongDescription() {
 
 
 void aisradar_pi::SetDefaults(void) {
-	  if(!m_radar_show_icon) {
+      if(!m_radar_show_icon) {
             m_radar_show_icon = true;
             m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
                   _("AIS Radar"), _T(""), 0,
                    RADAR_TOOL_POSITION, 0, this
-			);
+            );
       }
 }
 
@@ -168,11 +168,11 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
     wxDialog *dialog = new wxDialog( parent, wxID_ANY, _("Radar Preferences"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE );
     int border_size = 4;
 
-	wxColor     cl;
-	GetGlobalColor(_T("DILG1"), &cl);
-	dialog->SetBackgroundColour(cl);
+    wxColor     cl;
+    GetGlobalColor(_T("DILG1"), &cl);
+    dialog->SetBackgroundColour(cl);
 
-	wxBoxSizer* PanelSizer = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* PanelSizer = new wxBoxSizer(wxVERTICAL);
     dialog->SetSizer(PanelSizer);
 
     //  Radar toolbox icon checkbox
@@ -184,11 +184,11 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
     RadarBoxSizer->Add(m_pRadarShowIcon, 1, wxALIGN_LEFT|wxALL, border_size);
     m_pRadarShowIcon->SetValue(m_radar_show_icon);
 
-	m_pRadarUseAis = new wxCheckBox( dialog, -1, _("Use AIS as radar source:"), wxDefaultPosition, wxSize(-1, -1), 0 );
+    m_pRadarUseAis = new wxCheckBox( dialog, -1, _("Use AIS as radar source:"), wxDefaultPosition, wxSize(-1, -1), 0 );
     RadarBoxSizer->Add(m_pRadarUseAis, 2, wxALIGN_LEFT|wxALL, border_size);
     m_pRadarUseAis->SetValue(m_radar_use_ais);
 
-	wxStdDialogButtonSizer* DialogButtonSizer = dialog->CreateStdDialogButtonSizer(wxOK|wxCANCEL);
+    wxStdDialogButtonSizer* DialogButtonSizer = dialog->CreateStdDialogButtonSizer(wxOK|wxCANCEL);
     PanelSizer->Add(DialogButtonSizer, 0, wxALIGN_RIGHT|wxALL, 5);
     dialog->Fit();
 
@@ -196,16 +196,16 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
             //    Show Icon changed value?
             if(m_radar_show_icon != m_pRadarShowIcon->GetValue()) {
                   m_radar_show_icon= m_pRadarShowIcon->GetValue();
-				  if(m_radar_show_icon) {
+                  if(m_radar_show_icon) {
                         m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, _img_radar, wxITEM_NORMAL,
                               _("Radar"), _T(""), 0, RADAR_TOOL_POSITION,
                               0, this);
-				  } else {
+                  } else {
                         RemovePlugInTool(m_leftclick_tool_id);
-				  }
+                  }
             }
             m_radar_use_ais    = m_pRadarUseAis->GetValue();
-			SaveConfig();
+            SaveConfig();
       }
 }
 
@@ -214,122 +214,122 @@ void aisradar_pi::OnToolbarToolCallback(int id) {
      ::wxBell();
       if(!m_pRadarFrame) {
             m_pRadarFrame = new RadarFrame();
-			m_pRadarFrame->Create ( m_parent_window, this, -1, _("AIS Radar view"),
+            m_pRadarFrame->Create ( m_parent_window, this, -1, _("AIS Radar view"),
                                wxPoint( m_radar_frame_x, m_radar_frame_y), wxSize( m_radar_frame_sx, m_radar_frame_sy));
-  	        m_pRadarFrame->Show();
-	  } else {
-		  m_pRadarFrame->Close(true);
-	  }
+              m_pRadarFrame->Show();
+      } else {
+          m_pRadarFrame->Close(true);
+      }
 }
 
 
 void aisradar_pi::SetAISSentence(wxString &sentence) {
-	// Ignore the AIS message itself. It is merely used as an event
-	// to retrieve the AIS targets from the mainprogram
-	// The targets are already updated to reflect the current message
-	// So we re-use that information
-	if (m_radar_use_ais) {
-		GetAisTargets();
-	}
-	if ( m_pRadarFrame ) {
-		m_pRadarFrame->Refresh();
-	}
+    // Ignore the AIS message itself. It is merely used as an event
+    // to retrieve the AIS targets from the mainprogram
+    // The targets are already updated to reflect the current message
+    // So we re-use that information
+    if (m_radar_use_ais) {
+        GetAisTargets();
+    }
+    if ( m_pRadarFrame ) {
+        m_pRadarFrame->Refresh();
+    }
 }
 
 
 void aisradar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {
-	// Check if our position changed
-	// If so, update view otherwise not, 
-	if ( m_lat != pfix.Lat || m_lon != pfix.Lon || m_cog != pfix.Cog || m_sog != pfix.Sog ) {
-		m_lat  = pfix.Lat;
-		m_lon  = pfix.Lon;
-		m_cog  = pfix.Cog;
-		m_sog  = pfix.Sog;
-		m_sats = pfix.nSats;
-		if ( m_pRadarFrame ) {
-			m_pRadarFrame->Refresh();
-		}
-	}
+    // Check if our position changed
+    // If so, update view otherwise not, 
+    if ( m_lat != pfix.Lat || m_lon != pfix.Lon || m_cog != pfix.Cog || m_sog != pfix.Sog ) {
+        m_lat  = pfix.Lat;
+        m_lon  = pfix.Lon;
+        m_cog  = pfix.Cog;
+        m_sog  = pfix.Sog;
+        m_sats = pfix.nSats;
+        if ( m_pRadarFrame ) {
+            m_pRadarFrame->Refresh();
+        }
+    }
 }
 
 
 void aisradar_pi::SetPluginMessage(wxString &message_id, wxString &message_body) {
 // Parse message with radar targets
 // Format:
-//	{
-//		"RadarTargets" :
-//		{
-//			"Source"      : "BR24_pi",
+//    {
+//        "RadarTargets" :
+//        {
+//            "Source"      : "BR24_pi",
 //          "Orientation" : "North",
-//			"TTL"         : 30,
-//			"Targets" : 
-//			[
-//				{ "Brg" : 180, Range : 1.2 },
-//				{ "Brg" : 359, Range : 8.3 },
-//				{ "Brg" : 34, Range : 0.9 },
-//				{ "Brg" : 13, Range : 0.4 },
-//				{ "Brg" : 57, Range : 0.7 }
-//			]
-//		}
-//	}
-//  TODO: implement parse routine	
+//            "TTL"         : 30,
+//            "Targets" : 
+//            [
+//                { "Brg" : 180, Range : 1.2 },
+//                { "Brg" : 359, Range : 8.3 },
+//                { "Brg" : 34, Range : 0.9 },
+//                { "Brg" : 13, Range : 0.4 },
+//                { "Brg" : 57, Range : 0.7 }
+//            ]
+//        }
+//    }
+//  TODO: implement parse routine    
 }
 
 
 void aisradar_pi::OnRadarFrameClose() {
-	  m_pRadarFrame = 0;
+      m_pRadarFrame = 0;
       SaveConfig();
 }
 
 
 bool aisradar_pi::ShowMoored(void) {
-	bool Result=true;
-	m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
-	m_pconfig->Read ( _T( "bShowMooredTargets" ),  &Result, 1 );
-	return Result;
+    bool Result=true;
+    m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
+    m_pconfig->Read ( _T( "bShowMooredTargets" ),  &Result, 1 );
+    return Result;
 }
 
 
 double aisradar_pi::GetMooredSpeed(void) {
-	double Result=0.;
-	m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
-	m_pconfig->Read ( _T( "MooredTargetMaxSpeedKnots" ),  &Result, 0.0 );
-	return Result;
+    double Result=0.;
+    m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
+    m_pconfig->Read ( _T( "MooredTargetMaxSpeedKnots" ),  &Result, 0.0 );
+    return Result;
 }
 
 
 bool aisradar_pi::ShowCogArrows(void) {
-	bool Result=true;
-	m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
-	m_pconfig->Read ( _T("bShowCOGArrows"), &Result, 1);
-	return Result;
+    bool Result=true;
+    m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
+    m_pconfig->Read ( _T("bShowCOGArrows"), &Result, 1);
+    return Result;
 }
 
 
 int aisradar_pi::GetCogArrowMinutes(void) {
-	int Result=6;
-	m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
-	m_pconfig->Read ( _T("CogArrowMinutes"), &Result, 6);
-	return Result;
+    int Result=6;
+    m_pconfig->SetPath ( _T( "/Settings/AIS" ) );
+    m_pconfig->Read ( _T("CogArrowMinutes"), &Result, 6);
+    return Result;
 }
 
 
 void aisradar_pi::SetColorScheme(PI_ColorScheme cs) {
-	// Colours changed, pass the event on to the radarframe
-	if ( m_pRadarFrame ) {
-		m_pRadarFrame->SetColourScheme(cs);
-		DimeWindow(m_pRadarFrame);
-	}
+    // Colours changed, pass the event on to the radarframe
+    if ( m_pRadarFrame ) {
+        m_pRadarFrame->SetColourScheme(cs);
+        DimeWindow(m_pRadarFrame);
+    }
 }
 
 
 ArrayOfPlugIn_AIS_Targets  *aisradar_pi::GetAisTargets() {
-	if ( AisTargets ) {
-		WX_CLEAR_ARRAY(*AisTargets); 	
-		delete AisTargets;
-	}
-	AisTargets = GetAISTargetArray();
-	return AisTargets;
+    if ( AisTargets ) {
+        WX_CLEAR_ARRAY(*AisTargets);     
+        delete AisTargets;
+    }
+    AisTargets = GetAISTargetArray();
+    return AisTargets;
 }
 
 
@@ -348,7 +348,7 @@ bool aisradar_pi::LoadConfig(void) {
             return true;
       } else {
             return false;
-	  }
+      }
 }
 
 
@@ -367,5 +367,5 @@ bool aisradar_pi::SaveConfig(void) {
             return true;
       } else {
             return false;
-	  }
+      }
 }
