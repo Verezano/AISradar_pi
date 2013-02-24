@@ -22,13 +22,13 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.         *
  ***************************************************************************
  *
  */
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
-#	include <wx/wx.h>
+#    include <wx/wx.h>
 #endif
 #include <wx/mstream.h>
 #include "Target.h"
@@ -43,9 +43,9 @@
 static const int VECTOR_SIZE  = 10;
 static const int BASE_STATION = 3;
 static const wxColor  VectorColor[3] = {
-	wxColor(0,128,0),
-	wxColor(255,0,0),
-	wxColor(128,128,128)
+    wxColor(0,128,0),
+    wxColor(255,0,0),
+    wxColor(128,128,128)
 };
 
 static wxMemoryInputStream ShipGreen("\211PNG\r\n\032\n\000\000\000\rIHDR\000\000\000\021\000\000\000!\b\006\000\000\000?\027@W\000\000\000\004sBIT\b\b\b\b|\bd\210\000\000\000\011pHYs\000\000\r\327\000\000\r\327\001B(\233x\000\000\000\031tEXtSoftware\000www.inkscape.org\233\356<\032\000\000\001\336IDATH\211\235\326[O\023A\030\207\361\337\273=\027\032\003h\004\004z\240\304DL0J\224x\240 \212Z\215\337\377\322\033.\374\002H[\261^T9\224v\273\360$\223M\336\235}\362\2377\223\2315\034\016M\033\250c\210\207i\363\022\351\354\217='\222.):\266\200\222\343\324y\251\313)9\361\335P\331\217;-'\"\226\235[\262\203s\313\021\261x\227\345\354[\323\223\303\252\036\336\336^R\360A[\r\264\325\224|\274\275$\347XC\200\206\220\370t+ID,\032X\261\362\257\260\212\201zD\324n\223\344\235U\277\344.R\261\354\014\257\263K\n\216\264\315_\253\265\315):\312.\311\371\254q\221cD]N^7\223$\"j\006\032\036\215\275XC\317VDT\262$y\343\201S\371\261j\001\367\235\341\325lI\336\241-s\223bk\253\312{\237E\322\325\270\221cDS^\321\327TIDT\364=\266>Q\301:z\266#\242\220\226d\317\222S\305)\222\022\026\364\260;]\2228\324v\243\373\327\330T\2218\230.)\351jN\3151\242\251\240\354\333DID\024\365=\265\221\252`\003=\317#\342b3^M\262\353\236\236\362\014I\0255\003\354\334\224$\016l*\315P\214h)^\355\313\245\244\244\253\225YRR\271\354K\002\021\221\323\367B=\223bt\033\365\274\214\210\270\232\344\231y}\325\214\222\032*\206xrU\322\261\2510\365\243I4\345\321\271\224\224u\265fl\262qZ\312\252\243\276$\021\021~\333\313\334\217\377\3241\030\035\227\011\266U\3741\361\bNa\001y\205\210h'\350h\316\274\330'\323\004\235D\305\027\255)\207\320,Z\252*\272$~\032\375\203\334m$N\376\002x=\231\2619V\302\254\000\000\000\000IEND\256B`\202", 609);
@@ -53,9 +53,9 @@ static wxMemoryInputStream ShipRed  ("\211PNG\r\n\032\n\000\000\000\rIHDR\000\00
 static wxMemoryInputStream ShipGrey ("\211PNG\r\n\032\n\000\000\000\rIHDR\000\000\000\020\000\000\000 \b\006\000\000\000\033\211\370\314\000\000\000\004sBIT\b\b\b\b|\bd\210\000\000\000\011pHYs\000\000\r\327\000\000\r\327\001B(\233x\000\000\000\031tEXtSoftware\000www.inkscape.org\233\356<\032\000\000\002GIDATH\211\225\224\301r\2330\024E\357\223\220\r\226d&\304\0312\254\273\350\030\260\220\322\244\231\264S\307\331:\375\315\374J\327\375\211\354\275)\216iB\027\005\217c\233\330\276;\211\367\216\356}\b\250\256ktIk\375\2331\266Z,\026\327]5\324\005 \242\200s\276`\214\275UU\245\353\272\256\366\325\261\316\343\201\333$I\376\\^^.\001|\351*\362\272\036p\316g\316\271\001\000<??\317\000\374:\311A\020\004sc\2140\306\b)\345\317\223\034\020Q\237s\236\217\307c\000@Y\226\005\021\361\272\256_\217up\023\307q)\245\204\224\022\027\027\027+\000\356\350\b\214\261\a\347\234\337\256\235s>c\354\341h\300`0\230\033cz\355\332\030\323SJ=\356\253\335\231\001\021\011\317\363L\232\246\353\2754MQ\226\345\025\021\261\272\256\337\0169\270>??_j\255\327\033ZkDQT\001(\016F`\214\335;\347\372\333\373\316\271>c\354\376 \240\311\277\0030\306\364\225R;\367\341\335\014\210\310\363<\357*\313\262\355:dY\206\345ryCDTo|@\333\016\334\331\331\331*\014\303\035@\030\206\b\303\360\025@\336\031\201\210f\326Z\261\323\335\310Z+\210h\326\011\220R\316\2151>:d\214\361\265\326\357\356\303z\006D\304=\317\273\336\227\277U3\207\333\3159l:(\206\303\341\337(\212:\001Q\024A)\005\000\343}\021\246EQ\360\316\356\366\224\3775\323\035\200R\352\261(\212\340\b@0\034\016\327\367\301\003\000\"bB\210\257y\236ww6\312\363\034///w\333\016&R\312z4\032\035\004\214F#\004A\300\211\350\363&`j\214\371\350\a\373NM\355t\rPJ\315\255\265\a\363\267\262\326\006\355}`DD\253\325\352\356\243\367\277\255,\313PU\325\367\326A\352\373>\305q|4 \216c\364z\275\036\021}b\000\246\223\311\344\350\346VM\317\224I)\347\326\332\301\251\000k\355@k\375\310\252\252\372vJ\376V\315\034~0!\204H\222\344d@\222$\340\234\a\236RJ<==\235\014\000\000\245\224\370\a\234\011z\bR=\024\347\000\000\000\000IEND\256B`\202", 714);
 
 static const wxImage   *TargetImg[3] = {
-	new wxImage(ShipGreen),
-	new wxImage(ShipRed),
-	new wxImage(ShipGrey)
+    new wxImage(ShipGreen),
+    new wxImage(ShipRed),
+    new wxImage(ShipGrey)
 };
 
 // Base station
@@ -69,9 +69,9 @@ static const wxImage   *BaseImg = new wxImage(BaseStation);
 
 Target::Target() 
 : State(PI_AIS_NO_ALARM), CanvasCenter(wxPoint(0,0)), Radius(0), Range(0.), Mycog(0.), 
-	ShowArrow(true), ArrowMinutes(6), Mmsi(0),
-	Tclass(0), Dist(0.), Cog(0.), Sog(0.),
-	TargetCenter(wxPoint(TargetImg[PI_AIS_NO_ALARM]->GetWidth()/2,TargetImg[PI_AIS_NO_ALARM]->GetHeight()/2))
+    ShowArrow(true), ArrowMinutes(6), Mmsi(0),
+    Tclass(0), Dist(0.), Cog(0.), Sog(0.),
+    TargetCenter(wxPoint(TargetImg[PI_AIS_NO_ALARM]->GetWidth()/2,TargetImg[PI_AIS_NO_ALARM]->GetHeight()/2))
 {
 }
 
@@ -81,105 +81,105 @@ Target::~Target( ) {
 
 
 void Target::SetCanvas(wxPoint &center, int radius, wxColor &cl) {
-	CanvasCenter=center;
-	Radius=radius;
+    CanvasCenter=center;
+    Radius=radius;
 }
 
 
 void Target::SetNavDetails(double range, double mycog, bool showarrow, int arrowminutes) {
-	Range=range;
-	Mycog=mycog;
-	ShowArrow=showarrow;
-	ArrowMinutes=arrowminutes;
+    Range=range;
+    Mycog=mycog;
+    ShowArrow=showarrow;
+    ArrowMinutes=arrowminutes;
 }
 
 
 void Target::SetState(int mmsi, wxString name, double  dist, 
-						double brg, double cog, double sog,
-						int tclass, plugin_ais_alarm_type state,
-						int rot
+                        double brg, double cog, double sog,
+                        int tclass, plugin_ais_alarm_type state,
+                        int rot
 ) {
-	Mmsi=mmsi;
-	Name=name;
-	Dist=dist;
-	Brg=brg;
-	Cog=cog;
-	Sog=sog;
-	Tclass=tclass;
-	// There are only 3 images so only accept state that match these images
-	if (state>=0 && state<=3) {
-		State=state;
-	}
-	Rot=rot;
+    Mmsi=mmsi;
+    Name=name;
+    Dist=dist;
+    Brg=brg;
+    Cog=cog;
+    Sog=sog;
+    Tclass=tclass;
+    // There are only 3 images so only accept state that match these images
+    if (state>=0 && state<=3) {
+        State=state;
+    }
+    Rot=rot;
 }
 
 
 bool Target::Render( wxDC& dc ) {
-	bool Result=false;
-	// Check if the target is less than sqrt 2 times the range away
-	// This way targets in the corners of the square are still displayed
-	// Anything furthur away won't display
-	if (Dist < Range * 1.4) {
-		// Default to center of view
-		int x = CanvasCenter.x;
-		int y = CanvasCenter.y;
-		if (Dist>(double)0.) {
-			// Calculate the drawing position using trigonometry
-			double delta= Dist/Range*(double)Radius;
-			double angle=(Brg-Mycog)*(double)((double)3.141592653589/(double)180.);
-			x += sin(angle) * delta;
-			y -= cos(angle) * delta;
-		}
+    bool Result=false;
+    // Check if the target is less than sqrt 2 times the range away
+    // This way targets in the corners of the square are still displayed
+    // Anything furthur away won't display
+    if (Dist < Range * 1.4) {
+        // Default to center of view
+        int x = CanvasCenter.x;
+        int y = CanvasCenter.y;
+        if (Dist>(double)0.) {
+            // Calculate the drawing position using trigonometry
+            double delta= Dist/Range*(double)Radius;
+            double angle=(Brg-Mycog)*(double)((double)3.141592653589/(double)180.);
+            x += sin(angle) * delta;
+            y -= cos(angle) * delta;
+        }
 
-		// Calculate the targets direction on the screen
-		double ScrCog = (Cog-Mycog)*(double)((double)3.141592653589/(double)180.);
+        // Calculate the targets direction on the screen
+        double ScrCog = (Cog-Mycog)*(double)((double)3.141592653589/(double)180.);
 
-		// Draw the speed vector
-		if ( ShowArrow && Sog > 0.2 ) {
-			int vsize  = ((double)ArrowMinutes/60)* Sog / Range * (double)Radius ;
-			int vx    = x + sin(ScrCog) * vsize;
-			int vy    = y - cos(ScrCog) * vsize;
-			dc.SetPen( wxPen( VectorColor[State], 1, wxSOLID ) );
-			dc.DrawLine(x,y,vx,vy);
+        // Draw the speed vector
+        if ( ShowArrow && Sog > 0.2 ) {
+            int vsize  = ((double)ArrowMinutes/60)* Sog / Range * (double)Radius ;
+            int vx    = x + sin(ScrCog) * vsize;
+            int vy    = y - cos(ScrCog) * vsize;
+            dc.SetPen( wxPen( VectorColor[State], 1, wxSOLID ) );
+            dc.DrawLine(x,y,vx,vy);
 
-			// and the rate of turn vector
-			if ( Rot != 0 && Rot != -128 ) {
-				double rotangle = ScrCog;
-				if ( Rot > 0 ) {
-					rotangle += (double)3.141592653589/2.;
-				} else {
-					rotangle -= (double)3.141592653589/2.;
-				}
-				int nx = vx + sin(rotangle) * VECTOR_SIZE;
-				int ny = vy - cos(rotangle) * VECTOR_SIZE;
-				dc.SetPen( wxPen( VectorColor[State], 1, wxSOLID ) );
-				dc.DrawLine(vx,vy,nx,ny);
-			}
-		}
+            // and the rate of turn vector
+            if ( Rot != 0 && Rot != -128 ) {
+                double rotangle = ScrCog;
+                if ( Rot > 0 ) {
+                    rotangle += (double)3.141592653589/2.;
+                } else {
+                    rotangle -= (double)3.141592653589/2.;
+                }
+                int nx = vx + sin(rotangle) * VECTOR_SIZE;
+                int ny = vy - cos(rotangle) * VECTOR_SIZE;
+                dc.SetPen( wxPen( VectorColor[State], 1, wxSOLID ) );
+                dc.DrawLine(vx,vy,nx,ny);
+            }
+        }
 
-		// Rotate the target image to reflect its course
-		// ignore base stations
-		wxBitmap bm;
-		if (Tclass==BASE_STATION) {
-			bm= wxBitmap(*BaseImg);
-		} else {
-			bm= wxBitmap(TargetImg[State]->Rotate(-ScrCog,TargetCenter));
-		}
+        // Rotate the target image to reflect its course
+        // ignore base stations
+        wxBitmap bm;
+        if (Tclass==BASE_STATION) {
+            bm= wxBitmap(*BaseImg);
+        } else {
+            bm= wxBitmap(TargetImg[State]->Rotate(-ScrCog,TargetCenter));
+        }
 
-		// put the center of the rotated image on the calculated spot
-		int cx = x - bm.GetWidth()/2;
-		int cy = y - bm.GetHeight()/2;
+        // put the center of the rotated image on the calculated spot
+        int cx = x - bm.GetWidth()/2;
+        int cy = y - bm.GetHeight()/2;
 
-		// Draw the target image and id
-		dc.DrawBitmap(bm, cx,cy);
-		wxFont fnt = dc.GetFont();
-		fnt.SetPointSize(8);
-		dc.SetFont(fnt);
-		if (Name.StartsWith(wxT("Unknown"))) {
-			dc.DrawText(wxString::Format(wxT("%07d"),Mmsi), x+15,y-5);
-		} else {
-			dc.DrawText(Name, x+10,y-5);
-		}
-	}
-	return Result;
+        // Draw the target image and id
+        dc.DrawBitmap(bm, cx,cy);
+        wxFont fnt = dc.GetFont();
+        fnt.SetPointSize(8);
+        dc.SetFont(fnt);
+        if (Name.StartsWith(wxT("Unknown"))) {
+            dc.DrawText(wxString::Format(wxT("%07d"),Mmsi), x+15,y-5);
+        } else {
+            dc.DrawText(Name, x+10,y-5);
+        }
+    }
+    return Result;
 }

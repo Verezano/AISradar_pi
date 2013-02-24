@@ -22,7 +22,7 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.         *
  ***************************************************************************
  */
 
@@ -42,7 +42,7 @@
 #define     MY_API_VERSION_MINOR    7
 
 #include "../../../include/ocpn_plugin.h"
-#include "radar.h"
+#include "aisradar.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
@@ -50,79 +50,79 @@
 
 #define RADAR_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class radar_pi : public opencpn_plugin_17
+class aisradar_pi : public opencpn_plugin_17
 {
 public:
-      radar_pi(void *ppimgr);
-	  ~radar_pi();
+    aisradar_pi(void *ppimgr);
+    ~aisradar_pi();
 
-//    The required PlugIn Methods
-      int Init(void);
-      bool DeInit(void);
+// The required PlugIn Methods
+    int Init(void);
+    bool DeInit(void);
 
-      int GetAPIVersionMajor();
-      int GetAPIVersionMinor();
-      int GetPlugInVersionMajor();
-      int GetPlugInVersionMinor();
-      wxBitmap *GetPlugInBitmap();
-      wxString GetCommonName();
-      wxString GetShortDescription();
-      wxString GetLongDescription();
+    int GetAPIVersionMajor();
+    int GetAPIVersionMinor();
+    int GetPlugInVersionMajor();
+    int GetPlugInVersionMinor();
+    wxBitmap *GetPlugInBitmap();
+    wxString GetCommonName();
+    wxString GetShortDescription();
+    wxString GetLongDescription();
 
-      void SetDefaults(void);
-      int  GetToolbarToolCount(void);
-      void ShowPreferencesDialog( wxWindow* parent );
-      void OnToolbarToolCallback(int id);
-      void SetAISSentence(wxString &sentence);
-	  void SetPositionFix(PlugIn_Position_Fix &pfix);
-	  void SetPluginMessage(wxString &message_id, wxString &message_body);
-	  void SetColorScheme(PI_ColorScheme cs);
+    void SetDefaults(void);
+    int  GetToolbarToolCount(void);
+    void ShowPreferencesDialog( wxWindow* parent );
+    void OnToolbarToolCallback(int id);
+    void SetAISSentence(wxString &sentence);
+    void SetPositionFix(PlugIn_Position_Fix &pfix);
+    void SetPluginMessage(wxString &message_id, wxString &message_body);
+    void SetColorScheme(PI_ColorScheme cs);
 
 // Other public methods
     void             SetRadarFrameX    (int x)  { m_radar_frame_x  = x;   }
     void             SetRadarFrameY    (int x)  { m_radar_frame_y  = x;   }
     void             SetRadarFrameSizeX(int x)  { m_radar_frame_sx = x;   }
     void             SetRadarFrameSizeY(int x)  { m_radar_frame_sy = x;   }
-	void             SetRadarNorthUp   (bool x) { m_radar_north_up = x;   }
-	void             SetRadarRange     (int x)  { m_radar_range    = x;   }
-	bool             GetRadarNorthUp   (void)   { return m_radar_north_up;}
-	int              GetRadarRange     (void)   { return m_radar_range;   }
-	double           GetCog            (void)   { return m_cog;           }
-	double           GetSog            (void)   { return m_sog;           }
-	int              GetSats           (void)   { return m_sats;          }
-	wxFileConfig    *GetConfig         (void)   { return m_pconfig;       }
-	ArrayOfPlugIn_AIS_Targets  *GetAisTargets();    
-	void OnRadarFrameClose();
+    void             SetRadarNorthUp   (bool x) { m_radar_north_up = x;   }
+    void             SetRadarRange     (int x)  { m_radar_range    = x;   }
+    bool             GetRadarNorthUp   (void)   { return m_radar_north_up;}
+    int              GetRadarRange     (void)   { return m_radar_range;   }
+    double           GetCog            (void)   { return m_cog;           }
+    double           GetSog            (void)   { return m_sog;           }
+    int              GetSats           (void)   { return m_sats;          }
+    wxFileConfig    *GetConfig         (void)   { return m_pconfig;       }
+    ArrayOfPlugIn_AIS_Targets  *GetAisTargets();    
+    void OnRadarFrameClose();
     bool             ShowMoored        (void);
-	double           GetMooredSpeed    (void);
-	bool             ShowCogArrows     (void);
-	int              GetCogArrowMinutes(void);
+    double           GetMooredSpeed    (void);
+    bool             ShowCogArrows     (void);
+    int              GetCogArrowMinutes(void);
 
 private:
-      bool LoadConfig(void);
-      bool SaveConfig(void);
+    bool LoadConfig(void);
+    bool SaveConfig(void);
 
 private:
-	  wxFileConfig     *m_pconfig;
-      wxWindow         *m_parent_window;
-      RadarFrame       *m_pRadarFrame;
-	  ArrayOfPlugIn_AIS_Targets *AisTargets;
-	  PI_ColorScheme	m_cs;
-      int               m_display_width, m_display_height;
-      int               m_leftclick_tool_id;
-      int               m_radar_frame_x, m_radar_frame_y;
-      int               m_radar_frame_sx, m_radar_frame_sy;
-	  int               m_radar_range;
-      double            m_lat;
-	  double            m_lon;
-	  double            m_cog;
-	  double            m_sog;
-	  int               m_sats;
-      bool              m_radar_show_icon;
-      bool              m_radar_use_ais;
-	  bool              m_radar_north_up;
-      wxCheckBox       *m_pRadarShowIcon;
-      wxCheckBox       *m_pRadarUseAis;
+    wxFileConfig     *m_pconfig;
+    wxWindow         *m_parent_window;
+    RadarFrame       *m_pRadarFrame;
+    ArrayOfPlugIn_AIS_Targets *AisTargets;
+    PI_ColorScheme    m_cs;
+    int               m_display_width, m_display_height;
+    int               m_leftclick_tool_id;
+    int               m_radar_frame_x, m_radar_frame_y;
+    int               m_radar_frame_sx, m_radar_frame_sy;
+    int               m_radar_range;
+    double            m_lat;
+    double            m_lon;
+    double            m_cog;
+    double            m_sog;
+    int               m_sats;
+    bool              m_radar_show_icon;
+    bool              m_radar_use_ais;
+    bool              m_radar_north_up;
+    wxCheckBox       *m_pRadarShowIcon;
+    wxCheckBox       *m_pRadarUseAis;
 };
 
 #endif

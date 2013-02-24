@@ -22,7 +22,7 @@
  *   You should have received a copy of the GNU General Public License     *
  *   along with this program; if not, write to the                         *
  *   Free Software Foundation, Inc.,                                       *
- *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ *   51 Franklin Street, Fifth Floor, Boston, MA 02110-1301,  USA.         *
  ***************************************************************************
  *
  */
@@ -42,37 +42,37 @@ BEGIN_EVENT_TABLE(Canvas, wxPanel)
 END_EVENT_TABLE()
  
 Canvas::Canvas(wxWindow *parent, RadarFrame *view, 
-	wxWindowID id, const wxPoint& pos, const wxSize& size) 
+    wxWindowID id, const wxPoint& pos, const wxSize& size) 
 : wxPanel(parent, id, pos, size), pv(view), MouseDown(false), Parent(view)
 {
 }
 
 
 void Canvas::mouseMoved(wxMouseEvent& event) {
-	if (MouseDown) {
-		if (pv) {
-			pv->OnLeftMouse(event.GetPosition());
-		}
-	}
-	event.Skip();
+    if (MouseDown) {
+        if (pv) {
+            pv->OnLeftMouse(event.GetPosition());
+        }
+    }
+    event.Skip();
 }
 
 
 void Canvas::mouseDown(wxMouseEvent& event) {
-	MouseDown=true;
-	if (pv) {
-		pv->OnLeftMouse(event.GetPosition());
-	}
-	event.Skip();
+    MouseDown=true;
+    if (pv) {
+        pv->OnLeftMouse(event.GetPosition());
+    }
+    event.Skip();
 }
 
 
 void Canvas::mouseReleased(wxMouseEvent& event) {
-	MouseDown=false;
-	event.Skip();
+    MouseDown=false;
+    event.Skip();
 }
 
 
 void Canvas::paintEvent(wxPaintEvent& event) {
-	Parent->paintEvent(event);
+    Parent->paintEvent(event);
 }
