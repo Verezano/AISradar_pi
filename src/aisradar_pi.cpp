@@ -62,13 +62,14 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) {
 
 aisradar_pi::aisradar_pi(void *ppimgr) : opencpn_plugin_17(ppimgr), m_pRadarFrame(0)
 {
+	AisTargets = NULL;
     initialize_my_images();
 }
 
 
 aisradar_pi::~aisradar_pi() {
     if ( AisTargets ) {
-        WX_CLEAR_ARRAY(*AisTargets);     
+        WX_CLEAR_ARRAY(*AisTargets);
         delete AisTargets;
     }
 }
