@@ -33,6 +33,8 @@
 #include "aisradar.h"
  
 class Canvas : public wxPanel {
+private:
+	Canvas() {};  // forbidden
 public:
     Canvas(wxWindow *parent, RadarFrame *view, wxWindowID id, const wxPoint& pos, const wxSize& size); 
     void mouseMoved(wxMouseEvent& event);

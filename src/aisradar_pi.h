@@ -107,7 +107,6 @@ private:
     wxWindow         *m_parent_window;
     RadarFrame       *m_pRadarFrame;
     ArrayOfPlugIn_AIS_Targets *AisTargets;
-    PI_ColorScheme    m_cs;
     int               m_display_width, m_display_height;
     int               m_leftclick_tool_id;
     int               m_radar_frame_x, m_radar_frame_y;

@@ -121,7 +121,7 @@ private:
     
     //    Data
     wxWindow               *pParent;
-    aisradar_pi               *pPlugIn;
+    aisradar_pi            *pPlugIn;
     wxTimer                *m_Timer;
     wxPanel                *m_pCanvas;
     wxCheckBox             *m_pNorthUp;
