@@ -60,7 +60,30 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) {
 //
 //---------------------------------------------------------------------------------------------------------
 
-aisradar_pi::aisradar_pi(void *ppimgr) : opencpn_plugin_17(ppimgr), m_pRadarFrame(0)
+aisradar_pi::aisradar_pi(void *ppimgr) 
+: opencpn_plugin_17(ppimgr), 
+    m_pconfig(0), 
+    m_parent_window(0),
+    m_pRadarFrame(0),
+    AisTargets(0),
+    m_display_width(0), 
+    m_display_height(0),
+    m_leftclick_tool_id(0),
+    m_radar_frame_x(0), 
+    m_radar_frame_y(0),
+    m_radar_frame_sx(0), 
+    m_radar_frame_sy(0),
+    m_radar_range(0),
+    m_lat(0.0),
+    m_lon(0.0),
+    m_cog(0.0),
+    m_sog(0.0),
+    m_sats(0),
+    m_radar_show_icon(true),
+    m_radar_use_ais(true),
+    m_radar_north_up(false),
+    m_pRadarShowIcon(0),	
+    m_pRadarUseAis(0)
 {
     initialize_my_images();
 }
@@ -70,6 +93,7 @@ aisradar_pi::~aisradar_pi() {
     if ( AisTargets ) {
         WX_CLEAR_ARRAY(*AisTargets);     
         delete AisTargets;
+        AisTargets=0;
     }
 }
 
@@ -85,7 +109,11 @@ int aisradar_pi::Init(void) {
     ::wxDisplaySize(&m_display_width, &m_display_height);
     m_pconfig = GetOCPNConfigObject();
     LoadConfig();
-    AisTargets = GetAISTargetArray();
+    if (AisTargets) {  // Init may be called more than once, check for cleanup
+        WX_CLEAR_ARRAY(*AisTargets);     
+        delete AisTargets;
+	}
+	AisTargets = GetAISTargetArray();
     m_parent_window = GetOCPNCanvasWindow();
     if(m_radar_show_icon) {
         m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, 

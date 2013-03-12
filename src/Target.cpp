@@ -68,9 +68,20 @@ static const wxImage   *BaseImg = new wxImage(BaseStation);
 //---------------------------------------------------------------------------------------
 
 Target::Target() 
-: State(PI_AIS_NO_ALARM), CanvasCenter(wxPoint(0,0)), Radius(0), Range(0.), Mycog(0.), 
-    ShowArrow(true), ArrowMinutes(6), Mmsi(0),
-    Tclass(0), Dist(0.), Cog(0.), Sog(0.),
+: State(PI_AIS_NO_ALARM), 
+    CanvasCenter(wxPoint(0,0)), 
+    Radius(0), 
+    Range(0.), 
+    Mycog(0.), 
+    ShowArrow(true), 
+    ArrowMinutes(6), 
+    Mmsi(0), 
+    Name(),
+    Tclass(0), 
+    Dist(0.0), 
+    Cog(0.0), 
+    Sog(0.0), 
+    Rot(0),
     TargetCenter(wxPoint(TargetImg[PI_AIS_NO_ALARM]->GetWidth()/2,TargetImg[PI_AIS_NO_ALARM]->GetHeight()/2))
 {
 }

@@ -43,7 +43,10 @@ END_EVENT_TABLE()
  
 Canvas::Canvas(wxWindow *parent, RadarFrame *view, 
     wxWindowID id, const wxPoint& pos, const wxSize& size) 
-: wxPanel(parent, id, pos, size), pv(view), MouseDown(false), Parent(view)
+: wxPanel(parent, id, pos, size), 
+    pv(view),
+	MouseDown(false),
+    Parent(view)
 {
 }
 

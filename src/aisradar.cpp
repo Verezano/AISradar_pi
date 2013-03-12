@@ -68,14 +68,24 @@ BEGIN_EVENT_TABLE ( RadarFrame, wxDialog )
 END_EVENT_TABLE()
 
 RadarFrame::RadarFrame() 
-: pParent(0), pPlugIn(0), m_Timer(0), m_pCanvas(0), m_pNorthUp(0), m_pRange(0),
-     m_pBearingLine(0), m_Ebl(0.),  m_Range(0), m_pViewState(0)
+: pParent(0), 
+    pPlugIn(0), 
+    m_Timer(0), 
+    m_pCanvas(0), 
+    m_pNorthUp(0), 
+    m_pRange(0),
+    m_pBearingLine(0), 
+    m_BgColour(),
+    m_Ebl(0.0),  
+    m_Range(0), 
+    m_pViewState(0)
 {
-      Init();
+    Init();
 }
 
 RadarFrame::~RadarFrame( ) {
 }
+
 
 void RadarFrame::Init() {
     GetGlobalColor(_T("DILG1"), &m_BgColour);
