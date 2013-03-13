@@ -85,13 +85,14 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     m_pRadarShowIcon(0),	
     m_pRadarUseAis(0)
 {
+	AisTargets = NULL;
     initialize_my_images();
 }
 
 
 aisradar_pi::~aisradar_pi() {
     if ( AisTargets ) {
-        WX_CLEAR_ARRAY(*AisTargets);     
+        WX_CLEAR_ARRAY(*AisTargets);
         delete AisTargets;
         AisTargets=0;
     }
