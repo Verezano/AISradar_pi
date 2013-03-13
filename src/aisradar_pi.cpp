@@ -116,9 +116,19 @@ int aisradar_pi::Init(void) {
 	AisTargets = GetAISTargetArray();
     m_parent_window = GetOCPNCanvasWindow();
     if(m_radar_show_icon) {
-        m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_radar, 
-            _img_radar, wxITEM_NORMAL, _("AIS Radar view"), _T(""), 0,
-            RADAR_TOOL_POSITION, 0, this
+        m_leftclick_tool_id  = InsertPlugInTool(_T(""), 
+            _img_radar, 
+            _img_radar, 
+            wxITEM_NORMAL, 
+			wxString::Format(_T("AIS Radar View %d.%d"), 
+                PLUGIN_VERSION_MAJOR, 
+                PLUGIN_VERSION_MINOR
+            ), 
+			_T(""), 
+            0,
+            RADAR_TOOL_POSITION, 
+            0,
+            this
         );
     }
     return (WANTS_TOOLBAR_CALLBACK | INSTALLS_TOOLBAR_TOOL |
@@ -242,8 +252,16 @@ void aisradar_pi::OnToolbarToolCallback(int id) {
    ::wxBell();
     if(!m_pRadarFrame) {
         m_pRadarFrame = new RadarFrame();
-        m_pRadarFrame->Create ( m_parent_window, this, -1, _("AIS Radar view"),
-                           wxPoint( m_radar_frame_x, m_radar_frame_y), wxSize( m_radar_frame_sx, m_radar_frame_sy));
+        m_pRadarFrame->Create ( m_parent_window, 
+            this, 
+            -1,
+			wxString::Format(_T("AIS Radar View %d.%d"), 
+                PLUGIN_VERSION_MAJOR, 
+                PLUGIN_VERSION_MINOR
+            ),
+            wxPoint( m_radar_frame_x, m_radar_frame_y), 
+            wxSize( m_radar_frame_sx, m_radar_frame_sy)
+        );
         m_pRadarFrame->Show();
     } else {
         m_pRadarFrame->Close(true);
