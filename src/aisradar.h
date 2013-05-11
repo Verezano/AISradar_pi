@@ -109,7 +109,7 @@ public:
 private:
     void OnClose(wxCloseEvent& event);
     void OnRange( wxCommandEvent& event );
-    void OnNorthUp( wxCommandEvent& event );
+	void OnNorthUp( wxCommandEvent& event );
     void OnBearingLine( wxCommandEvent& event );
     void OnTimer( wxTimerEvent& event );
     void OnMove( wxMoveEvent& event );

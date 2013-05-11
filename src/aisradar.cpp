@@ -123,7 +123,7 @@ bool RadarFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
     vbox->Add(canvas, 1, wxALL | wxEXPAND, 5);
   
     // Add controls
-    wxStaticBox    *sb=new wxStaticBox(panel,wxID_ANY, _("Controls"));
+    wxStaticBox    *sb=new wxStaticBox(panel,wxID_ANY, _("Options"));
     wxStaticBoxSizer *controls = new wxStaticBoxSizer(sb, wxHORIZONTAL);
     wxStaticText *st1 = new wxStaticText(panel,wxID_ANY,_("Range"));
     controls->Add(st1,0,wxRIGHT,5);
@@ -140,7 +140,7 @@ bool RadarFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
     m_pRange->SetSelection(pPlugIn->GetRadarRange());
     controls->Add(m_pRange);
 
-    wxStaticText *st2 = new wxStaticText(panel,wxID_ANY,_("Miles"));
+    wxStaticText *st2 = new wxStaticText(panel,wxID_ANY,_("Nautical Miles"));
     controls->Add(st2,0,wxRIGHT|wxLEFT,5);
 
     m_pNorthUp = new wxCheckBox(panel, cbNorthUpId, _("North Up"));
@@ -190,6 +190,7 @@ void RadarFrame::OnRange ( wxCommandEvent& event ) {
     pPlugIn->SetRadarRange(m_pRange->GetSelection());
     this->Refresh();
 }
+
 
 
 void RadarFrame::OnNorthUp ( wxCommandEvent& event ) {
@@ -335,7 +336,7 @@ void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius
     dc.Clear();
     dc.SetBrush(wxBrush(wxColour(0,0,0),wxTRANSPARENT));
     dc.SetPen( wxPen( wxColor(128,128,128), 1, wxSOLID ) );
-    dc.DrawCircle( center, radius );
+	dc.DrawCircle( center, radius);
     dc.SetPen( wxPen( wxColor(128,128,128), 1, wxDOT ) );
     dc.DrawCircle( center, radius*0.75 );
     dc.DrawCircle( center, radius*0.50 );
@@ -354,12 +355,13 @@ void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius
     int fh=fnt.GetPointSize();
     dc.SetFont(fnt);
     float Range=RangeData[m_pRange->GetSelection()];
-    dc.DrawText(wxString::Format(wxT("%-7.7s %2.2f"), _("Range"),Range  ), 0, 0); 
-    dc.DrawText(wxString::Format(wxT("%-8.8s %2.2f"), _("Ring "), Range/4), 0, fh+TEXT_MARGIN); 
+    dc.DrawText(wxString::Format(wxT("%s %2.2f"), _("Range"),Range  ), 0, 0); 
+ //   dc.DrawText(wxString::Format(wxT("%s %2.2f"), _("Ring "), Range/4), 0, fh+TEXT_MARGIN); 
 
     // Draw the orientation info
-    if (m_pNorthUp->GetValue()) {
-        dc.DrawText(_("North Up"),  size.GetWidth()-dc.GetCharWidth()*11, 0); 
+	wxString dir;
+	if (m_pNorthUp->GetValue()) {
+		dir=_("North Up");
         // Draw north, east, south and west indicators
         dc.SetTextForeground(wxColour(128,128,128));
         dc.DrawText(_("N"), size.GetWidth()/2 + 5, 0);
@@ -367,13 +369,15 @@ void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius
         dc.DrawText(_("W"), 5, size.GetHeight()/2 - dc.GetCharHeight());
         dc.DrawText(_("E"), size.GetWidth() - 7 - dc.GetCharWidth(), size.GetHeight()/2 - dc.GetCharHeight());
     } else {
-        dc.DrawText(_("Course Up"), size.GetWidth()-dc.GetCharWidth()*11, 0); 
+        dir=_("Course Up"); 
         // Display our own course at to top
         double offset=pPlugIn->GetCog();
         dc.SetTextForeground(wxColour(128,128,128));
         int cpos=0;
         dc.DrawText(wxString::Format(_T("%3.0f\u00B0"),offset), size.GetWidth()/2 - dc.GetCharWidth()*2, cpos);
     }
+    dc.SetTextForeground(wxColour(0,0,0));
+    dc.DrawText(dir,  size.GetWidth()-dc.GetCharWidth()*dir.Len()-fh-TEXT_MARGIN, 0); 
     if (m_pBearingLine->GetValue()) {
         // Display and estimated bearing line
         int x = center.x;
@@ -388,6 +392,7 @@ void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius
         if ( !m_pNorthUp->GetValue() ) {
             offset = pPlugIn->GetCog();
         }
+        dc.SetTextForeground(wxColour(128,128,128));
         dc.DrawText(wxString::Format(_T("%3.1d\u00B0"),(int)(m_Ebl+offset)%360),tx,ty);
     }
 }

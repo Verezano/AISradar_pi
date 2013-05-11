@@ -289,8 +289,12 @@ void aisradar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {
     if ( m_lat != pfix.Lat || m_lon != pfix.Lon || m_cog != pfix.Cog || m_sog != pfix.Sog ) {
         m_lat  = pfix.Lat;
         m_lon  = pfix.Lon;
-        m_cog  = pfix.Cog;
-        m_sog  = pfix.Sog;
+		if (pfix.Cog>=0.0) {
+            m_cog  = pfix.Cog;
+		}
+		if (pfix.Sog>=0.0) {
+            m_sog  = pfix.Sog;
+		}
         m_sats = pfix.nSats;
         if ( m_pRadarFrame ) {
             m_pRadarFrame->Refresh();
