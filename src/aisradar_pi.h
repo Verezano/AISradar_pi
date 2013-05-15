@@ -39,7 +39,7 @@
 #define     PLUGIN_VERSION_MINOR    97
 
 #define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    7
+#define     MY_API_VERSION_MINOR    9
 
 #include "../../../include/ocpn_plugin.h"
 #include "aisradar.h"
@@ -50,7 +50,7 @@
 
 #define RADAR_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class aisradar_pi : public opencpn_plugin_17
+class aisradar_pi : public opencpn_plugin_19
 {
 public:
     aisradar_pi(void *ppimgr);
