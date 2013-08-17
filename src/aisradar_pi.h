@@ -41,7 +41,7 @@
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    9
 
-#include "../../../include/ocpn_plugin.h"
+#include <opencpn/ocpn_plugin.h>
 #include "aisradar.h"
 
 //----------------------------------------------------------------------------------------------------------
@@ -91,7 +91,7 @@ public:
     double           GetSog            (void)   { return m_sog;           }
     int              GetSats           (void)   { return m_sats;          }
     wxFileConfig    *GetConfig         (void)   { return m_pconfig;       }
-    ArrayOfPlugIn_AIS_Targets  *GetAisTargets();    
+    ArrayOfPlugIn_AIS_Targets  *GetAisTargets();
     void OnRadarFrameClose();
     bool             ShowMoored        (void);
     double           GetMooredSpeed    (void);
