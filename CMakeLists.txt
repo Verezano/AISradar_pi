@@ -1,9 +1,9 @@
 ##---------------------------------------------------------------------------
 ## Author:      nohal aka. Pavel Kalian
-## Copyright:   
+## Copyright:
 ## License:     wxWidgets License
 ##---------------------------------------------------------------------------
- 
+
 # define minimum cmake version
 CMAKE_MINIMUM_REQUIRED(VERSION 2.6.2)
 # This should be 2.8.0 to have FindGTK2 module
@@ -44,16 +44,20 @@ IF(WIN32)
     ADD_DEFINITIONS(-D_CRT_NONSTDC_NO_DEPRECATE -D_CRT_SECURE_NO_DEPRECATE)
 ENDIF(WIN32)
 
+IF(UNIX AND NOT APPLE)
+  SET(PREFIX_PLUGINS /usr/lib/opencpn)
+  SET(PREFIX_DATA /usr/share)
+ENDIF(UNIX AND NOT APPLE)
 
-#SET(wxWidgets_USE_LIBS base core net xml html adv)
-#SET(BUILD_SHARED_LIBS TRUE)
-#FIND_PACKAGE(wxWidgets REQUIRED)
+SET(wxWidgets_USE_LIBS base core net xml html adv)
+SET(BUILD_SHARED_LIBS TRUE)
+FIND_PACKAGE(wxWidgets REQUIRED)
 
 INCLUDE(${wxWidgets_USE_FILE})
 
 FIND_PACKAGE(Gettext REQUIRED)
 
-# For convenience we define the sources as a variable. You can add 
+# For convenience we define the sources as a variable. You can add
 # header files and cpp/c files and CMake will sort them out
 
 
@@ -95,7 +99,7 @@ ENDIF(UNIX AND NOT APPLE)
 IF(WIN32)
 INSTALL(TARGETS ${PACKAGE_NAME} RUNTIME DESTINATION "plugins")
 ENDIF(WIN32)
- 	  	 
+
 # find src/ -name \*.cpp -or -name \*.c -or -name \*.h -or -name \*.hpp >po/POTFILES.in
 FIND_PROGRAM(GETTEXT_XGETTEXT_EXECUTABLE xgettext)
 IF (GETTEXT_XGETTEXT_EXECUTABLE)

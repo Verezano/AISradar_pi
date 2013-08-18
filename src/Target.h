@@ -31,7 +31,7 @@
 
 
 #include "wx/wxprec.h"
-#include "../../../include/ocpn_plugin.h"
+#include <opencpn/ocpn_plugin.h>
 
 #ifndef  WX_PRECOMP
   #include "wx/wx.h"
@@ -42,17 +42,17 @@
 //----------------------------------------------------------------------------------------------------------
 class Target
 {
-public: 
+public:
     Target( );
     ~Target();
     void SetCanvas(wxPoint &center, int radius, wxColor &cl);     // details of drawing area
     void SetNavDetails(double range, double mycog,                // details of navigation view
-    bool ShowCogArrow, int CogArrowMinutes);               
+    bool ShowCogArrow, int CogArrowMinutes);
     void SetState(int mmsi, wxString name, double  dist,          // Target details
-    			double brg, double cog, double sog, 
+    			double brg, double cog, double sog,
                         int tclass, plugin_ais_alarm_type state,
                         int rot
-                    );                    
+                    );
     bool Render( wxDC& dc);                                       // render the target
 
 private:
@@ -66,7 +66,7 @@ private:
     int                       Mmsi;
     wxString                  Name;
     int                       Tclass;
-    double                    Dist; 
+    double                    Dist;
     double                    Brg;
     double                    Cog;
     double                    Sog;
