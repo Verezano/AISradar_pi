@@ -41,7 +41,7 @@
 #define     MY_API_VERSION_MAJOR    1
 #define     MY_API_VERSION_MINOR    9
 
-#include <opencpn/ocpn_plugin.h>
+#include "../../../include/ocpn_plugin.h"
 #include "aisradar.h"
 
 //----------------------------------------------------------------------------------------------------------

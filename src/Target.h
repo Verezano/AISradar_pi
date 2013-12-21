@@ -31,7 +31,7 @@
 
 
 #include "wx/wxprec.h"
-#include <opencpn/ocpn_plugin.h>
+#include "../../../include/ocpn_plugin.h"
 
 #ifndef  WX_PRECOMP
   #include "wx/wx.h"
