@@ -272,7 +272,7 @@ void RadarFrame::render(wxDC& dc)     {
     
     //    m_pCanvas->SetBackgroundColour (m_BgColour);
     renderRange(dc, center, size, radius);    
-    if ( pPlugIn->GetAisTargets() ) {
+	if ( pPlugIn->GetAisTargets() ) {
         renderBoats(dc, center, size, radius);
     }
 }
