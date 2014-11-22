@@ -36,6 +36,5 @@ SET(SRC_AISRADAR
 ADD_LIBRARY(${PACKAGE_NAME} SHARED ${SRC_AISRADAR})
 
 INCLUDE("cmake/PluginInstall.cmake")
-INCLUDE("cmake/PluginCurl.cmake")
 INCLUDE("cmake/PluginLocalization.cmake")
 INCLUDE("cmake/PluginPackage.cmake")
