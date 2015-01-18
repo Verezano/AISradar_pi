@@ -6,7 +6,7 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2013 Johan van der Sman                                 *
+ *   Copyright (C) 2015 Johan van der Sman                                 *
  *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
