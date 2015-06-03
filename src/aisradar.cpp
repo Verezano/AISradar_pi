@@ -245,10 +245,13 @@ void RadarFrame::OnMove ( wxMoveEvent& event ) {
 
 void RadarFrame::OnSize ( wxSizeEvent& event ) {
     event.Skip();
-    wxClientDC dc(m_pCanvas);
-    m_pViewState->SetCanvasSize(dc.GetSize());
-    m_pViewState->SetWindowSize(GetSize());
-    render(dc);
+    if( m_pCanvas )
+    {
+        wxClientDC dc(m_pCanvas);
+        m_pViewState->SetCanvasSize(dc.GetSize());
+        m_pViewState->SetWindowSize(GetSize());
+        render(dc);
+    }
 }
 
 
