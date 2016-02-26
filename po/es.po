@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-23 14:30-0600\n"
-"PO-Revision-Date: 2015-04-21 14:53-0400\n"
+"PO-Revision-Date: 2016-02-18 16:08-0500\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
 "Language-Team: Spanish\n"
 "Language: es_ES\n"
@@ -25,8 +25,10 @@ msgid "AIS Radar view PlugIn"
 msgstr "Plugin de Vista Radar AIS"
 
 #: src/aisradar_pi.cpp:147
-msgid "Radar PlugIn for OpenCPN\nShows AIS targets in a radar style view \n\n"
-msgstr "Plugin Radar para OpenCPN\nMuestra los blancos AIS en una visión estilo radar \n\n"
+msgid "Radar PlugIn for OpenCPN\n"
+"Shows AIS targets in a radar style view \n\n"
+msgstr "Plugin Radar para OpenCPN\n"
+"Muestra los blancos AIS en una visión estilo radar \n\n"
 
 #: src/aisradar_pi.cpp:155
 msgid "AIS Radar"

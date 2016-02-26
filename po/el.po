@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-23 14:30-0600\n"
-"PO-Revision-Date: 2015-04-07 11:22-0400\n"
+"PO-Revision-Date: 2016-02-18 16:08-0500\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
 "Language-Team: Greek\n"
 "Language: el_GR\n"
@@ -25,8 +25,10 @@ msgid "AIS Radar view PlugIn"
 msgstr "Πρόσθετο AIS ραντάρ"
 
 #: src/aisradar_pi.cpp:147
-msgid "Radar PlugIn for OpenCPN\nShows AIS targets in a radar style view \n\n"
-msgstr "Πρόσθετο του OpenCPN\nΔείχνει τους στόχους AIS με τη μορφή οθόνης ραντάρ \n\n"
+msgid "Radar PlugIn for OpenCPN\n"
+"Shows AIS targets in a radar style view \n\n"
+msgstr "Πρόσθετο του OpenCPN\n"
+"Δείχνει τους στόχους AIS με τη μορφή οθόνης ραντάρ \n\n"
 
 #: src/aisradar_pi.cpp:155
 msgid "AIS Radar"
@@ -66,7 +68,7 @@ msgstr "Λειτουργία «βορράς προς τα πάνω»"
 
 #: src/aisradar.cpp:140
 msgid "EBL"
-msgstr ""
+msgstr "EBL"
 
 #: src/aisradar.cpp:348
 msgid "Ring "

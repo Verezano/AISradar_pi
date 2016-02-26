@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-02-23 14:30-0600\n"
-"PO-Revision-Date: 2015-03-02 22:15-0500\n"
+"PO-Revision-Date: 2016-01-25 19:58-0500\n"
 "Last-Translator: nohal <pavel@kalian.cz>\n"
 "Language-Team: Russian\n"
 "Language: ru_RU\n"
@@ -13,6 +13,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: crowdin.com\n"
 "X-Crowdin-Project: opencpn\n"
+"X-Crowdin-Language: ru\n"
 "X-Crowdin-File: /plugins/aisradar_pi/po/aisradar_pi.pot\n"
 
 #: src/aisradar_pi.cpp:92 src/aisradar_pi.cpp:137 src/aisradar_pi.cpp:217
@@ -24,7 +25,8 @@ msgid "AIS Radar view PlugIn"
 msgstr ""
 
 #: src/aisradar_pi.cpp:147
-msgid "Radar PlugIn for OpenCPN\nShows AIS targets in a radar style view \n\n"
+msgid "Radar PlugIn for OpenCPN\n"
+"Shows AIS targets in a radar style view \n\n"
 msgstr ""
 
 #: src/aisradar_pi.cpp:155
