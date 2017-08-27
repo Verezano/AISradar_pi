@@ -264,7 +264,6 @@ void RadarFrame::paintEvent(wxPaintEvent & event) {
 
 void RadarFrame::render(wxDC& dc)     {
     m_Timer->Start(RESTART);
-
     // Calculate the size based on paint area size, if smaller then the minimum
     // then the default minimum size applies
     int width  = max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
@@ -274,9 +273,10 @@ void RadarFrame::render(wxDC& dc)     {
     int radius = max((min(width,height)/2),MIN_RADIUS);
     
     //    m_pCanvas->SetBackgroundColour (m_BgColour);
-    renderRange(dc, center, size, radius);    
-	if ( pPlugIn->GetAisTargets() ) {
-        renderBoats(dc, center, size, radius);
+    renderRange(dc, center, size, radius);
+    ArrayOfPlugIn_AIS_Targets *AisTargets = pPlugIn->GetAisTargets();
+	if ( AisTargets ) {
+        renderBoats(dc, center, size, radius, AisTargets);
     }
 }
 
@@ -289,7 +289,7 @@ void RadarFrame::TrimAisField(wxString *fld) {
 }
 
 
-void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius) {
+void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius, ArrayOfPlugIn_AIS_Targets *AisTargets ) {
     // Determine orientation
     double offset=pPlugIn->GetCog();
     if (m_pNorthUp->GetValue()) {
@@ -304,7 +304,7 @@ void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius
 
     // Show other boats and base stations
     Target    dt;
-    ArrayOfPlugIn_AIS_Targets *AisTargets = pPlugIn->GetAisTargets();
+//    ArrayOfPlugIn_AIS_Targets *AisTargets = pPlugIn->GetAisTargets();
     PlugIn_AIS_Target *t;
     ArrayOfPlugIn_AIS_Targets::iterator it;
     wxString  Name;

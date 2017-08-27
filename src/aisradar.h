@@ -116,7 +116,7 @@ private:
     void OnSize( wxSizeEvent& event );
     void render( wxDC& dc );
     void renderRange( wxDC& dc, wxPoint &center, wxSize &size, int radius );
-    void renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius);
+    void renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius, ArrayOfPlugIn_AIS_Targets *AisTargets );
     void TrimAisField(wxString *fld);
     
     //    Data
