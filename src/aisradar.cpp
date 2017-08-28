@@ -59,7 +59,7 @@ BEGIN_EVENT_TABLE ( RadarFrame, wxDialog )
     EVT_CLOSE    ( RadarFrame::OnClose )
     EVT_MOVE     ( RadarFrame::OnMove )
     EVT_SIZE     ( RadarFrame::OnSize )
-    EVT_PAINT    ( RadarFrame::paintEvent)
+//    EVT_PAINT    ( RadarFrame::paintEvent)
     EVT_COMBOBOX ( cbRangeId, RadarFrame::OnRange)
     EVT_CHECKBOX ( cbNorthUpId, RadarFrame::OnNorthUp )
     EVT_CHECKBOX ( cbBearingLineId, RadarFrame::OnBearingLine )
@@ -172,7 +172,8 @@ void RadarFrame::SetColourScheme(PI_ColorScheme cs) {
 void RadarFrame::OnClose ( wxCloseEvent& event ) {
     // Stop timer if still running
     m_Timer->Stop();
-
+    delete m_Timer;
+    
     // Save window size
     pPlugIn->SetRadarFrameX(m_pViewState->GetPos().x);
     pPlugIn->SetRadarFrameY(m_pViewState->GetPos().y);
