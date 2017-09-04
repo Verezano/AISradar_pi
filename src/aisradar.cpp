@@ -99,7 +99,14 @@ bool RadarFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
 {
     pParent = parent;
     pPlugIn = ppi;
-    long wstyle = wxDEFAULT_FRAME_STYLE;
+    long wstyle = ( wxSYSTEM_MENU | \
+        wxRESIZE_BORDER | \
+        wxMAXIMIZE_BOX | \
+        wxCLOSE_BOX | \
+        wxCAPTION | \
+        wxCLIP_CHILDREN );
+
+//    long wstyle = wxDEFAULT_FRAME_STYLE;
     m_pViewState = new ViewState(pos, size);
     if ( !wxDialog::Create ( parent, id, caption, pos, m_pViewState->GetWindowSize(), wstyle ) ) {
         return false;
@@ -276,7 +283,7 @@ void RadarFrame::render(wxDC& dc)     {
     //    m_pCanvas->SetBackgroundColour (m_BgColour);
     renderRange(dc, center, size, radius);
     ArrayOfPlugIn_AIS_Targets *AisTargets = pPlugIn->GetAisTargets();
-	if ( AisTargets ) {
+	if ( AisTargets->GetCount() > 0 ) {
         renderBoats(dc, center, size, radius, AisTargets);
     }
 }
@@ -324,8 +331,8 @@ void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius
             ) {
                 Name     = wxString::From8BitData(t->ShipName);
                 TrimAisField(&Name);
-                dt.SetState(t->MMSI, Name, t->Range_NM, t->Brg, t->COG, t->SOG, 
-                    t->Class, t->alarm_state, t->ROTAIS
+                dt.SetState(t->MMSI, Name, t->Range_NM, t->Brg, t->COG, t->SOG, t->HDG,
+                    (ais_transponder_class) t->Class, (ais_nav_status) t->NavStatus, t->alarm_state, t->ROTAIS
                 );
                 dt.Render(dc);
             }
@@ -333,23 +340,22 @@ void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius
     }
 }
 
-
 void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) {
     // Draw the circles
     dc.SetBackground(wxBrush(m_BgColour));
     dc.Clear();
-    dc.SetBrush(wxBrush(wxColour(0,0,0),wxTRANSPARENT));
-    dc.SetPen( wxPen( wxColor(128,128,128), 1, wxSOLID ) );
+    dc.SetBrush(wxBrush(wxColour(0,0,0),wxBRUSHSTYLE_TRANSPARENT));
+    dc.SetPen( wxPen( wxColor(128,128,128), 1, wxPENSTYLE_SOLID ) );
 	dc.DrawCircle( center, radius);
-    dc.SetPen( wxPen( wxColor(128,128,128), 1, wxDOT ) );
+    dc.SetPen( wxPen( wxColor(128,128,128), 1, wxPENSTYLE_DOT ) );
     dc.DrawCircle( center, radius*0.75 );
     dc.DrawCircle( center, radius*0.50 );
     dc.DrawCircle( center, radius*0.25 );
-    dc.SetPen( wxPen( wxColor(128,128,128), 2, wxSOLID ) );
+    dc.SetPen( wxPen( wxColor(128,128,128), 2, wxPENSTYLE_SOLID ) );
     dc.DrawCircle( center, 10 );
 
     // Draw the crosshairs
-    dc.SetPen( wxPen( wxColor(128,128,128), 1, wxDOT ) );
+    dc.SetPen( wxPen( wxColor(128,128,128), 1, wxPENSTYLE_DOT ) );
     dc.DrawLine( size.GetWidth()/2,0, size.GetWidth()/2, size.GetHeight());
     dc.DrawLine( 0,size.GetHeight()/2, size.GetWidth(), size.GetHeight()/2);
 
