@@ -100,9 +100,9 @@ public:
     void SetNavDetails(double range, double mycog,                // details of navigation view
     bool ShowCogArrow, int CogArrowMinutes);
     void SetState( int mmsi, wxString name, double  dist,          // Target details
-        double brg, double cog, double sog, double hdg,
-                ais_transponder_class tclass, ais_nav_status tstatus, plugin_ais_alarm_type state,
-                        int rot
+                   double brg, double cog, double sog, double hdg,
+                   ais_transponder_class tclass, ais_nav_status tstatus, plugin_ais_alarm_type state,
+                   int rot
                     );
     bool Render( wxDC& dc);                                       // render the target
 
