@@ -153,9 +153,13 @@ bool Target::Render( wxDC& dc ) {
             x += sin(angle) * delta;
             y -= cos(angle) * delta;
         }
+#if 0
         double targetHdt = Hdg;
         if ( targetHdt > 360 )  // if target heading is invalid then use Cog
             targetHdt = Cog;
+#else
+        double targetHdt = Cog;
+#endif
         // Calculate the targets direction on the screen
         double ScrCog = (targetHdt-Mycog)*(double)((double)3.141592653589/(double)180.);
 
