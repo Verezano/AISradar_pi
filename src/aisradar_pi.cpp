@@ -386,7 +386,7 @@ ArrayOfPlugIn_AIS_Targets  *aisradar_pi::GetAisTargets() {
 bool aisradar_pi::LoadConfig(void) {
     wxFileConfig *pConf = (wxFileConfig *)m_pconfig;
     if(pConf) {
-        pConf->SetPath ( _T( "/Settings" ) );
+        pConf->SetPath ( _T( "/Plugins/AISRadar" ) );
         pConf->Read ( _T( "ShowRADARIcon" ),  &m_radar_show_icon, 1 );
         pConf->Read ( _T( "UseAisRadar" ),  &m_radar_use_ais, 1 );
         pConf->Read ( _T( "NorthUp" ),  &m_radar_north_up, 0 );
@@ -405,7 +405,7 @@ bool aisradar_pi::LoadConfig(void) {
 bool aisradar_pi::SaveConfig(void) {
     wxFileConfig *pConf = (wxFileConfig *)m_pconfig;
     if(pConf) {
-        pConf->SetPath ( _T ( "/Settings" ) );
+        pConf->SetPath ( _T ( "/Plugins/AISRadar" ) );
         pConf->Write   ( _T ( "ShowRADARIcon" ),      m_radar_show_icon  );
         pConf->Write   ( _T ( "UseAisRadar" ),        m_radar_use_ais    );
         pConf->Write   ( _T ( "NorthUp" ),            m_radar_north_up   );
