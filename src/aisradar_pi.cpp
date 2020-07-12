@@ -251,7 +251,7 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
 void aisradar_pi::OnToolbarToolCallback(int id) {
    ::wxBell();
     if(!m_pRadarFrame) {
-        m_pRadarFrame = new RadarFrame();
+        m_pRadarFrame = new AisFrame();
         m_pRadarFrame->Create ( m_parent_window, 
             this, 
             -1,
@@ -326,7 +326,7 @@ void aisradar_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
 }
 
 
-void aisradar_pi::OnRadarFrameClose() {
+void aisradar_pi::OnAisFrameClose() {
     m_pRadarFrame = 0;
     SaveConfig();
 }

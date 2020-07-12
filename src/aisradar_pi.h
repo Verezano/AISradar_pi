@@ -78,10 +78,10 @@ public:
     void SetColorScheme(PI_ColorScheme cs);
 
 // Other public methods
-    void             SetRadarFrameX    (int x)  { m_radar_frame_x  = x;   }
-    void             SetRadarFrameY    (int x)  { m_radar_frame_y  = x;   }
-    void             SetRadarFrameSizeX(int x)  { m_radar_frame_sx = x;   }
-    void             SetRadarFrameSizeY(int x)  { m_radar_frame_sy = x;   }
+    void             SetAisFrameX      (int x)  { m_radar_frame_x  = x;   }
+    void             SetAisFrameY      (int x)  { m_radar_frame_y  = x;   }
+    void             SetAisFrameSizeX  (int x)  { m_radar_frame_sx = x;   }
+    void             SetAisFrameSizeY  (int x)  { m_radar_frame_sy = x;   }
     void             SetRadarNorthUp   (bool x) { m_radar_north_up = x;   }
     void             SetRadarRange     (int x)  { m_radar_range    = x;   }
     bool             GetRadarNorthUp   (void)   { return m_radar_north_up;}
@@ -91,7 +91,7 @@ public:
     int              GetSats           (void)   { return m_sats;          }
     wxFileConfig    *GetConfig         (void)   { return m_pconfig;       }
     ArrayOfPlugIn_AIS_Targets  *GetAisTargets();
-    void OnRadarFrameClose();
+    void             OnAisFrameClose();
     bool             ShowMoored        (void);
     double           GetMooredSpeed    (void);
     bool             ShowCogArrows     (void);
@@ -104,7 +104,7 @@ private:
 private:
     wxFileConfig     *m_pconfig;
     wxWindow         *m_parent_window;
-    RadarFrame       *m_pRadarFrame;
+    AisFrame         *m_pRadarFrame;
     ArrayOfPlugIn_AIS_Targets *AisTargets;
     int               m_display_width, m_display_height;
     int               m_leftclick_tool_id;

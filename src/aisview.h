@@ -26,8 +26,8 @@
  ***************************************************************************
  */
 
-#ifndef _RADAR_H_
-#define _RADAR_H_
+#ifndef _AISVIEW_H_
+#define _AISVIEW_H_
 
 #include "wx/wxprec.h"
 #include "wx/dcbuffer.h"
@@ -86,16 +86,16 @@ private:
 };
 
 //----------------------------------------------------------------------------------------------------------
-//    RADAR View Specification
+//    AIS View Specification
 //----------------------------------------------------------------------------------------------------------
-class RadarFrame: public wxDialog
+class AisFrame: public wxDialog
 {
-    DECLARE_CLASS( RadarFrame )
+    DECLARE_CLASS( AisFrame )
     DECLARE_EVENT_TABLE()
 
 public:
-    RadarFrame( );
-    ~RadarFrame( );
+    AisFrame( );
+    ~AisFrame( );
     void Init();
     void Config(int min_radius);
     bool Create(  wxWindow *parent, aisradar_pi *ppi, wxWindowID id = wxID_ANY,

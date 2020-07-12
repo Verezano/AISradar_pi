@@ -52,22 +52,22 @@ static const int BASE_STATION = 3;
 //---------------------------------------------------------------------------------------
 //          Radar Dialog Implementation
 //---------------------------------------------------------------------------------------
-IMPLEMENT_CLASS ( RadarFrame, wxDialog )
+IMPLEMENT_CLASS ( AisFrame, wxDialog )
 
-BEGIN_EVENT_TABLE ( RadarFrame, wxDialog )
+BEGIN_EVENT_TABLE ( AisFrame, wxDialog )
 
-    EVT_CLOSE    ( RadarFrame::OnClose )
-    EVT_MOVE     ( RadarFrame::OnMove )
-    EVT_SIZE     ( RadarFrame::OnSize )
-//    EVT_PAINT    ( RadarFrame::paintEvent)
-    EVT_COMBOBOX ( cbRangeId, RadarFrame::OnRange)
-    EVT_CHECKBOX ( cbNorthUpId, RadarFrame::OnNorthUp )
-    EVT_CHECKBOX ( cbBearingLineId, RadarFrame::OnBearingLine )
-    EVT_TIMER    ( tmRefreshId, RadarFrame::OnTimer )
+    EVT_CLOSE    ( AisFrame::OnClose )
+    EVT_MOVE     ( AisFrame::OnMove )
+    EVT_SIZE     ( AisFrame::OnSize )
+//    EVT_PAINT    ( AisFrame::paintEvent)
+    EVT_COMBOBOX ( cbRangeId, AisFrame::OnRange)
+    EVT_CHECKBOX ( cbNorthUpId, AisFrame::OnNorthUp )
+    EVT_CHECKBOX ( cbBearingLineId, AisFrame::OnBearingLine )
+    EVT_TIMER    ( tmRefreshId, AisFrame::OnTimer )
 
 END_EVENT_TABLE()
 
-RadarFrame::RadarFrame() 
+AisFrame::AisFrame() 
 : pParent(0), 
     pPlugIn(0), 
     m_Timer(0), 
@@ -83,17 +83,17 @@ RadarFrame::RadarFrame()
     Init();
 }
 
-RadarFrame::~RadarFrame( ) {
+AisFrame::~AisFrame( ) {
 }
 
 
-void RadarFrame::Init() {
+void AisFrame::Init() {
     GetGlobalColor(_T("DILG1"), &m_BgColour);
     SetBackgroundColour(m_BgColour);
 }
 
 
-bool RadarFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
+bool AisFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
                               const wxString& caption, 
                               const wxPoint& pos, const wxSize& size )
 {
@@ -169,39 +169,39 @@ bool RadarFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
 }
 
 
-void RadarFrame::SetColourScheme(PI_ColorScheme cs) {
+void AisFrame::SetColourScheme(PI_ColorScheme cs) {
       GetGlobalColor(_T("DILG1"), &m_BgColour);
       SetBackgroundColour(m_BgColour);
       this->Refresh();
 }
 
 
-void RadarFrame::OnClose ( wxCloseEvent& event ) {
+void AisFrame::OnClose ( wxCloseEvent& event ) {
     // Stop timer if still running
     m_Timer->Stop();
     delete m_Timer;
     
     // Save window size
-    pPlugIn->SetRadarFrameX(m_pViewState->GetPos().x);
-    pPlugIn->SetRadarFrameY(m_pViewState->GetPos().y);
-    pPlugIn->SetRadarFrameSizeX(m_pViewState->GetSize().GetWidth());
-    pPlugIn->SetRadarFrameSizeY(m_pViewState->GetSize().GetHeight());
+    pPlugIn->SetAisFrameX(m_pViewState->GetPos().x);
+    pPlugIn->SetAisFrameY(m_pViewState->GetPos().y);
+    pPlugIn->SetAisFrameSizeX(m_pViewState->GetSize().GetWidth());
+    pPlugIn->SetAisFrameSizeY(m_pViewState->GetSize().GetHeight());
 
     // Cleanup
     RequestRefresh(pParent);
     Destroy();
-    pPlugIn->OnRadarFrameClose();
+    pPlugIn->OnAisFrameClose();
 }
 
 
-void RadarFrame::OnRange ( wxCommandEvent& event ) {
+void AisFrame::OnRange ( wxCommandEvent& event ) {
     pPlugIn->SetRadarRange(m_pRange->GetSelection());
     this->Refresh();
 }
 
 
 
-void RadarFrame::OnNorthUp ( wxCommandEvent& event ) {
+void AisFrame::OnNorthUp ( wxCommandEvent& event ) {
     pPlugIn->SetRadarNorthUp(m_pNorthUp->GetValue());
     if (m_pNorthUp->GetValue()) {
         m_Ebl += pPlugIn->GetCog();
@@ -212,17 +212,17 @@ void RadarFrame::OnNorthUp ( wxCommandEvent& event ) {
 }
 
 
-void RadarFrame::OnTimer( wxTimerEvent& event ) {
+void AisFrame::OnTimer( wxTimerEvent& event ) {
     this->Refresh();
 }
 
 
-void RadarFrame::OnBearingLine( wxCommandEvent& event ) {
+void AisFrame::OnBearingLine( wxCommandEvent& event ) {
     this->Refresh();
 }
 
 
-void RadarFrame::OnLeftMouse(const wxPoint &curpos) {
+void AisFrame::OnLeftMouse(const wxPoint &curpos) {
     if (m_pBearingLine->GetValue()) {
         int width      = max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
         int height     = max(m_pCanvas->GetSize().GetHeight(),(MIN_RADIUS)*2 );
@@ -242,7 +242,7 @@ void RadarFrame::OnLeftMouse(const wxPoint &curpos) {
 }
 
 
-void RadarFrame::OnMove ( wxMoveEvent& event ) {
+void AisFrame::OnMove ( wxMoveEvent& event ) {
     wxPoint p = event.GetPosition();
 
     // Save window position
@@ -251,7 +251,7 @@ void RadarFrame::OnMove ( wxMoveEvent& event ) {
 }
 
 
-void RadarFrame::OnSize ( wxSizeEvent& event ) {
+void AisFrame::OnSize ( wxSizeEvent& event ) {
     event.Skip();
     if( m_pCanvas )
     {
@@ -263,14 +263,14 @@ void RadarFrame::OnSize ( wxSizeEvent& event ) {
 }
 
 
-void RadarFrame::paintEvent(wxPaintEvent & event) {
+void AisFrame::paintEvent(wxPaintEvent & event) {
     wxAutoBufferedPaintDC   dc(m_pCanvas);
     render(dc);
     event.Skip();
 }
 
 
-void RadarFrame::render(wxDC& dc)     {
+void AisFrame::render(wxDC& dc)     {
     m_Timer->Start(RESTART);
     // Calculate the size based on paint area size, if smaller then the minimum
     // then the default minimum size applies
@@ -289,7 +289,7 @@ void RadarFrame::render(wxDC& dc)     {
 }
 
 
-void RadarFrame::TrimAisField(wxString *fld) {
+void AisFrame::TrimAisField(wxString *fld) {
     assert(fld);
     while (fld->Right(1)=='@' || fld->Right(1)==' ') {
         fld->RemoveLast();
@@ -297,7 +297,7 @@ void RadarFrame::TrimAisField(wxString *fld) {
 }
 
 
-void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius, ArrayOfPlugIn_AIS_Targets *AisTargets ) {
+void AisFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius, ArrayOfPlugIn_AIS_Targets *AisTargets ) {
     // Determine orientation
     double offset=pPlugIn->GetCog();
     if (m_pNorthUp->GetValue()) {
@@ -340,7 +340,7 @@ void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius
     }
 }
 
-void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) {
+void AisFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) {
     // Draw the circles
     dc.SetBackground(wxBrush(m_BgColour));
     dc.Clear();

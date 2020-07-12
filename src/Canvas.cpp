@@ -41,7 +41,7 @@ BEGIN_EVENT_TABLE(Canvas, wxPanel)
  EVT_PAINT (Canvas::paintEvent) 
 END_EVENT_TABLE()
  
-Canvas::Canvas(wxWindow *parent, RadarFrame *view, 
+Canvas::Canvas(wxWindow *parent, AisFrame *view, 
     wxWindowID id, const wxPoint& pos, const wxSize& size) 
 : wxPanel(parent, id, pos, size), 
     pv(view),
