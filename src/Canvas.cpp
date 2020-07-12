@@ -45,7 +45,7 @@ Canvas::Canvas(wxWindow *parent, AisFrame *view,
     wxWindowID id, const wxPoint& pos, const wxSize& size) 
 : wxPanel(parent, id, pos, size), 
     pv(view),
-	MouseDown(false),
+    MouseDown(false),
     Parent(view)
 {
 }

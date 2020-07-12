@@ -2,7 +2,7 @@
  * $Id:  $
  *
  * Project:  OpenCPN
- * Purpose:  Radar Plugin 
+ * Purpose:  Ais view Plugin 
  * Author:   Johan van der Sman
  *
  ***************************************************************************
@@ -99,7 +99,7 @@ public:
     void Init();
     void Config(int min_radius);
     bool Create(  wxWindow *parent, aisradar_pi *ppi, wxWindowID id = wxID_ANY,
-    const wxString& caption = _("Radar Display"), 
+    const wxString& caption = _("Ais Display"), 
     const wxPoint& pos = wxDefaultPosition,
     const wxSize& size = wxDefaultSize );
     void SetColourScheme(PI_ColorScheme cs);
@@ -109,7 +109,7 @@ public:
 private:
     void OnClose(wxCloseEvent& event);
     void OnRange( wxCommandEvent& event );
-	void OnNorthUp( wxCommandEvent& event );
+    void OnNorthUp( wxCommandEvent& event );
     void OnBearingLine( wxCommandEvent& event );
     void OnTimer( wxTimerEvent& event );
     void OnMove( wxMoveEvent& event );

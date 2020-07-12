@@ -2,7 +2,7 @@
  * $Id:   $
  *
  * Project:  OpenCPN
- * Purpose:  RadarView Object
+ * Purpose:  AisView Object
  * Author:   Johan van der Sman
  *
  ***************************************************************************
@@ -50,7 +50,7 @@ static const int RESTART  = -1;
 static const int BASE_STATION = 3;
 
 //---------------------------------------------------------------------------------------
-//          Radar Dialog Implementation
+//          Ais Dialog Implementation
 //---------------------------------------------------------------------------------------
 IMPLEMENT_CLASS ( AisFrame, wxDialog )
 
@@ -144,14 +144,14 @@ bool AisFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
     m_pRange->Append(wxT("12")  );
     m_pRange->Append(wxT("16")  );
     m_pRange->Append(wxT("32")  );
-    m_pRange->SetSelection(pPlugIn->GetRadarRange());
+    m_pRange->SetSelection(pPlugIn->GetAisRange());
     controls->Add(m_pRange);
 
     wxStaticText *st2 = new wxStaticText(panel,wxID_ANY,_("Nautical Miles"));
     controls->Add(st2,0,wxRIGHT|wxLEFT,5);
 
     m_pNorthUp = new wxCheckBox(panel, cbNorthUpId, _("North Up"));
-    m_pNorthUp->SetValue(pPlugIn->GetRadarNorthUp());
+    m_pNorthUp->SetValue(pPlugIn->GetAisNorthUp());
     controls->Add(m_pNorthUp, 0, wxLEFT, 10);
 
     m_pBearingLine = new wxCheckBox(panel, cbBearingLineId, _("EBL"));
@@ -195,14 +195,14 @@ void AisFrame::OnClose ( wxCloseEvent& event ) {
 
 
 void AisFrame::OnRange ( wxCommandEvent& event ) {
-    pPlugIn->SetRadarRange(m_pRange->GetSelection());
+    pPlugIn->SetAisRange(m_pRange->GetSelection());
     this->Refresh();
 }
 
 
 
 void AisFrame::OnNorthUp ( wxCommandEvent& event ) {
-    pPlugIn->SetRadarNorthUp(m_pNorthUp->GetValue());
+    pPlugIn->SetAisNorthUp(m_pNorthUp->GetValue());
     if (m_pNorthUp->GetValue()) {
         m_Ebl += pPlugIn->GetCog();
     } else {

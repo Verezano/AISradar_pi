@@ -10,7 +10,7 @@
 extern void initialize_my_images(void);
 extern void cleanup_my_images(void);
 
-extern wxBitmap *_img_radar;
-extern wxBitmap *_img_aisradar_pi;
+extern wxBitmap *_img_ais;
+extern wxBitmap *_img_ais_pi;
 
 #endif /* MY_ICONS_H */
