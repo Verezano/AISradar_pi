@@ -189,7 +189,6 @@ bool Target::Render( wxDC& dc ) {
         // Rotate the target image to reflect its course
         // ignore base stations
         wxBitmap bm = wxBitmap( *TargetImg[1] );
-        int size = bm.GetHeight() / 4;
         if (State==0 && Name.StartsWith(wxT("Unknown"))) {
 			State=(plugin_ais_alarm_type)3;
 		}

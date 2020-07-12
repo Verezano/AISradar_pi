@@ -3,7 +3,6 @@ AIS Radar View plug-in for OpenCPN
 
 Compiling
 ---------
-* This plugin now builds out of the OpenCPN source tree
 ```
 git clone https://github.com/Verezano/radar_pi.git
 ```
