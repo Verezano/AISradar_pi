@@ -258,6 +258,7 @@ void AisFrame::OnMouseScroll( const int rotation ) {
     if ( rotation < 0 && cur < int(m_pRange->GetCount()) - 1 ) {
         m_pRange->SetSelection(++cur);
     }
+    this->Refresh();
 }
 
 
