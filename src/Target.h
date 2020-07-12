@@ -74,13 +74,13 @@ typedef enum ais_transponder_class
 {
     AIS_CLASS_A = 0,
     AIS_CLASS_B,
-    AIS_ATON,    // Aid to Navigation   pjotrc 2010/02/01
-    AIS_BASE,     // Base station
+    AIS_ATON,       // Aid to Navigation   pjotrc 2010/02/01
+    AIS_BASE,       // Base station
     AIS_GPSG_BUDDY, // GpsGate Buddy object
-    AIS_DSC,	// DSC target
-    AIS_SART,   // SART
-    AIS_ARPA,    // ARPA radar target
-    AIS_APRS    // APRS position report
+    AIS_DSC,        // DSC target
+    AIS_SART,       // SART
+    AIS_ARPA,       // ARPA radar target
+    AIS_APRS        // APRS position report
 }_ais_transponder_class;
 
 //    Describe AIS Alert state

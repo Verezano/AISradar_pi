@@ -130,7 +130,7 @@ void Target::SetState(int mmsi, wxString name, double  dist,
     Tclass = tclass;
     Tstatus = tstatus;
     // There are only 3 images so only accept state that match these images
-	// State 3 wil be assigned later
+    // State 3 wil be assigned later
     if (state>=0 && state<3) {
         State=state;
     }
@@ -190,13 +190,13 @@ bool Target::Render( wxDC& dc ) {
         // ignore base stations
         wxBitmap bm = wxBitmap( *TargetImg[1] );
         if (State==0 && Name.StartsWith(wxT("Unknown"))) {
-			State=(plugin_ais_alarm_type)3;
-		}
+            State=(plugin_ais_alarm_type)3;
+        }
         if (Tclass==AIS_BASE) {
             bm= wxBitmap(*BaseImg);
         } else if (Tclass==AIS_CLASS_B) {
             bm= wxBitmap(YachtImg[State]->Rotate(-ScrCog,TargetCenter));
-		} else {
+        } else {
             bm= wxBitmap(TargetImg[State]->Rotate(-ScrCog,TargetCenter));
         }
 

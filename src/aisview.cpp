@@ -294,7 +294,7 @@ void AisFrame::render(wxDC& dc)     {
     //    m_pCanvas->SetBackgroundColour (m_BgColour);
     renderRange(dc, center, size, radius);
     ArrayOfPlugIn_AIS_Targets *AisTargets = pPlugIn->GetAisTargets();
-	if ( AisTargets->GetCount() > 0 ) {
+    if ( AisTargets->GetCount() > 0 ) {
         renderBoats(dc, center, size, radius, AisTargets);
     }
 }
@@ -322,10 +322,9 @@ void AisFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius, 
     int    m_CogArrowMinutes=pPlugIn->GetCogArrowMinutes();
 
     // Show other boats and base stations
-    Target    dt;
-//    ArrayOfPlugIn_AIS_Targets *AisTargets = pPlugIn->GetAisTargets();
-    PlugIn_AIS_Target *t;
-    ArrayOfPlugIn_AIS_Targets::iterator it;
+    Target                                dt;
+    PlugIn_AIS_Target                    *t;
+    ArrayOfPlugIn_AIS_Targets::iterator   it;
     wxString  Name;
 
     // Set generic details for all targets
@@ -357,7 +356,7 @@ void AisFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) 
     dc.Clear();
     dc.SetBrush(wxBrush(wxColour(0,0,0),wxBRUSHSTYLE_TRANSPARENT));
     dc.SetPen( wxPen( wxColor(128,128,128), 1, wxPENSTYLE_SOLID ) );
-	dc.DrawCircle( center, radius);
+    dc.DrawCircle( center, radius);
     dc.SetPen( wxPen( wxColor(128,128,128), 1, wxPENSTYLE_DOT ) );
     dc.DrawCircle( center, radius*0.75 );
     dc.DrawCircle( center, radius*0.50 );
@@ -377,12 +376,11 @@ void AisFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) 
     dc.SetFont(fnt);
     float Range=RangeData[m_pRange->GetSelection()];
     dc.DrawText(wxString::Format(wxT("%s %2.2f"), _("Range"),Range  ), 0, 0); 
- //   dc.DrawText(wxString::Format(wxT("%s %2.2f"), _("Ring "), Range/4), 0, fh+TEXT_MARGIN); 
 
     // Draw the orientation info
-	wxString dir;
-	if (m_pNorthUp->GetValue()) {
-		dir=_("North Up");
+    wxString dir;
+    if (m_pNorthUp->GetValue()) {
+        dir=_("North Up");
         // Draw north, east, south and west indicators
         dc.SetTextForeground(wxColour(128,128,128));
         dc.DrawText(_("N"), size.GetWidth()/2 + 5, 0);

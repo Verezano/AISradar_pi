@@ -34,7 +34,7 @@
  
 class Canvas : public wxPanel {
 private:
-	Canvas() {};  // forbidden
+    Canvas() {};  // forbidden
 public:
     Canvas(wxWindow *parent, AisFrame *view, wxWindowID id, const wxPoint& pos, const wxSize& size); 
     void mouseMoved(wxMouseEvent& event);

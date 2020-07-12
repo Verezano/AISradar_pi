@@ -82,10 +82,9 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     m_ais_show_icon(true),
     m_ais_use_ais(true),
     m_ais_north_up(false),
-    m_pAisShowIcon(0),	
+    m_pAisShowIcon(0),
     m_pAisUseAis(0)
 {
-    AisTargets = NULL;
     initialize_my_images();
 }
 
@@ -113,8 +112,8 @@ int aisradar_pi::Init(void) {
     if (AisTargets) {  // Init may be called more than once, check for cleanup
         WX_CLEAR_ARRAY(*AisTargets);     
         delete AisTargets;
-	}
-	AisTargets = GetAISTargetArray();
+    }
+    AisTargets = GetAISTargetArray();
     m_parent_window = GetOCPNCanvasWindow();
     if(m_ais_show_icon) {
         m_leftclick_tool_id  = InsertPlugInTool(_T(""), 
@@ -259,7 +258,7 @@ void aisradar_pi::OnToolbarToolCallback(int id) {
         m_pAisFrame->Create ( m_parent_window, 
             this, 
             -1,
-			wxString::Format(_T("AIS Radar View %d.%d"), 
+            wxString::Format(_T("AIS Radar View %d.%d"), 
                 PLUGIN_VERSION_MAJOR, 
                 PLUGIN_VERSION_MINOR
             ),
@@ -293,12 +292,12 @@ void aisradar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {
     if ( m_lat != pfix.Lat || m_lon != pfix.Lon || m_cog != pfix.Cog || m_sog != pfix.Sog ) {
         m_lat  = pfix.Lat;
         m_lon  = pfix.Lon;
-		if (pfix.Cog>=0.0) {
+        if (pfix.Cog>=0.0) {
             m_cog  = pfix.Cog;
-		}
-		if (pfix.Sog>=0.0) {
+        }
+        if (pfix.Sog>=0.0) {
             m_sog  = pfix.Sog;
-		}
+        }
         m_sats = pfix.nSats;
         if ( m_pAisFrame ) {
             m_pAisFrame->Refresh();
