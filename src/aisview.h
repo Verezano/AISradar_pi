@@ -104,6 +104,7 @@ public:
     const wxSize& size = wxDefaultSize );
     void SetColourScheme(PI_ColorScheme cs);
     void OnLeftMouse( const wxPoint &curpos );
+    void OnMouseScroll( const int rotation );
     void paintEvent( wxPaintEvent& event );
 
 private:

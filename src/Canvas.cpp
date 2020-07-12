@@ -38,6 +38,7 @@ BEGIN_EVENT_TABLE(Canvas, wxPanel)
  EVT_MOTION(Canvas::mouseMoved)
  EVT_LEFT_DOWN(Canvas::mouseDown)
  EVT_LEFT_UP(Canvas::mouseReleased) 
+ EVT_MOUSEWHEEL(Canvas::mouseScroll)
  EVT_PAINT (Canvas::paintEvent) 
 END_EVENT_TABLE()
  
@@ -72,6 +73,14 @@ void Canvas::mouseDown(wxMouseEvent& event) {
 
 void Canvas::mouseReleased(wxMouseEvent& event) {
     MouseDown=false;
+    event.Skip();
+}
+
+
+void Canvas::mouseScroll(wxMouseEvent& event) {
+    if (pv) {
+       pv->OnMouseScroll(event.GetWheelRotation());
+    }
     event.Skip();
 }
 

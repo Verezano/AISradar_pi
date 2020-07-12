@@ -40,13 +40,14 @@ public:
     void mouseMoved(wxMouseEvent& event);
     void mouseDown(wxMouseEvent& event);
     void mouseReleased(wxMouseEvent& event);
+    void mouseScroll(wxMouseEvent& event);
     void paintEvent(wxPaintEvent& event);
     DECLARE_EVENT_TABLE()
 
 private:
     AisFrame    *pv;
     bool         MouseDown;
-    AisFrame  *Parent;
+    AisFrame    *Parent;
 };
 
 #endif

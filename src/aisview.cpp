@@ -59,7 +59,6 @@ BEGIN_EVENT_TABLE ( AisFrame, wxDialog )
     EVT_CLOSE    ( AisFrame::OnClose )
     EVT_MOVE     ( AisFrame::OnMove )
     EVT_SIZE     ( AisFrame::OnSize )
-//    EVT_PAINT    ( AisFrame::paintEvent)
     EVT_COMBOBOX ( cbRangeId, AisFrame::OnRange)
     EVT_CHECKBOX ( cbNorthUpId, AisFrame::OnNorthUp )
     EVT_CHECKBOX ( cbBearingLineId, AisFrame::OnBearingLine )
@@ -248,6 +247,17 @@ void AisFrame::OnMove ( wxMoveEvent& event ) {
     // Save window position
     m_pViewState->SetPos(wxPoint(p.x, p.y));
     event.Skip();
+}
+
+
+void AisFrame::OnMouseScroll( const int rotation ) {
+    int cur = m_pRange->GetSelection();
+    if ( rotation > 0 && cur > 0 ) {
+        m_pRange->SetSelection(--cur);
+    }
+    if ( rotation < 0 && cur < int(m_pRange->GetCount()) - 1 ) {
+        m_pRange->SetSelection(++cur);
+    }
 }
 
 

@@ -120,11 +120,8 @@ int aisradar_pi::Init(void) {
             _img_ais_pi, 
             _img_ais, 
             wxITEM_NORMAL, 
-			wxString::Format(_T("AIS Radar View %d.%d"), 
-                PLUGIN_VERSION_MAJOR, 
-                PLUGIN_VERSION_MINOR
-            ), 
-			_T(""), 
+            _T("AIS View"), 
+            _T(""), 
             0,
             AIS_TOOL_POSITION, 
             0,
@@ -167,7 +164,7 @@ int aisradar_pi::GetPlugInVersionMinor() {
 
 
 wxBitmap *aisradar_pi::GetPlugInBitmap() {
-    return _img_ais;
+    return _img_ais_pi;
 }
 
 
@@ -189,9 +186,16 @@ wxString aisradar_pi::GetLongDescription() {
 void aisradar_pi::SetDefaults(void) {
     if(!m_ais_show_icon) {
         m_ais_show_icon = true;
-        m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais, _img_ais, wxITEM_NORMAL,
-              _("AIS view"), _T(""), 0,
-               AIS_TOOL_POSITION, 0, this
+        m_leftclick_tool_id  = InsertPlugInTool(_T(""), 
+            _img_ais_pi, 
+            _img_ais, 
+            wxITEM_NORMAL, 
+            _T("AIS View"), 
+            _T(""), 
+            0,
+            AIS_TOOL_POSITION, 
+            0,
+            this
         );
     }
 }
@@ -229,14 +233,13 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
     wxStdDialogButtonSizer* DialogButtonSizer = dialog->CreateStdDialogButtonSizer(wxOK|wxCANCEL);
     PanelSizer->Add(DialogButtonSizer, 0, wxALIGN_RIGHT|wxALL, 5);
     dialog->Fit();
-
     if(dialog->ShowModal() == wxID_OK)       {
          //    Show Icon changed value?
          if(m_ais_show_icon != m_pAisShowIcon->GetValue()) {
               m_ais_show_icon= m_pAisShowIcon->GetValue();
               if(m_ais_show_icon) {
-                  m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais, _img_ais, wxITEM_NORMAL,
-                      _("Ais"), _T(""), 0, AIS_TOOL_POSITION,
+                  m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais, wxITEM_NORMAL,
+                      _("Ais view"), _T(""), 0, AIS_TOOL_POSITION,
                       0, this);
               } else {
                    RemovePlugInTool(m_leftclick_tool_id);
