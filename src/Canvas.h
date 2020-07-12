@@ -30,7 +30,7 @@
 #ifndef _CANVAS_H_
 #define _CANVAS_H_
 
-#include "aisradar.h"
+#include "aisview.h"
  
 class Canvas : public wxPanel {
 private:

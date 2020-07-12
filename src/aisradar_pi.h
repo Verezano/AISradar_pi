@@ -41,7 +41,7 @@
 #define     MY_API_VERSION_MINOR    9
 
 #include "ocpn_plugin.h"
-#include "aisradar.h"
+#include "aisview.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition

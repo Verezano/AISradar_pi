@@ -17,9 +17,9 @@ SET(TITLE_NAME AISRadar)
 SET(CPACK_PACKAGE_CONTACT "Johan Sman")
 
 SET(VERSION_MAJOR "1")
-SET(VERSION_MINOR "1")
+SET(VERSION_MINOR "2")
 SET(VERSION_PATCH "1")
-SET(VERSION_DATE "2019-06-12")
+SET(VERSION_DATE "2020-07-12")
 SET(OCPN_VERSION "ov42")
 
 #SET(CMAKE_BUILD_TYPE Debug)
@@ -29,8 +29,8 @@ INCLUDE("cmake/PluginConfigure.cmake")
 SET(SRC_AISRADAR
       src/aisradar_pi.h
       src/aisradar_pi.cpp
-      src/aisradar.h
-      src/aisradar.cpp
+      src/aisview.h
+      src/aisview.cpp
       src/my_icons.h
       src/my_icons.cpp
       src/Canvas.h
