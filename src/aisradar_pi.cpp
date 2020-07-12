@@ -117,7 +117,7 @@ int aisradar_pi::Init(void) {
     m_parent_window = GetOCPNCanvasWindow();
     if(m_ais_show_icon) {
         m_leftclick_tool_id  = InsertPlugInTool(_T(""), 
-            _img_ais, 
+            _img_ais_pi, 
             _img_ais, 
             wxITEM_NORMAL, 
 			wxString::Format(_T("AIS Radar View %d.%d"), 
@@ -167,7 +167,7 @@ int aisradar_pi::GetPlugInVersionMinor() {
 
 
 wxBitmap *aisradar_pi::GetPlugInBitmap() {
-    return _img_ais_pi;
+    return _img_ais;
 }
 
 
