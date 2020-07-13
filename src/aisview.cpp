@@ -30,8 +30,6 @@
 #include <wx/debug.h>
 #include <wx/fileconf.h>
 #include <math.h>
-#define min(a,b)  ( (a>b)? b : a)
-#define max(a,b)  ( (a>b)? a : b)
 #include "aisradar_pi.h"
 #include "Canvas.h"
 
@@ -47,7 +45,6 @@ enum    Ids { cbRangeId = 10001,
 };
 
 static const int RESTART  = -1;
-static const int BASE_STATION = 3;
 
 //---------------------------------------------------------------------------------------
 //          Ais Dialog Implementation
@@ -223,8 +220,8 @@ void AisFrame::OnBearingLine( wxCommandEvent& event ) {
 
 void AisFrame::OnLeftMouse(const wxPoint &curpos) {
     if (m_pBearingLine->GetValue()) {
-        int width      = max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
-        int height     = max(m_pCanvas->GetSize().GetHeight(),(MIN_RADIUS)*2 );
+        int width      = std::max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
+        int height     = std::max(m_pCanvas->GetSize().GetHeight(),(MIN_RADIUS)*2 );
         wxPoint center(width/2, height/2);
         int dx = curpos.x - center.x;
         int dy = center.y - curpos.y;    // top of screen y=0
@@ -285,11 +282,11 @@ void AisFrame::render(wxDC& dc)     {
     m_Timer->Start(RESTART);
     // Calculate the size based on paint area size, if smaller then the minimum
     // then the default minimum size applies
-    int width  = max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
-    int height = max(m_pCanvas->GetSize().GetHeight(),(MIN_RADIUS)*2 );
+    int width  = std::max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
+    int height = std::max(m_pCanvas->GetSize().GetHeight(),(MIN_RADIUS)*2 );
     wxSize       size(width, height);
     wxPoint      center(width/2, height/2);
-    int radius = max((min(width,height)/2),MIN_RADIUS);
+    int radius = std::max((std::min(width,height)/2),MIN_RADIUS);
     
     //    m_pCanvas->SetBackgroundColour (m_BgColour);
     renderRange(dc, center, size, radius);
@@ -336,7 +333,7 @@ void AisFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius, 
         // Only display well defined targets
         if (t->Range_NM>0.0 && t->Brg>0.0) {
             if (m_ShowMoored 
-                || t->Class == BASE_STATION
+                || t->Class == AIS_BASE
                 ||(!m_ShowMoored && t->SOG > m_MooredSpeed)
             ) {
                 Name     = wxString::From8BitData(t->ShipName);
