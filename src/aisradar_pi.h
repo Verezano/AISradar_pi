@@ -6,7 +6,7 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2015 Johan van der Sman                                 *
+ *   Copyright (C) 2015 - 2020 Johan van der Sman                          *
  *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -38,7 +38,7 @@
 #include "version.h"
 
 #define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    9
+#define     MY_API_VERSION_MINOR    16
 
 #include "ocpn_plugin.h"
 #include "aisview.h"
@@ -47,9 +47,9 @@
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
 
-#define AIS_TOOL_POSITION    -1          // Request default positioning of toolbar tool
+#define AISVIEW_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class aisradar_pi : public opencpn_plugin_19
+class aisradar_pi : public opencpn_plugin_116
 {
 public:
     aisradar_pi(void *ppimgr);
@@ -121,6 +121,7 @@ private:
     bool              m_ais_north_up;
     wxCheckBox       *m_pAisShowIcon;
     wxCheckBox       *m_pAisUseAis;
+	wxBitmap          m_panelBitmap;
 };
 
 #endif

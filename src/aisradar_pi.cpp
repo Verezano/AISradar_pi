@@ -6,7 +6,7 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2015 Johan van der Sman                                 *
+ *   Copyright (C) 2015 - 2020 Johan van der Sman                          *
  *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -51,7 +51,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) {
 //    Ais PlugIn Implementation
 //
 //---------------------------------------------------------------------------------------------------------
-#include "my_icons.h"
+#include "icons.h"
 
 
 //---------------------------------------------------------------------------------------------------------
@@ -61,7 +61,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) {
 //---------------------------------------------------------------------------------------------------------
 
 aisradar_pi::aisradar_pi(void *ppimgr) 
-: opencpn_plugin_19(ppimgr), 
+: opencpn_plugin_116(ppimgr), 
     m_pconfig(0), 
     m_parent_window(0),
     m_pAisFrame(0),
@@ -85,7 +85,17 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     m_pAisShowIcon(0),
     m_pAisUseAis(0)
 {
-    initialize_my_images();
+    initialize_images();
+	wxString shareLocn = *GetpSharedDataLocation() +
+        _T("plugins") + wxFileName::GetPathSeparator() +
+        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
+        _T("data") + wxFileName::GetPathSeparator();
+    wxImage panelIcon(  shareLocn + _T("aisview_panel_icon.png"));
+    if(panelIcon.IsOk())
+        m_panelBitmap = wxBitmap(panelIcon);
+    else
+        wxLogMessage(_T("    AISVIEW panel icon NOT loaded"));
+		m_panelBitmap = *_img_ais_pi;
 }
 
 
@@ -113,21 +123,13 @@ int aisradar_pi::Init(void) {
         WX_CLEAR_ARRAY(*AisTargets);     
         delete AisTargets;
     }
-    AisTargets = GetAISTargetArray();
     m_parent_window = GetOCPNCanvasWindow();
     if(m_ais_show_icon) {
-        m_leftclick_tool_id  = InsertPlugInTool(_T(""), 
-            _img_ais_pi, 
-            _img_ais, 
-            wxITEM_NORMAL, 
-            _T("AIS View"), 
-            _T(""), 
-            0,
-            AIS_TOOL_POSITION, 
-            0,
-            this
-        );
-    }
+        m_leftclick_tool_id  = InsertPlugInTool(_T(""), &m_panelBitmap, &m_panelBitmap, wxITEM_NORMAL,
+               _T("AisView"), _T("Plugin for radar style view on AIS targets"), NULL,
+               AISVIEW_TOOL_POSITION, 0, this);
+   }
+    AisTargets = GetAISTargetArray();
     return (WANTS_TOOLBAR_CALLBACK | INSTALLS_TOOLBAR_TOOL |
          WANTS_CONFIG | WANTS_PREFERENCES | WANTS_AIS_SENTENCES  |
          WANTS_NMEA_EVENTS | WANTS_PLUGIN_MESSAGING | USES_AUI_MANAGER
@@ -164,7 +166,7 @@ int aisradar_pi::GetPlugInVersionMinor() {
 
 
 wxBitmap *aisradar_pi::GetPlugInBitmap() {
-    return _img_ais_pi;
+	return &m_panelBitmap;
 }
 
 
@@ -184,20 +186,6 @@ wxString aisradar_pi::GetLongDescription() {
 
 
 void aisradar_pi::SetDefaults(void) {
-    if(!m_ais_show_icon) {
-        m_ais_show_icon = true;
-        m_leftclick_tool_id  = InsertPlugInTool(_T(""), 
-            _img_ais_pi, 
-            _img_ais, 
-            wxITEM_NORMAL, 
-            _T("AIS View"), 
-            _T(""), 
-            0,
-            AIS_TOOL_POSITION, 
-            0,
-            this
-        );
-    }
 }
 
 
@@ -238,8 +226,8 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
          if(m_ais_show_icon != m_pAisShowIcon->GetValue()) {
               m_ais_show_icon= m_pAisShowIcon->GetValue();
               if(m_ais_show_icon) {
-                  m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais, wxITEM_NORMAL,
-                      _("Ais view"), _T(""), 0, AIS_TOOL_POSITION,
+                  m_leftclick_tool_id  = InsertPlugInTool(_T(""), &m_panelBitmap, &m_panelBitmap, wxITEM_NORMAL,
+                      _("Ais view"), _T(""), 0, AISVIEW_TOOL_POSITION,
                       0, this);
               } else {
                    RemovePlugInTool(m_leftclick_tool_id);
