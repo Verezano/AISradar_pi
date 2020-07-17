@@ -19,8 +19,8 @@ SET(CPACK_PACKAGE_CONTACT "Johan Sman")
 SET(VERSION_MAJOR "1")
 SET(VERSION_MINOR "2")
 SET(VERSION_PATCH "1")
-SET(VERSION_DATE "2020-07-12")
-SET(OCPN_VERSION "ov42")
+SET(VERSION_DATE "2020-07-17")
+SET(OCPN_VERSION "ov50")
 
 #SET(CMAKE_BUILD_TYPE Debug)
 
@@ -31,8 +31,8 @@ SET(SRC_AISRADAR
       src/aisradar_pi.cpp
       src/aisview.h
       src/aisview.cpp
-      src/my_icons.h
-      src/my_icons.cpp
+      src/icons.h
+      src/icons.cpp
       src/Canvas.h
       src/Canvas.cpp
       src/Target.h
