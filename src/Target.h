@@ -6,7 +6,7 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2015 Johan van der Sman                                 *
+ *   Copyright (C) 2015 - 2020 Johan van der Sman                          *
  *   hannes@andcrew.nl                                                     *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -106,6 +106,10 @@ public:
                     );
     bool Render( wxDC& dc);                                       // render the target
 
+private:
+    void DrawShape(wxDC& dc, int x, int y, double cog, plugin_ais_alarm_type state);
+
+	
 private:
     plugin_ais_alarm_type     State;
     wxPoint                   CanvasCenter;
