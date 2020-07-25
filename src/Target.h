@@ -107,7 +107,10 @@ public:
     bool Render( wxDC& dc);                                       // render the target
 
 private:
-    void DrawShape(wxDC& dc, int x, int y, double cog, plugin_ais_alarm_type state);
+    void DrawSpeedVector(wxDC& dc, const int x, const int y, const double cog);
+	void DrawSpecialState(wxDC& dc, const int x, const int y, const double cog);
+	void ShowName(wxDC& dc, const int x, const int y);
+    void DrawShape(wxDC& dc, const int x, const int y, const double cog);
 
 	
 private:

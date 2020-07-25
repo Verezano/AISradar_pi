@@ -142,13 +142,119 @@ void Target::SetState(int mmsi, wxString name, double  dist,
     Rot=rot;
 }
 
+void Target::DrawSpeedVector(wxDC& dc, const int x, const int y, const double cog) {
+    // Draw the speed vector
+    if ( ShowArrow && Sog > 0.2 ) {
+        int vsize  = ((double)ArrowMinutes/60)* Sog / Range * (double)Radius ;
+        int vx    = x + sin(cog) * vsize;
+        int vy    = y - cos(cog) * vsize;
+        dc.SetPen( wxPen( wxColor(0,0,0), 2, wxPENSTYLE_SOLID ) );
+        dc.DrawLine(x,y,vx,vy);
 
-void Target::DrawShape(wxDC& dc, int x, int y, double cog, plugin_ais_alarm_type state) {
+        // and the rate of turn vector
+        if ( Rot != 0 && Rot != -128 ) {
+            double rotangle = cog;
+            if ( Rot > 0 ) {
+                rotangle += (double)3.141592653589/2.;
+            } else {
+                rotangle -= (double)3.141592653589/2.;
+            }
+            int nx = vx + sin(rotangle) * VECTOR_SIZE;
+            int ny = vy - cos(rotangle) * VECTOR_SIZE;
+            dc.SetPen( wxPen( wxColor(0,0,0), 2, wxPENSTYLE_SOLID ) );
+            dc.DrawLine(vx,vy,nx,ny);
+        }
+    }
+}
+
+
+void Target::DrawSpecialState(wxDC &dc, const int x, const int y, const double cog) {
+	Tstatus = RESTRICTED_MANOEUVRABILITY;
+	// Check normal state, if so no further action required
+	if (Tstatus == UNDERWAY_USING_ENGINE) return;
+
+	// set a pen and color to draw with
+    dc.SetPen( wxPen( wxColor( 0, 0, 0 ), 2, wxPENSTYLE_SOLID ) );
+    dc.SetBrush( wxBrush( wxColor( 0, 0, 0 ), wxBRUSHSTYLE_SOLID ) );
+
+	// calculate drawing postion
+    int symSize = TargetHeight / 4; 
+    // rotate the symbol the same way as the image
+    double xSym = x + ( ( symSize * 0.75 ) * cos( cog + M_PI / 2 ) );
+    double ySym = y + ( ( symSize * 0.75 ) * sin( cog + M_PI / 2 ) );
+
+	// Setup polygons outside the case statement
+	wxPoint  sqSym[4] = { wxPoint(0, -0.5*symSize ), wxPoint(0.5 * symSize, -1*symSize), wxPoint(symSize, -0.5*symSize), wxPoint(0.5*symSize, 0) };
+    wxPoint  fishSym[4] = { wxPoint(0, 0), wxPoint(symSize, -2*symSize), wxPoint(0, -2*symSize), wxPoint(symSize, 0) };
+			
+    // Draw the symbol for the specific status
+    switch (Tstatus) {
+		case UNDEFINED:
+//		    dc.DrawRectangle( (int) xSym, (int) ySym, 1, 1 );
+			break;
+        case AT_ANCHOR:
+        case MOORED:
+            // shift symbol to center
+            xSym = 0.5 + xSym - symSize / 2.0;
+            ySym = 0.5 + ySym - symSize / 2.0;
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize );
+            break;
+        case NOT_UNDER_COMMAND:
+            // shift symbol to center
+            xSym = 0.5 + xSym - symSize / 2.0;
+            ySym = 0.5 + ySym - symSize / 2.0;
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-symSize-1, symSize, symSize, symSize );
+            break;
+        case RESTRICTED_MANOEUVRABILITY:
+
+            // shift symbol to center
+            xSym = 0.5 + xSym - symSize / 2.0;
+            ySym = 0.5 + ySym - symSize / 2.0;
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize );
+		    dc.DrawPolygon( WXSIZEOF(sqSym), sqSym, (int) xSym, (int) ySym-2, wxODDEVEN_RULE );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-2*symSize-3, symSize, symSize, symSize );
+            break;
+        case CONSTRAINED_BY_DRAFT:
+            // shift symbol to center
+            xSym = 0.5 + xSym - symSize / 2.0;
+		    dc.DrawRectangle( (int) xSym, (int) ySym - 2*symSize, symSize, symSize*2 );
+            break;
+        case AGROUND:
+            // shift symbol to center
+            xSym = 0.5 + xSym - symSize / 2.0;
+            ySym = 0.5 + ySym - symSize / 2.0;
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-symSize-1, symSize, symSize, symSize );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-2*symSize-2, symSize, symSize, symSize );
+            break;
+        case FISHING:
+			dc.DrawPolygon( WXSIZEOF( fishSym ), fishSym, xSym - symSize/2, ySym, wxODDEVEN_RULE );
+            break;
+        // default nothing to display
+    }    
+}
+
+
+void Target::ShowName(wxDC& dc, const int x, const int y) {
+        wxFont fnt = dc.GetFont();
+        fnt.SetPointSize(8);
+        dc.SetFont(fnt);
+        if (Name.StartsWith(wxT("Unknown"))) {
+            dc.DrawText(wxString::Format(wxT("%07d"),Mmsi), x+15,y-5);
+        } else {
+            dc.DrawText(Name, x+10,y-5);
+        }    
+}
+
+
+void Target::DrawShape(wxDC& dc, const int x, const int y, const double cog) {
+        DrawSpeedVector(dc, x, y, cog);
         // Rotate the target image to reflect its course
         // ignore base stations
         wxBitmap bm = wxBitmap( *TargetImg[1] );
-        if (state==0 && Name.StartsWith(wxT("Unknown"))) {
-            state=(plugin_ais_alarm_type)3;
+        if (State==0 && Name.StartsWith(wxT("Unknown"))) {
+            State=(plugin_ais_alarm_type)3;
         }
         if (Tclass==AIS_BASE) {
             bm= wxBitmap(*BaseImg);
@@ -163,7 +269,9 @@ void Target::DrawShape(wxDC& dc, int x, int y, double cog, plugin_ais_alarm_type
         int cy = y - bm.GetHeight()/2;
 
         // Draw the target image and id
-        dc.DrawBitmap(bm, cx,cy);	
+        dc.DrawBitmap(bm, cx,cy);
+        DrawSpecialState(dc, x, y, cog);		
+        ShowName(dc, x, y);
 }
 
  
@@ -179,60 +287,14 @@ bool Target::Render( wxDC& dc ) {
         if (Dist>(double)0.) {
             // Calculate the drawing position using trigonometry
             double delta= Dist/Range*(double)Radius;
-            double angle=(Brg-Mycog)*(double)((double)3.141592653589/(double)180.);
+            double angle=wxDegToRad(Brg-Mycog);
             x += sin(angle) * delta;
             y -= cos(angle) * delta;
         }
         double targetHdt = Cog;
         // Calculate the targets direction on the screen
         double ScrCog = wxDegToRad(targetHdt-Mycog);
-
-        // Draw the speed vector
-        if ( ShowArrow && Sog > 0.2 ) {
-            int vsize  = ((double)ArrowMinutes/60)* Sog / Range * (double)Radius ;
-            int vx    = x + sin(ScrCog) * vsize;
-            int vy    = y - cos(ScrCog) * vsize;
-            dc.SetPen( wxPen( wxColor(0,0,0), 2, wxPENSTYLE_SOLID ) );
-            dc.DrawLine(x,y,vx,vy);
-
-            // and the rate of turn vector
-            if ( Rot != 0 && Rot != -128 ) {
-                double rotangle = ScrCog;
-                if ( Rot > 0 ) {
-                    rotangle += (double)3.141592653589/2.;
-                } else {
-                    rotangle -= (double)3.141592653589/2.;
-                }
-                int nx = vx + sin(rotangle) * VECTOR_SIZE;
-                int ny = vy - cos(rotangle) * VECTOR_SIZE;
-                dc.SetPen( wxPen( wxColor(0,0,0), 2, wxPENSTYLE_SOLID ) );
-                dc.DrawLine(vx,vy,nx,ny);
-            }
-        }
-        DrawShape(dc, x, y, ScrCog, State);
- 
-        // Draw anchor ball for anchored or moored vessels
-        if ( Tstatus == AT_ANCHOR || Tstatus == MOORED ) {
-            dc.SetPen( wxPen( wxColor( 0, 0, 0 ), 2, wxPENSTYLE_SOLID ) );
-            dc.SetBrush( wxBrush( wxColor( 0, 0, 0 ), wxBRUSHSTYLE_SOLID ) );
-            int ballSize = TargetHeight / 4;
-            // rotate the ball
-            double xBall = x + ( ( ballSize / 2.0 ) * cos( ScrCog + M_PI / 2 ) );
-            double yBall = y + ( ( ballSize * 0.75 ) * sin( ScrCog + M_PI / 2 ) );
-            // shift ball to center
-            xBall = 0.5 + xBall - ballSize / 2.0;
-            yBall = 0.5 + yBall - ballSize / 2.0;
-            dc.DrawRoundedRectangle( (int) xBall, (int) yBall, ballSize, ballSize, ballSize );
-        }
-
-        wxFont fnt = dc.GetFont();
-        fnt.SetPointSize(8);
-        dc.SetFont(fnt);
-        if (Name.StartsWith(wxT("Unknown"))) {
-            dc.DrawText(wxString::Format(wxT("%07d"),Mmsi), x+15,y-5);
-        } else {
-            dc.DrawText(Name, x+10,y-5);
-        }
+        DrawShape(dc, x, y, ScrCog);
     }
     return Result;
 }
