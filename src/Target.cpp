@@ -169,29 +169,27 @@ void Target::DrawSpeedVector(wxDC& dc, const int x, const int y, const double co
 
 
 void Target::DrawSpecialState(wxDC &dc, const int x, const int y, const double cog) {
-	Tstatus = RESTRICTED_MANOEUVRABILITY;
-	// Check normal state, if so no further action required
-	if (Tstatus == UNDERWAY_USING_ENGINE) return;
+    // Check normal state, if so no further action required
+    if (Tstatus == UNDERWAY_USING_ENGINE) return;
 
-	// set a pen and color to draw with
+    // set a pen and color to draw with
     dc.SetPen( wxPen( wxColor( 0, 0, 0 ), 2, wxPENSTYLE_SOLID ) );
     dc.SetBrush( wxBrush( wxColor( 0, 0, 0 ), wxBRUSHSTYLE_SOLID ) );
 
-	// calculate drawing postion
+    // calculate drawing postion
     int symSize = TargetHeight / 4; 
     // rotate the symbol the same way as the image
     double xSym = x + ( ( symSize * 0.75 ) * cos( cog + M_PI / 2 ) );
     double ySym = y + ( ( symSize * 0.75 ) * sin( cog + M_PI / 2 ) );
 
-	// Setup polygons outside the case statement
-	wxPoint  sqSym[4] = { wxPoint(0, -0.5*symSize ), wxPoint(0.5 * symSize, -1*symSize), wxPoint(symSize, -0.5*symSize), wxPoint(0.5*symSize, 0) };
+    // Setup polygons outside the case statement
+    wxPoint  sqSym[4] = { wxPoint(0, -0.5*symSize ), wxPoint(0.5 * symSize, -1*symSize), wxPoint(symSize, -0.5*symSize), wxPoint(0.5*symSize, 0) };
     wxPoint  fishSym[4] = { wxPoint(0, 0), wxPoint(symSize, -2*symSize), wxPoint(0, -2*symSize), wxPoint(symSize, 0) };
-			
+            
     // Draw the symbol for the specific status
     switch (Tstatus) {
-		case UNDEFINED:
-//		    dc.DrawRectangle( (int) xSym, (int) ySym, 1, 1 );
-			break;
+        case UNDEFINED:
+            break;
         case AT_ANCHOR:
         case MOORED:
             // shift symbol to center
@@ -207,18 +205,17 @@ void Target::DrawSpecialState(wxDC &dc, const int x, const int y, const double c
             dc.DrawRoundedRectangle( (int) xSym, (int) ySym-symSize-1, symSize, symSize, symSize );
             break;
         case RESTRICTED_MANOEUVRABILITY:
-
             // shift symbol to center
             xSym = 0.5 + xSym - symSize / 2.0;
             ySym = 0.5 + ySym - symSize / 2.0;
             dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize );
-		    dc.DrawPolygon( WXSIZEOF(sqSym), sqSym, (int) xSym, (int) ySym-2, wxODDEVEN_RULE );
+            dc.DrawPolygon( WXSIZEOF(sqSym), sqSym, (int) xSym, (int) ySym-2, wxODDEVEN_RULE );
             dc.DrawRoundedRectangle( (int) xSym, (int) ySym-2*symSize-3, symSize, symSize, symSize );
             break;
         case CONSTRAINED_BY_DRAFT:
             // shift symbol to center
             xSym = 0.5 + xSym - symSize / 2.0;
-		    dc.DrawRectangle( (int) xSym, (int) ySym - 2*symSize, symSize, symSize*2 );
+            dc.DrawRectangle( (int) xSym, (int) ySym - 2*symSize, symSize, symSize*2 );
             break;
         case AGROUND:
             // shift symbol to center
@@ -229,7 +226,7 @@ void Target::DrawSpecialState(wxDC &dc, const int x, const int y, const double c
             dc.DrawRoundedRectangle( (int) xSym, (int) ySym-2*symSize-2, symSize, symSize, symSize );
             break;
         case FISHING:
-			dc.DrawPolygon( WXSIZEOF( fishSym ), fishSym, xSym - symSize/2, ySym, wxODDEVEN_RULE );
+            dc.DrawPolygon( WXSIZEOF( fishSym ), fishSym, xSym - symSize/2, ySym, wxODDEVEN_RULE );
             break;
         // default nothing to display
     }    
@@ -270,7 +267,7 @@ void Target::DrawShape(wxDC& dc, const int x, const int y, const double cog) {
 
         // Draw the target image and id
         dc.DrawBitmap(bm, cx,cy);
-        DrawSpecialState(dc, x, y, cog);		
+        DrawSpecialState(dc, x, y, cog);        
         ShowName(dc, x, y);
 }
 
