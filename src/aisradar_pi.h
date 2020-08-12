@@ -37,9 +37,6 @@
 
 #include "version.h"
 
-#define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    16
-
 #include "ocpn_plugin.h"
 #include "aisview.h"
 
