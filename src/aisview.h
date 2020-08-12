@@ -2,7 +2,7 @@
  * $Id:  $
  *
  * Project:  OpenCPN
- * Purpose:  Radar Plugin 
+ * Purpose:  Ais view Plugin 
  * Author:   Johan van der Sman
  *
  ***************************************************************************
@@ -26,8 +26,8 @@
  ***************************************************************************
  */
 
-#ifndef _RADAR_H_
-#define _RADAR_H_
+#ifndef _AISVIEW_H_
+#define _AISVIEW_H_
 
 #include "wx/wxprec.h"
 #include "wx/dcbuffer.h"
@@ -86,30 +86,31 @@ private:
 };
 
 //----------------------------------------------------------------------------------------------------------
-//    RADAR View Specification
+//    AIS View Specification
 //----------------------------------------------------------------------------------------------------------
-class RadarFrame: public wxDialog
+class AisFrame: public wxDialog
 {
-    DECLARE_CLASS( RadarFrame )
+    DECLARE_CLASS( AisFrame )
     DECLARE_EVENT_TABLE()
 
 public:
-    RadarFrame( );
-    ~RadarFrame( );
+    AisFrame( );
+    ~AisFrame( );
     void Init();
     void Config(int min_radius);
     bool Create(  wxWindow *parent, aisradar_pi *ppi, wxWindowID id = wxID_ANY,
-    const wxString& caption = _("Radar Display"), 
+    const wxString& caption = _("Ais Display"), 
     const wxPoint& pos = wxDefaultPosition,
     const wxSize& size = wxDefaultSize );
     void SetColourScheme(PI_ColorScheme cs);
     void OnLeftMouse( const wxPoint &curpos );
+    void OnMouseScroll( const int rotation );
     void paintEvent( wxPaintEvent& event );
 
 private:
     void OnClose(wxCloseEvent& event);
     void OnRange( wxCommandEvent& event );
-	void OnNorthUp( wxCommandEvent& event );
+    void OnNorthUp( wxCommandEvent& event );
     void OnBearingLine( wxCommandEvent& event );
     void OnTimer( wxTimerEvent& event );
     void OnMove( wxMoveEvent& event );
