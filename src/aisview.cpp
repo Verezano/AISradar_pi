@@ -2,7 +2,7 @@
  * $Id:   $
  *
  * Project:  OpenCPN
- * Purpose:  RadarView Object
+ * Purpose:  AisView Object
  * Author:   Johan van der Sman
  *
  ***************************************************************************
@@ -30,8 +30,6 @@
 #include <wx/debug.h>
 #include <wx/fileconf.h>
 #include <math.h>
-#define min(a,b)  ( (a>b)? b : a)
-#define max(a,b)  ( (a>b)? a : b)
 #include "aisradar_pi.h"
 #include "Canvas.h"
 
@@ -47,27 +45,25 @@ enum    Ids { cbRangeId = 10001,
 };
 
 static const int RESTART  = -1;
-static const int BASE_STATION = 3;
 
 //---------------------------------------------------------------------------------------
-//          Radar Dialog Implementation
+//          Ais Dialog Implementation
 //---------------------------------------------------------------------------------------
-IMPLEMENT_CLASS ( RadarFrame, wxDialog )
+IMPLEMENT_CLASS ( AisFrame, wxDialog )
 
-BEGIN_EVENT_TABLE ( RadarFrame, wxDialog )
+BEGIN_EVENT_TABLE ( AisFrame, wxDialog )
 
-    EVT_CLOSE    ( RadarFrame::OnClose )
-    EVT_MOVE     ( RadarFrame::OnMove )
-    EVT_SIZE     ( RadarFrame::OnSize )
-//    EVT_PAINT    ( RadarFrame::paintEvent)
-    EVT_COMBOBOX ( cbRangeId, RadarFrame::OnRange)
-    EVT_CHECKBOX ( cbNorthUpId, RadarFrame::OnNorthUp )
-    EVT_CHECKBOX ( cbBearingLineId, RadarFrame::OnBearingLine )
-    EVT_TIMER    ( tmRefreshId, RadarFrame::OnTimer )
+    EVT_CLOSE    ( AisFrame::OnClose )
+    EVT_MOVE     ( AisFrame::OnMove )
+    EVT_SIZE     ( AisFrame::OnSize )
+    EVT_COMBOBOX ( cbRangeId, AisFrame::OnRange)
+    EVT_CHECKBOX ( cbNorthUpId, AisFrame::OnNorthUp )
+    EVT_CHECKBOX ( cbBearingLineId, AisFrame::OnBearingLine )
+    EVT_TIMER    ( tmRefreshId, AisFrame::OnTimer )
 
 END_EVENT_TABLE()
 
-RadarFrame::RadarFrame() 
+AisFrame::AisFrame() 
 : pParent(0), 
     pPlugIn(0), 
     m_Timer(0), 
@@ -83,17 +79,17 @@ RadarFrame::RadarFrame()
     Init();
 }
 
-RadarFrame::~RadarFrame( ) {
+AisFrame::~AisFrame( ) {
 }
 
 
-void RadarFrame::Init() {
+void AisFrame::Init() {
     GetGlobalColor(_T("DILG1"), &m_BgColour);
     SetBackgroundColour(m_BgColour);
 }
 
 
-bool RadarFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
+bool AisFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
                               const wxString& caption, 
                               const wxPoint& pos, const wxSize& size )
 {
@@ -144,14 +140,14 @@ bool RadarFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
     m_pRange->Append(wxT("12")  );
     m_pRange->Append(wxT("16")  );
     m_pRange->Append(wxT("32")  );
-    m_pRange->SetSelection(pPlugIn->GetRadarRange());
+    m_pRange->SetSelection(pPlugIn->GetAisRange());
     controls->Add(m_pRange);
 
     wxStaticText *st2 = new wxStaticText(panel,wxID_ANY,_("Nautical Miles"));
     controls->Add(st2,0,wxRIGHT|wxLEFT,5);
 
     m_pNorthUp = new wxCheckBox(panel, cbNorthUpId, _("North Up"));
-    m_pNorthUp->SetValue(pPlugIn->GetRadarNorthUp());
+    m_pNorthUp->SetValue(pPlugIn->GetAisNorthUp());
     controls->Add(m_pNorthUp, 0, wxLEFT, 10);
 
     m_pBearingLine = new wxCheckBox(panel, cbBearingLineId, _("EBL"));
@@ -169,40 +165,40 @@ bool RadarFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
 }
 
 
-void RadarFrame::SetColourScheme(PI_ColorScheme cs) {
+void AisFrame::SetColourScheme(PI_ColorScheme cs) {
       GetGlobalColor(_T("DILG1"), &m_BgColour);
       SetBackgroundColour(m_BgColour);
       this->Refresh();
 }
 
 
-void RadarFrame::OnClose ( wxCloseEvent& event ) {
+void AisFrame::OnClose ( wxCloseEvent& event ) {
     // Stop timer if still running
     m_Timer->Stop();
     delete m_Timer;
     
     // Save window size
-    pPlugIn->SetRadarFrameX(m_pViewState->GetPos().x);
-    pPlugIn->SetRadarFrameY(m_pViewState->GetPos().y);
-    pPlugIn->SetRadarFrameSizeX(m_pViewState->GetSize().GetWidth());
-    pPlugIn->SetRadarFrameSizeY(m_pViewState->GetSize().GetHeight());
+    pPlugIn->SetAisFrameX(m_pViewState->GetPos().x);
+    pPlugIn->SetAisFrameY(m_pViewState->GetPos().y);
+    pPlugIn->SetAisFrameSizeX(m_pViewState->GetSize().GetWidth());
+    pPlugIn->SetAisFrameSizeY(m_pViewState->GetSize().GetHeight());
 
     // Cleanup
     RequestRefresh(pParent);
     Destroy();
-    pPlugIn->OnRadarFrameClose();
+    pPlugIn->OnAisFrameClose();
 }
 
 
-void RadarFrame::OnRange ( wxCommandEvent& event ) {
-    pPlugIn->SetRadarRange(m_pRange->GetSelection());
+void AisFrame::OnRange ( wxCommandEvent& event ) {
+    pPlugIn->SetAisRange(m_pRange->GetSelection());
     this->Refresh();
 }
 
 
 
-void RadarFrame::OnNorthUp ( wxCommandEvent& event ) {
-    pPlugIn->SetRadarNorthUp(m_pNorthUp->GetValue());
+void AisFrame::OnNorthUp ( wxCommandEvent& event ) {
+    pPlugIn->SetAisNorthUp(m_pNorthUp->GetValue());
     if (m_pNorthUp->GetValue()) {
         m_Ebl += pPlugIn->GetCog();
     } else {
@@ -212,20 +208,20 @@ void RadarFrame::OnNorthUp ( wxCommandEvent& event ) {
 }
 
 
-void RadarFrame::OnTimer( wxTimerEvent& event ) {
+void AisFrame::OnTimer( wxTimerEvent& event ) {
     this->Refresh();
 }
 
 
-void RadarFrame::OnBearingLine( wxCommandEvent& event ) {
+void AisFrame::OnBearingLine( wxCommandEvent& event ) {
     this->Refresh();
 }
 
 
-void RadarFrame::OnLeftMouse(const wxPoint &curpos) {
+void AisFrame::OnLeftMouse(const wxPoint &curpos) {
     if (m_pBearingLine->GetValue()) {
-        int width      = max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
-        int height     = max(m_pCanvas->GetSize().GetHeight(),(MIN_RADIUS)*2 );
+        int width      = std::max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
+        int height     = std::max(m_pCanvas->GetSize().GetHeight(),(MIN_RADIUS)*2 );
         wxPoint center(width/2, height/2);
         int dx = curpos.x - center.x;
         int dy = center.y - curpos.y;    // top of screen y=0
@@ -242,7 +238,7 @@ void RadarFrame::OnLeftMouse(const wxPoint &curpos) {
 }
 
 
-void RadarFrame::OnMove ( wxMoveEvent& event ) {
+void AisFrame::OnMove ( wxMoveEvent& event ) {
     wxPoint p = event.GetPosition();
 
     // Save window position
@@ -251,7 +247,19 @@ void RadarFrame::OnMove ( wxMoveEvent& event ) {
 }
 
 
-void RadarFrame::OnSize ( wxSizeEvent& event ) {
+void AisFrame::OnMouseScroll( const int rotation ) {
+    int cur = m_pRange->GetSelection();
+    if ( rotation > 0 && cur > 0 ) {
+        m_pRange->SetSelection(--cur);
+    }
+    if ( rotation < 0 && cur < int(m_pRange->GetCount()) - 1 ) {
+        m_pRange->SetSelection(++cur);
+    }
+    this->Refresh();
+}
+
+
+void AisFrame::OnSize ( wxSizeEvent& event ) {
     event.Skip();
     if( m_pCanvas )
     {
@@ -263,33 +271,33 @@ void RadarFrame::OnSize ( wxSizeEvent& event ) {
 }
 
 
-void RadarFrame::paintEvent(wxPaintEvent & event) {
+void AisFrame::paintEvent(wxPaintEvent & event) {
     wxAutoBufferedPaintDC   dc(m_pCanvas);
     render(dc);
     event.Skip();
 }
 
 
-void RadarFrame::render(wxDC& dc)     {
+void AisFrame::render(wxDC& dc)     {
     m_Timer->Start(RESTART);
     // Calculate the size based on paint area size, if smaller then the minimum
     // then the default minimum size applies
-    int width  = max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
-    int height = max(m_pCanvas->GetSize().GetHeight(),(MIN_RADIUS)*2 );
+    int width  = std::max(m_pCanvas->GetSize().GetWidth(), (MIN_RADIUS)*2 );
+    int height = std::max(m_pCanvas->GetSize().GetHeight(),(MIN_RADIUS)*2 );
     wxSize       size(width, height);
     wxPoint      center(width/2, height/2);
-    int radius = max((min(width,height)/2),MIN_RADIUS);
+    int radius = std::max((std::min(width,height)/2),MIN_RADIUS);
     
     //    m_pCanvas->SetBackgroundColour (m_BgColour);
     renderRange(dc, center, size, radius);
     ArrayOfPlugIn_AIS_Targets *AisTargets = pPlugIn->GetAisTargets();
-	if ( AisTargets->GetCount() > 0 ) {
+    if ( AisTargets->GetCount() > 0 ) {
         renderBoats(dc, center, size, radius, AisTargets);
     }
 }
 
 
-void RadarFrame::TrimAisField(wxString *fld) {
+void AisFrame::TrimAisField(wxString *fld) {
     assert(fld);
     while (fld->Right(1)=='@' || fld->Right(1)==' ') {
         fld->RemoveLast();
@@ -297,7 +305,7 @@ void RadarFrame::TrimAisField(wxString *fld) {
 }
 
 
-void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius, ArrayOfPlugIn_AIS_Targets *AisTargets ) {
+void AisFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius, ArrayOfPlugIn_AIS_Targets *AisTargets ) {
     // Determine orientation
     double offset=pPlugIn->GetCog();
     if (m_pNorthUp->GetValue()) {
@@ -311,10 +319,9 @@ void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius
     int    m_CogArrowMinutes=pPlugIn->GetCogArrowMinutes();
 
     // Show other boats and base stations
-    Target    dt;
-//    ArrayOfPlugIn_AIS_Targets *AisTargets = pPlugIn->GetAisTargets();
-    PlugIn_AIS_Target *t;
-    ArrayOfPlugIn_AIS_Targets::iterator it;
+    Target                                dt;
+    PlugIn_AIS_Target                    *t;
+    ArrayOfPlugIn_AIS_Targets::iterator   it;
     wxString  Name;
 
     // Set generic details for all targets
@@ -326,7 +333,7 @@ void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius
         // Only display well defined targets
         if (t->Range_NM>0.0 && t->Brg>0.0) {
             if (m_ShowMoored 
-                || t->Class == BASE_STATION
+                || t->Class == AIS_BASE
                 ||(!m_ShowMoored && t->SOG > m_MooredSpeed)
             ) {
                 Name     = wxString::From8BitData(t->ShipName);
@@ -340,13 +347,13 @@ void RadarFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius
     }
 }
 
-void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) {
+void AisFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) {
     // Draw the circles
     dc.SetBackground(wxBrush(m_BgColour));
     dc.Clear();
     dc.SetBrush(wxBrush(wxColour(0,0,0),wxBRUSHSTYLE_TRANSPARENT));
     dc.SetPen( wxPen( wxColor(128,128,128), 1, wxPENSTYLE_SOLID ) );
-	dc.DrawCircle( center, radius);
+    dc.DrawCircle( center, radius);
     dc.SetPen( wxPen( wxColor(128,128,128), 1, wxPENSTYLE_DOT ) );
     dc.DrawCircle( center, radius*0.75 );
     dc.DrawCircle( center, radius*0.50 );
@@ -366,12 +373,11 @@ void RadarFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius
     dc.SetFont(fnt);
     float Range=RangeData[m_pRange->GetSelection()];
     dc.DrawText(wxString::Format(wxT("%s %2.2f"), _("Range"),Range  ), 0, 0); 
- //   dc.DrawText(wxString::Format(wxT("%s %2.2f"), _("Ring "), Range/4), 0, fh+TEXT_MARGIN); 
 
     // Draw the orientation info
-	wxString dir;
-	if (m_pNorthUp->GetValue()) {
-		dir=_("North Up");
+    wxString dir;
+    if (m_pNorthUp->GetValue()) {
+        dir=_("North Up");
         // Draw north, east, south and west indicators
         dc.SetTextForeground(wxColour(128,128,128));
         dc.DrawText(_("N"), size.GetWidth()/2 + 5, 0);
