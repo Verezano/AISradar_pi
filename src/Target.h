@@ -29,9 +29,8 @@
 #ifndef _TARGET_H_
 #define _TARGET_H_
 
-
 #include "wx/wxprec.h"
-#include "api-16/ocpn_plugin.h"
+#include "ocpn_plugin.h"
 
 #ifndef  WX_PRECOMP
   #include "wx/wx.h"
