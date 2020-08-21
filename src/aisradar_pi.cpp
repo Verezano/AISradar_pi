@@ -98,7 +98,7 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     if(panelIcon.IsOk())
         m_panelBitmap = wxBitmap(panelIcon);
     else
-        wxLogMessage(_T("    AISVIEW panel icon NOT loaded"));
+        wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
 		m_panelBitmap = *_img_ais_pi;
 }
 
@@ -175,19 +175,17 @@ wxBitmap *aisradar_pi::GetPlugInBitmap() {
 
 
 wxString aisradar_pi::GetCommonName() {
-//    return _("AIS Radar view");
    return _T(PLUGIN_COMMON_NAME);
-
 }
 
 
 wxString aisradar_pi::GetShortDescription() {
-    return _("AIS Radar view PlugIn");
+    return _(PLUGIN_SHORT_DESCRIPTION);
 }
 
 
 wxString aisradar_pi::GetLongDescription() {
-    return _("Radar PlugIn for OpenCPN\nShows AIS targets in a radar style view \n\n");
+    return _(PLUGIN_LONG_DESCRIPTION);
 }
 
 

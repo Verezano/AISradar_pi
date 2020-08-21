@@ -1,13 +1,14 @@
-# ---------------------------------------------------------------------------
-# Author:      jongough aka. Jon Gough Copyright: License:     wxWidgets License
-# ---------------------------------------------------------------------------
-# Frontend2 Version: 1.0.132
+##---------------------------------------------------------------------------
+## Author:    Hannes Verazano
+## License:   GNUGLv3
+## License:   wxWidgets License
+## ---------------------------------------------------------------------------
+## Frontend Author: jongough aka. Jon Gough     Frontend2 Version: 1.0.132
+#3 ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
 ## ----- these changes should be. The whole configuration process relies on this        ----- ##
 ## ----- sequence to be successful                                                      ----- ##
-##
-
 ##
 ## ----- Modify section below to include all the details for your plugin ----- ##
 ##
@@ -36,9 +37,9 @@ set(SHORT_DESCRIPTION "AIS Radar view Plugin")
 set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar style view.")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
-set(VERSION_PATCH "2")
+set(VERSION_PATCH "3")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "2020-08-12")
+set(VERSION_DATE "2020-08-21")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -67,7 +68,7 @@ set(CLOUDSMITH_USER "opencpn")
 # set(CLOUDSMITH_BASE_REPOSITORY "opencpn-plugins") #Rick's customization
 set (CLOUDSMITH_BASE_REPOSITORY "aisradar")  #without the pi 
 
-set(XML_INFO_URL "https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:safety:odraw1.6_pi")
+set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/aisradarview.html")
 set(XML_SUMMARY ${SHORT_DESCRIPTION})
 set(XML_DESCRIPTION ${LONG_DESCRIPTION})
 
@@ -142,15 +143,33 @@ SET(SRC_AISRADAR
       src/Target.cpp
 	  api-16/ocpn_plugin.h
     )
-	
 
 add_definitions(-DPLUGIN_USE_SVG)
 
+if(APPLE)
+    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" OFF)
+else(APPLE)
+    option(PI_JSON_SCHEMA_VALIDATOR "Use JSON Schema validator" ON)
+endif(APPLE)
+
+if(PI_JSON_SCHEMA_VALIDATOR)
+    message(STATUS "${CMLOC}Using JSON Schema validation - warning this changes the 'flavour' of the executable and it may not be compatible with OpenCPN")
+    add_definitions(-DPI_JSON_SCHEMA_VALIDATOR)
+    message(STATUS "${CMLOC}Adding JSON Schema validation")
+
+    set(EXTSRC ${EXTSRC} extsrc/json-schema-validator/json-schema-draft7.json.cpp extsrc/json-schema-validator/json-uri.cpp extsrc/json-schema-validator/json-validator.cpp)
+    set(EXTINCLUDE ${EXTINCLUDE} extinclude/nlohmann/json.hpp extinclude/json-schema-validator/json-schema.hpp)
+    include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude/json-schema-validator)
+else(PI_JSON_SCHEMA_VALIDATOR)
+    message(STATUS "${CMLOC}Not using JSON Schema validation - warning invalid JSON 'may' cause unexpected crashes")
+endif(PI_JSON_SCHEMA_VALIDATOR)
+
+
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16/)
 
-#add_library(${PACKAGE_NAME} SHARED ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
+#===================================
 add_library(${PACKAGE_NAME} SHARED ${SRC_AISRADAR})
-
+#===================================
 
 add_definitions(-DTIXML_USE_STL)
 
