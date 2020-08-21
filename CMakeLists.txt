@@ -1,10 +1,10 @@
 ##---------------------------------------------------------------------------
-## Author:    Hannes Verazano
+## Author:    Johan van der Sman      hannes@andcrew.nl           
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 ## ---------------------------------------------------------------------------
 ## Frontend Author: jongough aka. Jon Gough     Frontend2 Version: 1.0.132
-#3 ---------------------------------------------------------------------------
+## ---------------------------------------------------------------------------
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
 ## ----- these changes should be. The whole configuration process relies on this        ----- ##
@@ -38,7 +38,7 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "3")
-set(VERSION_TWEAK "0")
+set(VERSION_TWEAK "1")
 set(VERSION_DATE "2020-08-21")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
