@@ -26,10 +26,12 @@
  ***************************************************************************
  *
  */
-#include <wx/wxprec.h>
-#ifndef WX_PRECOMP
-#    include <wx/wx.h>
-#endif
+#include "wx/wxprec.h"
+
+#ifndef  WX_PRECOMP
+  #include "wx/wx.h"
+#endif //precompiled headers
+
 #include <wx/mstream.h>
 #include "Target.h"
 
