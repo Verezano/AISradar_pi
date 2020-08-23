@@ -80,6 +80,23 @@ static const wxImage   *BaseImg = new wxImage(BaseStation);
 //---------------------------------------------------------------------------------------
 //          Radar target Implementation
 //---------------------------------------------------------------------------------------
+#include "wx/wxprec.h"
+
+#ifndef  WX_PRECOMP
+  #include "wx/wx.h"
+#endif //precompiled headers
+
+
+#include <wx/mstream.h>
+#include "Target.h"
+
+#ifdef __WXMSW__
+  #include <stdlib.h>
+  #include <math.h>
+  #include <time.h>
+  #include <psapi.h>
+#endif
+
 
 Target::Target()
     : State( PI_AIS_NO_ALARM ),
