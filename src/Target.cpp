@@ -327,13 +327,15 @@ bool Target::Render( wxDC& dc ) {
         if (Dist>(double)0.) {
             // Calculate the drawing position using trigonometry
             double delta= Dist/Range*(double)Radius;
-            double angle=wxDegToRad(Brg-Mycog);
+//            double angle=wxDegToRad(Brg-Mycog);
+            double angle=wxDecToHex(Brg-Mycog)			
             x += sin(angle) * delta;
             y -= cos(angle) * delta;
         }
         double targetHdt = Cog;
         // Calculate the targets direction on the screen
-        double ScrCog = wxDegToRad(targetHdt-Mycog);
+//        double ScrCog = wxDegToRad(targetHdt-Mycog);
+        double ScrCog = wxDecToHex(targetHdt-Mycog);
         DrawShape(dc, x, y, ScrCog);
     }
     return Result;
