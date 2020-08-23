@@ -86,7 +86,6 @@ static const wxImage   *BaseImg = new wxImage(BaseStation);
   #include "wx/wx.h"
 #endif //precompiled headers
 
-
 #include <wx/mstream.h>
 #include "Target.h"
 
