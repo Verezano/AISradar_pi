@@ -313,6 +313,12 @@ void Target::DrawShape(wxDC& dc, const int x, const int y, const double cog) {
         ShowName(dc, x, y);
 }
 
+#if wxCHECK_VERSION(3,1,0)
+#else
+    // Convert between degrees and radians.
+    inline double wxDegToRad(double deg) { return (deg * M_PI) / 180.0; }
+    inline double wxRadToDeg(double rad) { return (rad * 180.0) / M_PI; }
+#endif
  
 bool Target::Render( wxDC& dc ) {
     bool Result=false;
