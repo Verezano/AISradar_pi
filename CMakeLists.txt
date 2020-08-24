@@ -37,8 +37,8 @@ set(SHORT_DESCRIPTION "AIS Radar view Plugin")
 set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar style view.")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
-set(VERSION_PATCH "4")
-set(VERSION_TWEAK "1")
+set(VERSION_PATCH "5")
+set(VERSION_TWEAK "0")
 set(VERSION_DATE "2020-08-24")
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -167,7 +167,6 @@ endif(APPLE)
 
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/api-16)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/extinclude)
-
 
 #===================================
 add_library(${PACKAGE_NAME} SHARED ${SRC_AISRADAR})
