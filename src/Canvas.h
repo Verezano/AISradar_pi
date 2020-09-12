@@ -30,23 +30,24 @@
 #ifndef _CANVAS_H_
 #define _CANVAS_H_
 
-#include "aisradar.h"
+#include "aisview.h"
  
 class Canvas : public wxPanel {
 private:
-	Canvas() {};  // forbidden
+    Canvas() {};  // forbidden
 public:
-    Canvas(wxWindow *parent, RadarFrame *view, wxWindowID id, const wxPoint& pos, const wxSize& size); 
+    Canvas(wxWindow *parent, AisFrame *view, wxWindowID id, const wxPoint& pos, const wxSize& size); 
     void mouseMoved(wxMouseEvent& event);
     void mouseDown(wxMouseEvent& event);
     void mouseReleased(wxMouseEvent& event);
+    void mouseScroll(wxMouseEvent& event);
     void paintEvent(wxPaintEvent& event);
     DECLARE_EVENT_TABLE()
 
 private:
-    RadarFrame    *pv;
+    AisFrame    *pv;
     bool         MouseDown;
-    RadarFrame  *Parent;
+    AisFrame    *Parent;
 };
 
 #endif

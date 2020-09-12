@@ -6,7 +6,7 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
- *   Copyright (C) 2015 Johan van der Sman                                 *
+ *   Copyright (C) 2015 - 2020 Johan van der Sman                          *
  *   johan.sman@gmail.com                                                  *
  *                                                                         *
  *   This program is free software; you can redistribute it and/or modify  *
@@ -26,8 +26,8 @@
  ***************************************************************************
  */
 
-#ifndef _RADARPI_H_
-#define _RADARPI_H_
+#ifndef _AISRADARPI_H_
+#define _AISRADARPI_H_
 
 #include "wx/wxprec.h"
 
@@ -37,19 +37,16 @@
 
 #include "version.h"
 
-#define     MY_API_VERSION_MAJOR    1
-#define     MY_API_VERSION_MINOR    9
-
 #include "ocpn_plugin.h"
-#include "aisradar.h"
+#include "aisview.h"
 
 //----------------------------------------------------------------------------------------------------------
 //    The PlugIn Class Definition
 //----------------------------------------------------------------------------------------------------------
 
-#define RADAR_TOOL_POSITION    -1          // Request default positioning of toolbar tool
+#define AISVIEW_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class aisradar_pi : public opencpn_plugin_19
+class aisradar_pi : public opencpn_plugin_116
 {
 public:
     aisradar_pi(void *ppimgr);
@@ -78,20 +75,20 @@ public:
     void SetColorScheme(PI_ColorScheme cs);
 
 // Other public methods
-    void             SetRadarFrameX    (int x)  { m_radar_frame_x  = x;   }
-    void             SetRadarFrameY    (int x)  { m_radar_frame_y  = x;   }
-    void             SetRadarFrameSizeX(int x)  { m_radar_frame_sx = x;   }
-    void             SetRadarFrameSizeY(int x)  { m_radar_frame_sy = x;   }
-    void             SetRadarNorthUp   (bool x) { m_radar_north_up = x;   }
-    void             SetRadarRange     (int x)  { m_radar_range    = x;   }
-    bool             GetRadarNorthUp   (void)   { return m_radar_north_up;}
-    int              GetRadarRange     (void)   { return m_radar_range;   }
-    double           GetCog            (void)   { return m_cog;           }
-    double           GetSog            (void)   { return m_sog;           }
-    int              GetSats           (void)   { return m_sats;          }
-    wxFileConfig    *GetConfig         (void)   { return m_pconfig;       }
+    void             SetAisFrameX      (int x)  { m_ais_frame_x  = x;   }
+    void             SetAisFrameY      (int x)  { m_ais_frame_y  = x;   }
+    void             SetAisFrameSizeX  (int x)  { m_ais_frame_sx = x;   }
+    void             SetAisFrameSizeY  (int x)  { m_ais_frame_sy = x;   }
+    void             SetAisNorthUp     (bool x) { m_ais_north_up = x;   }
+    void             SetAisRange       (int x)  { m_ais_range    = x;   }
+    bool             GetAisNorthUp     (void)   { return m_ais_north_up;}
+    int              GetAisRange       (void)   { return m_ais_range;   }
+    double           GetCog            (void)   { return m_cog;         }
+    double           GetSog            (void)   { return m_sog;         }
+    int              GetSats           (void)   { return m_sats;        }
+    wxFileConfig    *GetConfig         (void)   { return m_pconfig;     }
     ArrayOfPlugIn_AIS_Targets  *GetAisTargets();
-    void OnRadarFrameClose();
+    void             OnAisFrameClose();
     bool             ShowMoored        (void);
     double           GetMooredSpeed    (void);
     bool             ShowCogArrows     (void);
@@ -104,23 +101,24 @@ private:
 private:
     wxFileConfig     *m_pconfig;
     wxWindow         *m_parent_window;
-    RadarFrame       *m_pRadarFrame;
+    AisFrame         *m_pAisFrame;
     ArrayOfPlugIn_AIS_Targets *AisTargets;
     int               m_display_width, m_display_height;
     int               m_leftclick_tool_id;
-    int               m_radar_frame_x, m_radar_frame_y;
-    int               m_radar_frame_sx, m_radar_frame_sy;
-    int               m_radar_range;
+    int               m_ais_frame_x, m_ais_frame_y;
+    int               m_ais_frame_sx, m_ais_frame_sy;
+    int               m_ais_range;
     double            m_lat;
     double            m_lon;
     double            m_cog;
     double            m_sog;
     int               m_sats;
-    bool              m_radar_show_icon;
-    bool              m_radar_use_ais;
-    bool              m_radar_north_up;
-    wxCheckBox       *m_pRadarShowIcon;
-    wxCheckBox       *m_pRadarUseAis;
+    bool              m_ais_show_icon;
+    bool              m_ais_use_ais;
+    bool              m_ais_north_up;
+    wxCheckBox       *m_pAisShowIcon;
+    wxCheckBox       *m_pAisUseAis;
+	wxBitmap          m_panelBitmap;
 };
 
 #endif

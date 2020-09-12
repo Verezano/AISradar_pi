@@ -32,20 +32,28 @@
 // This helper class receives the events and informs the radar view object that owns
 // the canvas
 //
+
+#include "wx/wxprec.h"
+
+#ifndef  WX_PRECOMP
+  #include "wx/wx.h"
+#endif //precompiled headers
+
 #include "Canvas.h"
 
 BEGIN_EVENT_TABLE(Canvas, wxPanel)
  EVT_MOTION(Canvas::mouseMoved)
  EVT_LEFT_DOWN(Canvas::mouseDown)
  EVT_LEFT_UP(Canvas::mouseReleased) 
+ EVT_MOUSEWHEEL(Canvas::mouseScroll)
  EVT_PAINT (Canvas::paintEvent) 
 END_EVENT_TABLE()
  
-Canvas::Canvas(wxWindow *parent, RadarFrame *view, 
+Canvas::Canvas(wxWindow *parent, AisFrame *view, 
     wxWindowID id, const wxPoint& pos, const wxSize& size) 
 : wxPanel(parent, id, pos, size), 
     pv(view),
-	MouseDown(false),
+    MouseDown(false),
     Parent(view)
 {
 }
@@ -72,6 +80,14 @@ void Canvas::mouseDown(wxMouseEvent& event) {
 
 void Canvas::mouseReleased(wxMouseEvent& event) {
     MouseDown=false;
+    event.Skip();
+}
+
+
+void Canvas::mouseScroll(wxMouseEvent& event) {
+    if (pv) {
+       pv->OnMouseScroll(event.GetWheelRotation());
+    }
     event.Skip();
 }
 

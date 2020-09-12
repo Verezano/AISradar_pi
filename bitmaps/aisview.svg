@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   width="32"
+   height="32">
+   <circle cx="16" cy="16" r="15" stroke="green" stroke-width="2" fill="transparent" />
+   <circle cx="16" cy="16" r="5" stroke="green" stroke-width="2" fill="transparent" />
+   <polygon points="8 7, 25 11, 8 14" stroke="green" stroke-width="1" fill="green"/>
+   <polygon points="24 25, 7 21, 24 18" stroke="red" stroke-width="1" fill="red"/>
+</svg>
