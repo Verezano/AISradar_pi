@@ -92,7 +92,7 @@ aisradar_pi::aisradar_pi(void *ppimgr)
 //        _T("plugins") + wxFileName::GetPathSeparator() +
 //        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
 //        _T("data") + wxFileName::GetPathSeparator();
-	wxString shareLocn = GetPluginDataDir("aisradar_pi") +
+	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
         _T("data") + wxFileName::GetPathSeparator();
     wxImage panelIcon(  shareLocn + _T("aisview_panel_icon.png"));
     if(panelIcon.IsOk())
