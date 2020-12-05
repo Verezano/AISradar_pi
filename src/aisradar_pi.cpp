@@ -6,6 +6,8 @@
  * Author:   Johan van der Sman
  *
  ***************************************************************************
+ * Frontend2  Author: Jon Gough  Version: 1.0.132
+ ***************************************************************************
  *   Copyright (C) 2015 - 2020 Johan van der Sman                          *
  *   johan.sman@gmail.com                                                  *
  *                                                                         *
@@ -86,15 +88,17 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     m_pAisUseAis(0)
 {
     initialize_images();
-	wxString shareLocn = *GetpSharedDataLocation() +
-        _T("plugins") + wxFileName::GetPathSeparator() +
-        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
+//	wxString shareLocn = *GetpSharedDataLocation() +
+//        _T("plugins") + wxFileName::GetPathSeparator() +
+//        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
+//        _T("data") + wxFileName::GetPathSeparator();
+	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
         _T("data") + wxFileName::GetPathSeparator();
     wxImage panelIcon(  shareLocn + _T("aisview_panel_icon.png"));
     if(panelIcon.IsOk())
         m_panelBitmap = wxBitmap(panelIcon);
     else
-        wxLogMessage(_T("    AISVIEW panel icon NOT loaded"));
+        wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
 		m_panelBitmap = *_img_ais_pi;
 }
 
@@ -146,12 +150,12 @@ bool aisradar_pi::DeInit(void) {
 
 
 int aisradar_pi::GetAPIVersionMajor() {
-    return MY_API_VERSION_MAJOR;
+    return OCPN_API_VERSION_MAJOR;
 }
 
 
 int aisradar_pi::GetAPIVersionMinor() {
-    return MY_API_VERSION_MINOR;
+    return OCPN_API_VERSION_MINOR;
 }
 
 
@@ -171,17 +175,17 @@ wxBitmap *aisradar_pi::GetPlugInBitmap() {
 
 
 wxString aisradar_pi::GetCommonName() {
-    return _("AIS Radar view");
+   return _T(PLUGIN_COMMON_NAME);
 }
 
 
 wxString aisradar_pi::GetShortDescription() {
-    return _("AIS Radar view PlugIn");
+    return _(PLUGIN_SHORT_DESCRIPTION);
 }
 
 
 wxString aisradar_pi::GetLongDescription() {
-    return _("Radar PlugIn for OpenCPN\nShows AIS targets in a radar style view \n\n");
+    return _(PLUGIN_LONG_DESCRIPTION);
 }
 
 

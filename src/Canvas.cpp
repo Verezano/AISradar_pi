@@ -32,6 +32,13 @@
 // This helper class receives the events and informs the radar view object that owns
 // the canvas
 //
+
+#include "wx/wxprec.h"
+
+#ifndef  WX_PRECOMP
+  #include "wx/wx.h"
+#endif //precompiled headers
+
 #include "Canvas.h"
 
 BEGIN_EVENT_TABLE(Canvas, wxPanel)

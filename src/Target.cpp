@@ -26,10 +26,12 @@
  ***************************************************************************
  *
  */
-#include <wx/wxprec.h>
-#ifndef WX_PRECOMP
-#    include <wx/wx.h>
-#endif
+#include "wx/wxprec.h"
+
+#ifndef  WX_PRECOMP
+  #include "wx/wx.h"
+#endif //precompiled headers
+
 #include <wx/mstream.h>
 #include "Target.h"
 
@@ -78,6 +80,22 @@ static const wxImage   *BaseImg = new wxImage(BaseStation);
 //---------------------------------------------------------------------------------------
 //          Radar target Implementation
 //---------------------------------------------------------------------------------------
+#include "wx/wxprec.h"
+
+#ifndef  WX_PRECOMP
+  #include "wx/wx.h"
+#endif //precompiled headers
+
+#include <wx/mstream.h>
+#include "Target.h"
+
+#ifdef __WXMSW__
+  #include <stdlib.h>
+  #include <math.h>
+  #include <time.h>
+  #include <psapi.h>
+#endif
+
 
 Target::Target()
     : State( PI_AIS_NO_ALARM ),
@@ -267,10 +285,40 @@ void Target::DrawShape(wxDC& dc, const int x, const int y, const double cog) {
 
         // Draw the target image and id
         dc.DrawBitmap(bm, cx,cy);
+
+//Took out by PR but we may need it.
+        // Draw anchor ball for anchored or moored vessels
+/*        if ( Tstatus == AT_ANCHOR || Tstatus == MOORED ) {
+            dc.SetPen( wxPen( wxColor( 0, 0, 0 ), 2, wxPENSTYLE_SOLID ) );
+            dc.SetBrush( wxBrush( wxColor( 0, 0, 0 ), wxBRUSHSTYLE_SOLID ) );
+            int ballSize = TargetHeight / 4;
+            // rotate the ball
+            double xBall = x + ( ( ballSize / 2.0 ) * cos( ScrCog + M_PI / 2 ) );
+            double yBall = y + ( ( ballSize * 0.75 ) * sin( ScrCog + M_PI / 2 ) );
+            // shift ball to center
+            xBall = 0.5 + xBall - ballSize / 2.0;
+            yBall = 0.5 + yBall - ballSize / 2.0;
+            dc.DrawRoundedRectangle( (int) xBall, (int) yBall, ballSize, ballSize, ballSize );
+        }
+
+        wxFont fnt = dc.GetFont();
+        fnt.SetPointSize(8);
+        dc.SetFont(fnt);
+        if (Name.StartsWith(wxT("Unknown"))) {
+            dc.DrawText(wxString::Format(wxT("%07d"),Mmsi), x+15,y-5);
+        } else {
+            dc.DrawText(Name, x+10,y-5);
+*/
         DrawSpecialState(dc, x, y, cog);        
         ShowName(dc, x, y);
 }
 
+#if wxCHECK_VERSION(3,1,0)
+#else
+    // Convert between degrees and radians.
+    inline double wxDegToRad(double deg) { return (deg * M_PI) / 180.0; }
+    inline double wxRadToDeg(double rad) { return (rad * 180.0) / M_PI; }
+#endif
  
 bool Target::Render( wxDC& dc ) {
     bool Result=false;
