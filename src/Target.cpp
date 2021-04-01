@@ -213,22 +213,22 @@ void Target::DrawSpecialState(wxDC &dc, const int x, const int y, const double c
             // shift symbol to center
             xSym = 0.5 + xSym - symSize / 2.0;
             ySym = 0.5 + ySym - symSize / 2.0;
-            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize/2 );
             break;
         case NOT_UNDER_COMMAND:
             // shift symbol to center
             xSym = 0.5 + xSym - symSize / 2.0;
             ySym = 0.5 + ySym - symSize / 2.0;
-            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize );
-            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-symSize-1, symSize, symSize, symSize );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize/2 );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-symSize-1, symSize, symSize, symSize/2 );
             break;
         case RESTRICTED_MANOEUVRABILITY:
             // shift symbol to center
             xSym = 0.5 + xSym - symSize / 2.0;
             ySym = 0.5 + ySym - symSize / 2.0;
-            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize/2 );
             dc.DrawPolygon( WXSIZEOF(sqSym), sqSym, (int) xSym, (int) ySym-2, wxODDEVEN_RULE );
-            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-2*symSize-3, symSize, symSize, symSize );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-2*symSize-3, symSize, symSize, symSize/2 );
             break;
         case CONSTRAINED_BY_DRAFT:
             // shift symbol to center
@@ -239,12 +239,14 @@ void Target::DrawSpecialState(wxDC &dc, const int x, const int y, const double c
             // shift symbol to center
             xSym = 0.5 + xSym - symSize / 2.0;
             ySym = 0.5 + ySym - symSize / 2.0;
-            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize );
-            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-symSize-1, symSize, symSize, symSize );
-            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-2*symSize-2, symSize, symSize, symSize );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym, symSize, symSize, symSize/2 );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-symSize-1, symSize, symSize, symSize/2 );
+            dc.DrawRoundedRectangle( (int) xSym, (int) ySym-2*symSize-2, symSize, symSize, symSize/2 );
             break;
         case FISHING:
             dc.DrawPolygon( WXSIZEOF( fishSym ), fishSym, xSym - symSize/2, ySym, wxODDEVEN_RULE );
+            break;
+        default:
             break;
         // default nothing to display
     }    
