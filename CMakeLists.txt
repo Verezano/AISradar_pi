@@ -38,7 +38,7 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "6")
-set(VERSION_TWEAK "3")
+set(VERSION_TWEAK "4")
 set(VERSION_DATE "14-05-2021")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -131,8 +131,9 @@ SET(SRC_AISRADAR
 #	  api-16/ocpn_plugin.h
     )
 
-add_definitions(-DPLUGIN_USE_SVG)
+# add_definitions(-DPLUGIN_USE_SVG)
 
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
 
