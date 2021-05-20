@@ -2,7 +2,9 @@ AIS Radar style View plug-in for OpenCPN
 ==================================
 
 Source Repository : https://github.com/Verezano/AISradar_pi
+
 Maintance Repository: https://github.com/rgleason/AISradar_pi/
+
 Please submit PR's to both repositories. Thank you.
 
 History
