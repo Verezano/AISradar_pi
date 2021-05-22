@@ -8,16 +8,16 @@ parameters:
 
     run_build_armhf_stretch:
         type: boolean
-        default: true
+        default: false
     run_build_armhf_buster:
         type: boolean
-        default: true
+        default: false
     run_build_armhf_bionic_64:
         type: boolean
-        default: true
+        default: false
     run_build_trusty:
         type: boolean
-        default: true
+        default: false
     run_build_xenial:
         type: boolean
         default: true
@@ -135,6 +135,14 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - run: sudo apt install software-properties-common
+            - run: sudo add-apt-repository ppa:deadsnakes/ppa -y
+            - run: sudo apt update
+            - run: sudo apt install -y python3.7
+            - run: ls -la /usr/bin/python*
+            - run: sudo rm /usr/bin/python3
+            - run: sudo ln -s /usr/bin/python3.7 /usr/bin/python3
+            - run: ls -la /usr/bin/python*
             - cloudsmith/ensure-api-key
             - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
@@ -158,6 +166,13 @@ jobs:
         - when:
             condition: <<pipeline.parameters.run_workflow_deploy>>
             steps:
+            - run: sudo apt install software-properties-common
+            - run: sudo add-apt-repository ppa:deadsnakes/ppa -y
+            - run: sudo apt update
+            - run: sudo apt install -y python3.7
+            - run: sudo rm /usr/bin/python3
+            - run: sudo ln -s /usr/bin/python3.7 /usr/bin/python3
+            - run: sudo python3 -m pip install --upgrade pip
             - cloudsmith/ensure-api-key
             - cloudsmith/install-cli
             - run: ci/cloudsmith-upload.sh
