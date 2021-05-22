@@ -94,7 +94,7 @@ aisradar_pi::aisradar_pi(void *ppimgr)
 //        _T("data") + wxFileName::GetPathSeparator();
 //	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
 //        _T("data") + wxFileName::GetPathSeparator();
-	wxString shareLocn = GetPrivateApplicationDataLocation() + 
+	wxString shareLocn = GetpPrivateApplicationDataLocation() + 
           _T("plugins") + wxFileName::GetPathSeparator() +
           _T("aisradar_pi") + wxFileName::GetPathSeparator() +
           _T("data") + wxFileName::GetPathSeparator();
