@@ -36,6 +36,9 @@
 #include <wx/fileconf.h>
 #include "aisradar_pi.h"
 
+#include "icons.h"
+
+
 // the class factories, used to create and destroy instances of the PlugIn
 
 extern "C" DECL_EXP opencpn_plugin* create_pi(void *ppimgr) {
@@ -62,18 +65,18 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) {
 //
 //---------------------------------------------------------------------------------------------------------
 
-aisradar_pi::aisradar_pi(void *ppimgr) 
-: opencpn_plugin_116(ppimgr), 
-    m_pconfig(0), 
+aisradar_pi::aisradar_pi(void *ppimgr)
+: opencpn_plugin_116(ppimgr),
+    m_pconfig(0),
     m_parent_window(0),
     m_pAisFrame(0),
     AisTargets(0),
-    m_display_width(0), 
+    m_display_width(0),
     m_display_height(0),
     m_leftclick_tool_id(0),
-    m_ais_frame_x(0), 
+    m_ais_frame_x(0),
     m_ais_frame_y(0),
-    m_ais_frame_sx(0), 
+    m_ais_frame_sx(0),
     m_ais_frame_sy(0),
     m_ais_range(0),
     m_lat(0.0),
@@ -87,25 +90,47 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     m_pAisShowIcon(0),
     m_pAisUseAis(0)
 {
-    initialize_images();
+
+//8     initialize_images();
 //	wxString shareLocn = *GetpSharedDataLocation() +
 //        _T("plugins") + wxFileName::GetPathSeparator() +
 //        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
 //        _T("data") + wxFileName::GetPathSeparator();
-//	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
-//        _T("data") + wxFileName::GetPathSeparator();
-	wxString shareLocn = *GetpPrivateApplicationDataLocation() + 
-          _T("plugins") + wxFileName::GetPathSeparator() +
-          _T("aisradar_pi") + wxFileName::GetPathSeparator() +
-          _T("data") + wxFileName::GetPathSeparator();
-    wxImage panelIcon(  shareLocn + _T("aisview_panel_icon.png"));
+//8	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
+//8        _T("data") + wxFileName::GetPathSeparator();
+//	wxString shareLocn = *GetpPrivateApplicationDataLocation() +
+//          _T("plugins") + wxFileName::GetPathSeparator() +
+//          _T("aisradar_pi") + wxFileName::GetPathSeparator() +
+//          _T("data") + wxFileName::GetPathSeparator();
+//8    wxImage panelIcon(  shareLocn + _T("aisradar.png"));
+//8    if(panelIcon.IsOk())
+//8        m_panelBitmap = wxBitmap(panelIcon);
+//8    else
+//8        wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
+//8		m_panelBitmap = *_img_ais_pi;
+//8 }
+//  Note: I realized that the icons should be fine in GetPluginDataDir
+
+    initialize_images();
+	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
+        _T("data") + wxFileName::GetPathSeparator();
+    wxImage panelIcon(  shareLocn + _T("aisradar.png"));
+
+//inserted	
+#ifdef PLUGIN_USE_SVG
+      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AisRadar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("AisRadar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
+#else
+      m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais_pi, wxITEM_CHECK, _(""), _T(""), NULL, AISVIEW_TOOL_POSITION, 0, this);
+#endif
+//end of insert
+//there is some problem up here with wxImage panelIcon and  m_panelBitmap that I don't get	
+	
     if(panelIcon.IsOk())
         m_panelBitmap = wxBitmap(panelIcon);
     else
         wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
 		m_panelBitmap = *_img_ais_pi;
 }
-
 
 aisradar_pi::~aisradar_pi() {
     if ( AisTargets ) {
@@ -128,15 +153,21 @@ int aisradar_pi::Init(void) {
     m_pconfig = GetOCPNConfigObject();
     LoadConfig();
     if (AisTargets) {  // Init may be called more than once, check for cleanup
-        WX_CLEAR_ARRAY(*AisTargets);     
+        WX_CLEAR_ARRAY(*AisTargets);
         delete AisTargets;
     }
     m_parent_window = GetOCPNCanvasWindow();
-    if(m_ais_show_icon) {
-        m_leftclick_tool_id  = InsertPlugInTool(_T(""), &m_panelBitmap, &m_panelBitmap, wxITEM_NORMAL,
-               _T("AisView"), _T("Plugin for radar style view on AIS targets"), NULL,
-               AISVIEW_TOOL_POSITION, 0, this);
+
+	if(m_ais_show_icon) {
+//inserted by rick for svg
+#ifdef PLUGIN_USE_SVG
+      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AisRadar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("AisRadar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
+#else
+      m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais_pi, wxITEM_CHECK, _(""), _T(""), NULL, AISVIEW_TOOL_POSITION, 0, this);
+#endif
+// end of insert
    }
+
     AisTargets = GetAISTargetArray();
     return (WANTS_TOOLBAR_CALLBACK | INSTALLS_TOOLBAR_TOOL |
          WANTS_CONFIG | WANTS_PREFERENCES | WANTS_AIS_SENTENCES  |
@@ -251,14 +282,14 @@ void aisradar_pi::OnToolbarToolCallback(int id) {
    ::wxBell();
     if(!m_pAisFrame) {
         m_pAisFrame = new AisFrame();
-        m_pAisFrame->Create ( m_parent_window, 
-            this, 
+        m_pAisFrame->Create ( m_parent_window,
+            this,
             -1,
-            wxString::Format(_T("AIS Radar View %d.%d"), 
-                PLUGIN_VERSION_MAJOR, 
+            wxString::Format(_T("AIS Radar View %d.%d"),
+                PLUGIN_VERSION_MAJOR,
                 PLUGIN_VERSION_MINOR
             ),
-            wxPoint( m_ais_frame_x, m_ais_frame_y), 
+            wxPoint( m_ais_frame_x, m_ais_frame_y),
             wxSize( m_ais_frame_sx, m_ais_frame_sy)
         );
         m_pAisFrame->Show();
@@ -284,7 +315,7 @@ void aisradar_pi::SetAISSentence(wxString &sentence) {
 
 void aisradar_pi::SetPositionFix(PlugIn_Position_Fix &pfix) {
     // Check if our position changed
-    // If so, update view otherwise not, 
+    // If so, update view otherwise not,
     if ( m_lat != pfix.Lat || m_lon != pfix.Lon || m_cog != pfix.Cog || m_sog != pfix.Sog ) {
         m_lat  = pfix.Lat;
         m_lon  = pfix.Lon;
@@ -311,7 +342,7 @@ void aisradar_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
 //            "Source"      : "BR24_pi",
 //          "Orientation" : "North",
 //            "TTL"         : 30,
-//            "Targets" : 
+//            "Targets" :
 //            [
 //                { "Brg" : 180, Range : 1.2 },
 //                { "Brg" : 359, Range : 8.3 },
@@ -321,7 +352,7 @@ void aisradar_pi::SetPluginMessage(wxString &message_id, wxString &message_body)
 //            ]
 //        }
 //    }
-//  TODO: implement parse routine    
+//  TODO: implement parse routine
 }
 
 
@@ -374,7 +405,7 @@ void aisradar_pi::SetColorScheme(PI_ColorScheme cs) {
 
 ArrayOfPlugIn_AIS_Targets  *aisradar_pi::GetAisTargets() {
     if ( AisTargets ) {
-        WX_CLEAR_ARRAY(*AisTargets);     
+        WX_CLEAR_ARRAY(*AisTargets);
         delete AisTargets;
     }
     AisTargets = GetAISTargetArray();

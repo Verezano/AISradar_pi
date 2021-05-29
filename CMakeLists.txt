@@ -38,8 +38,8 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "6")
-set(VERSION_TWEAK "7")
-set(VERSION_DATE "22-05-2021")  #dd-mm-yyyy
+set(VERSION_TWEAK "14")
+set(VERSION_DATE "29-05-2021")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -69,7 +69,7 @@ set(XML_DESCRIPTION ${LONG_DESCRIPTION})
 ## ----- Modify section above to include all the details for your plugin ----- ##
 ## ----- Modify section below if there are special requirements for the plugin ----- ##
 
-option(PLUGIN_USE_SVG "Use SVG graphics" OFF)
+option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -132,9 +132,10 @@ SET(SRC_AISRADAR
 
 add_definitions(-DPLUGIN_USE_SVG)
 
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
 
 #===================================
 target_sources(${PACKAGE_NAME} PUBLIC ${SRC_AISRADAR})
