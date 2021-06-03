@@ -36,6 +36,7 @@
 #include <wx/fileconf.h>
 #include "aisradar_pi.h"
 
+#include "icons.h"				  
 // the class factories, used to create and destroy instances of the PlugIn
 
 extern "C" DECL_EXP opencpn_plugin* create_pi(void *ppimgr) {
@@ -87,13 +88,15 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     m_pAisShowIcon(0),
     m_pAisUseAis(0)
 {
-    initialize_images();
+
 //	wxString shareLocn = *GetpSharedDataLocation() +
 //        _T("plugins") + wxFileName::GetPathSeparator() +
 //        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
 //        _T("data") + wxFileName::GetPathSeparator();
 //	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
 //        _T("data") + wxFileName::GetPathSeparator();
+
+    initialize_images();
 	wxString shareLocn = *GetpPrivateApplicationDataLocation() + 
           _T("plugins") + wxFileName::GetPathSeparator() +
           _T("aisradar_pi") + wxFileName::GetPathSeparator() +
