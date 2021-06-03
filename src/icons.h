@@ -16,7 +16,7 @@ extern wxBitmap *_img_ais_pi;
 
 #ifdef PLUGIN_USE_SVG
 extern wxString _svg_aisradar;
-//extern wxString _svg_aisradar_rollover;
+extern wxString _svg_aisradar_rollover;
 extern wxString _svg_aisradar_toggled;
 #endif
 

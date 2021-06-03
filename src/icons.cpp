@@ -35,10 +35,10 @@ void initialize_images(void)
     wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar);
     fn.SetFullName(_T("aisradar_rollover.svg"));
     _svg_aisradar_rollover = fn.GetFullPath();
-    wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar_toggled);	
+    wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar_rollover);	
     fn.SetFullName(_T("aisradar_pi_toggled.svg"));
     _svg_aisradar_toggled = fn.GetFullPath();
-    wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar_rollover); 
+    wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar_toggled); 
 #endif
     return;
 }

@@ -88,25 +88,49 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     m_pAisShowIcon(0),
     m_pAisUseAis(0)
 {
+    initialize_images();
+    wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
+        _T("data") + wxFileName::GetPathSeparator();
+    wxImage panelIcon(  shareLocn + _T("aisradar.png"));
+	
+/*  OLD WAY - Don't use anymore
+  initialize_images();
+	wxString shareLocn = *GetpSharedDataLocation() +
+        _T("plugins") + wxFileName::GetPathSeparator() +
+        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
+        _T("data") + wxFileName::GetPathSeparator();
+   wxImage panelIcon(  shareLocn + _T("aisradar.png"));
+*/ 
 
-//	wxString shareLocn = *GetpSharedDataLocation() +
-//        _T("plugins") + wxFileName::GetPathSeparator() +
-//        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
-//        _T("data") + wxFileName::GetPathSeparator();
-//	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
-//        _T("data") + wxFileName::GetPathSeparator();
-
+/*   PRIVATE DATA DIRECTORY only when needed for user writable data, but not for ICONS!
     initialize_images();
 	wxString shareLocn = *GetpPrivateApplicationDataLocation() + 
           _T("plugins") + wxFileName::GetPathSeparator() +
-          _T("aisradar_pi") + wxFileName::GetPathSeparator() +
+          _T("aisradar") + wxFileName::GetPathSeparator() +
           _T("data") + wxFileName::GetPathSeparator();
-    wxImage panelIcon(  shareLocn + _T("aisview_panel_icon.png"));
+    wxImage panelIcon(  shareLocn + _T("aisradar.png"));
+*/		
+
+
+// SHOW THE TOOLBAR  BITMAP	IF SHOW ICON CHECKBOX IS CHECKED, DISPLAYS THE img_ais_pi bitmap
     if(panelIcon.IsOk())
-        m_panelBitmap = wxBitmap(panelIcon);
+//	      Commented out when inserted the SVG Icon code below	
+//        m_panelBitmap = wxBitmap(panelIcon); 
+	
+// FOR SVG ICONS  - Does not work right when CMakeLists.txt line 72  PLUGIN_USE_SVG=ON
+#ifdef PLUGIN_USE_SVG
+      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("aisradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
+#else
+      m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais_pi, wxITEM_CHECK, _(""), _T(""), NULL, AISVIEW_TOOL_POSITION, 0, this);
+#endif
+//THERE TWO problems 
+// 1. Actually getting the two svg icons to be shown, they are available but not being found.
+// 2. The toolbar icon does toggle correctly. Icons not found
+// 2. There are two bitmapped icons showing in the toolbar incorrectly.	
+
     else
         wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
-		m_panelBitmap = *_img_ais_pi;
+        m_panelBitmap = *_img_ais_pi;
 }
 
 
@@ -136,9 +160,22 @@ int aisradar_pi::Init(void) {
     }
     m_parent_window = GetOCPNCanvasWindow();
     if(m_ais_show_icon) {
-        m_leftclick_tool_id  = InsertPlugInTool(_T(""), &m_panelBitmap, &m_panelBitmap, wxITEM_NORMAL,
-               _T("AisView"), _T("Plugin for radar style view on AIS targets"), NULL,
-               AISVIEW_TOOL_POSITION, 0, this);
+// Commented out this icon when inserted USE_SVG below
+//        m_leftclick_tool_id  = InsertPlugInTool(_T(""), &m_panelBitmap, &m_panelBitmap, wxITEM_NORMAL,
+//               _T("AisView"), _T("Plugin for radar style view on AIS targets"), NULL,
+//               AISVIEW_TOOL_POSITION, 0, this);
+
+// FOR SVG ICONS  - Does not work right when CMakeLists.txt line 72  PLUGIN_USE_SVG=ON
+#ifdef PLUGIN_USE_SVG
+      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("aisradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
+#else
+      m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais_pi, wxITEM_CHECK, _(""), _T(""), NULL, AISVIEW_TOOL_POSITION, 0, this);
+#endif
+//THERE TWO problems 
+// 1. Actually getting the two svg icons to be shown, they are available but not being found.
+// 2. The toolbar icon does toggle correctly. Icons not found
+// 2. There are two bitmapped icons showing in the toolbar incorrectly.	
+
    }
     AisTargets = GetAISTargetArray();
     return (WANTS_TOOLBAR_CALLBACK | INSTALLS_TOOLBAR_TOOL |
