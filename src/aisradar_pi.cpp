@@ -111,22 +111,19 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     wxImage panelIcon(  shareLocn + _T("aisradar.png"));
 */		
 
-
 // SHOW THE TOOLBAR  BITMAP	IF SHOW ICON CHECKBOX IS CHECKED, DISPLAYS THE img_ais_pi bitmap
     if(panelIcon.IsOk())
 //	      Commented out when inserted the SVG Icon code below	
-//        m_panelBitmap = wxBitmap(panelIcon); 
+        m_panelBitmap = wxBitmap(panelIcon); 
 	
-// FOR SVG ICONS  - Does not work right when CMakeLists.txt line 72  PLUGIN_USE_SVG=ON
+// FOR SVG ICONS  when CMakeLists.txt line 72  PLUGIN_USE_SVG=ON
+/*
 #ifdef PLUGIN_USE_SVG
-      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("aisradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
+      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("AISradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
 #else
       m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais_pi, wxITEM_CHECK, _(""), _T(""), NULL, AISVIEW_TOOL_POSITION, 0, this);
 #endif
-//THERE TWO problems 
-// 1. Actually getting the two svg icons to be shown, they are available but not being found.
-// 2. The toolbar icon does toggle correctly. Icons not found
-// 2. There are two bitmapped icons showing in the toolbar incorrectly.	
+*/
 
     else
         wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
@@ -165,16 +162,12 @@ int aisradar_pi::Init(void) {
 //               _T("AisView"), _T("Plugin for radar style view on AIS targets"), NULL,
 //               AISVIEW_TOOL_POSITION, 0, this);
 
-// FOR SVG ICONS  - Does not work right when CMakeLists.txt line 72  PLUGIN_USE_SVG=ON
+// FOR SVG ICONS  - CMakeLists.txt line 72  PLUGIN_USE_SVG=ON
 #ifdef PLUGIN_USE_SVG
-      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("aisradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
+      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("AISradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
 #else
       m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais_pi, wxITEM_CHECK, _(""), _T(""), NULL, AISVIEW_TOOL_POSITION, 0, this);
 #endif
-//THERE TWO problems 
-// 1. Actually getting the two svg icons to be shown, they are available but not being found.
-// 2. The toolbar icon does toggle correctly. Icons not found
-// 2. There are two bitmapped icons showing in the toolbar incorrectly.	
 
    }
     AisTargets = GetAISTargetArray();

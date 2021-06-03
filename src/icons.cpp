@@ -36,7 +36,7 @@ void initialize_images(void)
     fn.SetFullName(_T("aisradar_rollover.svg"));
     _svg_aisradar_rollover = fn.GetFullPath();
     wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar_rollover);	
-    fn.SetFullName(_T("aisradar_pi_toggled.svg"));
+    fn.SetFullName(_T("aisradar_toggled.svg"));
     _svg_aisradar_toggled = fn.GetFullPath();
     wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar_toggled); 
 #endif

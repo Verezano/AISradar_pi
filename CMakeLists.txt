@@ -38,7 +38,7 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "6")
-set(VERSION_TWEAK "17")
+set(VERSION_TWEAK "22")
 set(VERSION_DATE "03-06-2021")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
