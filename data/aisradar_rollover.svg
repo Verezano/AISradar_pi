@@ -8,7 +8,7 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
-   sodipodi:docname="aisradar_toggled2.svg"
+   sodipodi:docname="aisradar_rollover.svg"
    id="svg10"
    version="1.1"
    height="32"
@@ -21,7 +21,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -30,14 +30,14 @@
   <sodipodi:namedview
      inkscape:current-layer="svg10"
      inkscape:window-maximized="0"
-     inkscape:window-y="72"
+     inkscape:window-y="65"
      inkscape:window-x="176"
-     inkscape:cy="16"
+     inkscape:cy="22.196726"
      inkscape:cx="16"
      inkscape:zoom="26.25"
      showgrid="false"
      id="namedview12"
-     inkscape:window-height="868"
+     inkscape:window-height="902"
      inkscape:window-width="1545"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0"
@@ -46,7 +46,15 @@
      objecttolerance="10"
      borderopacity="1"
      bordercolor="#666666"
-     pagecolor="#ffffff" />
+     pagecolor="#ffffff"
+     inkscape:document-rotation="0" />
+  <rect
+     style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;fill-rule:evenodd;stroke-width:1.00157;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+     id="rect842"
+     width="32"
+     height="32.190475"
+     x="0"
+     y="-0.076190479" />
   <circle
      style="display:inline;fill:#5b5b5b;stroke:#afb0a1;stroke-opacity:1;fill-opacity:1"
      id="circle2"
@@ -66,14 +74,14 @@
      cy="16"
      cx="16" />
   <polygon
-     style="display:inline;fill:#4e4e4e;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
+     style="display:inline;fill:#454e4e;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
      id="polygon6"
      fill="#008000"
      stroke-width="1"
      stroke="#008000"
      points="8,14 8,7 25,11 " />
   <polygon
-     style="display:inline;fill:#999999;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+     style="display:inline;fill:#a39599;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;fill-opacity:1"
      id="polygon8"
      fill="#ff0000"
      stroke-width="1"

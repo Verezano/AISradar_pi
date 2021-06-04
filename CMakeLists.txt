@@ -38,8 +38,8 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "6")
-set(VERSION_TWEAK "14")
-set(VERSION_DATE "29-05-2021")  #dd-mm-yyyy
+set(VERSION_TWEAK "22")
+set(VERSION_DATE "03-06-2021")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -74,6 +74,9 @@ option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 set(CMAKE_CXX_STANDARD 11)
 
 set(CMAKE_MACOSX_RPATH "ON")
+
+# Use local version of GLU library
+#set(USE_LOCAL_GLU TRUE)
 # Prefer libGL.so to libOpenGL.so, see CMP0072
 set(OpenGL_GL_PREFERENCE "LEGACY")
 # Don't use local version of GLU library
@@ -99,12 +102,9 @@ include("PluginSetup")
 #===================================
 ## ----- The above is used to setup standard variables that are required by the CMAKE process - do not remove ----- ##
 ## ----- Modify section below if there are special requirements for the plugin ----- ##
-
-
-set(CMAKE_VERBOSE_MAKEFILE ON)
+set(CMAKE_VERBOSE_MAKEFILE "Activate verbose mode for make files" ON)
 
 option(Plugin_CXX11 "Use c++11" OFF)
-
 ## ----- Modify section above if there are special requirements for the plugin ----- ##
 ## ----- Do not change next section - needed to configure build process ----- ##
 

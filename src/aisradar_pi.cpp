@@ -36,8 +36,7 @@
 #include <wx/fileconf.h>
 #include "aisradar_pi.h"
 
-#include "icons.h"
-
+#include "icons.h"				  
 
 // the class factories, used to create and destroy instances of the PlugIn
 
@@ -91,45 +90,46 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     m_pAisUseAis(0)
 {
 
-//8     initialize_images();
-//	wxString shareLocn = *GetpSharedDataLocation() +
-//        _T("plugins") + wxFileName::GetPathSeparator() +
-//        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
-//        _T("data") + wxFileName::GetPathSeparator();
-//8	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
-//8        _T("data") + wxFileName::GetPathSeparator();
-//	wxString shareLocn = *GetpPrivateApplicationDataLocation() +
-//          _T("plugins") + wxFileName::GetPathSeparator() +
-//          _T("aisradar_pi") + wxFileName::GetPathSeparator() +
-//          _T("data") + wxFileName::GetPathSeparator();
-//8    wxImage panelIcon(  shareLocn + _T("aisradar.png"));
-//8    if(panelIcon.IsOk())
-//8        m_panelBitmap = wxBitmap(panelIcon);
-//8    else
-//8        wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
-//8		m_panelBitmap = *_img_ais_pi;
-//8 }
-//  Note: I realized that the icons should be fine in GetPluginDataDir
-
     initialize_images();
-	wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
+    wxString shareLocn = GetPluginDataDir("aisradar_pi") + wxFileName::GetPathSeparator() +
         _T("data") + wxFileName::GetPathSeparator();
     wxImage panelIcon(  shareLocn + _T("aisradar.png"));
+	
+/*  OLD WAY - Don't use anymore
+  initialize_images();
+	wxString shareLocn = *GetpSharedDataLocation() +
+        _T("plugins") + wxFileName::GetPathSeparator() +
+        _T("aisradar_pi") + wxFileName::GetPathSeparator() +
+        _T("data") + wxFileName::GetPathSeparator();
+   wxImage panelIcon(  shareLocn + _T("aisradar.png"));
+*/ 
 
-//inserted	
+/*   PRIVATE DATA DIRECTORY only when needed for user writable data, but not for ICONS!
+    initialize_images();
+	wxString shareLocn = *GetpPrivateApplicationDataLocation() + 
+          _T("plugins") + wxFileName::GetPathSeparator() +
+          _T("aisradar") + wxFileName::GetPathSeparator() +
+          _T("data") + wxFileName::GetPathSeparator();
+    wxImage panelIcon(  shareLocn + _T("aisradar.png"));
+*/		
+
+// SHOW THE TOOLBAR  BITMAP	IF SHOW ICON CHECKBOX IS CHECKED, DISPLAYS THE img_ais_pi bitmap
+    if(panelIcon.IsOk())
+//	      Commented out when inserted the SVG Icon code below	
+        m_panelBitmap = wxBitmap(panelIcon); 
+	
+// FOR SVG ICONS  when CMakeLists.txt line 72  PLUGIN_USE_SVG=ON
+/*
 #ifdef PLUGIN_USE_SVG
-      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AisRadar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("AisRadar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
+      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("AISradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
 #else
       m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais_pi, wxITEM_CHECK, _(""), _T(""), NULL, AISVIEW_TOOL_POSITION, 0, this);
 #endif
-//end of insert
-//there is some problem up here with wxImage panelIcon and  m_panelBitmap that I don't get	
-	
-    if(panelIcon.IsOk())
-        m_panelBitmap = wxBitmap(panelIcon);
+*/
+
     else
         wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
-		m_panelBitmap = *_img_ais_pi;
+        m_panelBitmap = *_img_ais_pi;
 }
 
 aisradar_pi::~aisradar_pi() {
@@ -158,14 +158,19 @@ int aisradar_pi::Init(void) {
     }
     m_parent_window = GetOCPNCanvasWindow();
 
-	if(m_ais_show_icon) {
-//inserted by rick for svg
+    if(m_ais_show_icon) {
+// Commented out this icon when inserted USE_SVG below
+//        m_leftclick_tool_id  = InsertPlugInTool(_T(""), &m_panelBitmap, &m_panelBitmap, wxITEM_NORMAL,
+//               _T("AisView"), _T("Plugin for radar style view on AIS targets"), NULL,
+//               AISVIEW_TOOL_POSITION, 0, this);
+
+// FOR SVG ICONS  - CMakeLists.txt line 72  PLUGIN_USE_SVG=ON
 #ifdef PLUGIN_USE_SVG
-      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AisRadar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("AisRadar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
+      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),  _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, wxITEM_CHECK, _("AISradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
 #else
       m_leftclick_tool_id  = InsertPlugInTool(_T(""), _img_ais_pi, _img_ais_pi, wxITEM_CHECK, _(""), _T(""), NULL, AISVIEW_TOOL_POSITION, 0, this);
 #endif
-// end of insert
+
    }
 
     AisTargets = GetAISTargetArray();

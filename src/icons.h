@@ -9,7 +9,7 @@
 #endif
 
 #include <wx/filename.h>
-#include <wx/mstream.h>
+#include <wx/mstream.h>								   
 
 extern void initialize_images(void);
 
@@ -17,7 +17,7 @@ extern wxBitmap *_img_ais_pi;
 
 #ifdef PLUGIN_USE_SVG
 extern wxString _svg_aisradar;
-//extern wxString _svg_aisradar_rollover;
+extern wxString _svg_aisradar_rollover;
 extern wxString _svg_aisradar_toggled;
 #endif
 
