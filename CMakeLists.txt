@@ -132,9 +132,10 @@ SET(SRC_AISRADAR
 
 add_definitions(-DPLUGIN_USE_SVG)
 
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
 
 #===================================
 target_sources(${PACKAGE_NAME} PUBLIC ${SRC_AISRADAR})
