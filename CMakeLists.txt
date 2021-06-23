@@ -3,8 +3,10 @@
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 ## ---------------------------------------------------------------------------
-## Frontend Author: Jon Gough     Frontend2 Version: 1.0.167
+## Frontend Author: Jon Gough  Frontend2 Version: 1.0.169  Date:20/06/2021  DD/MM/YYYY       
+##  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
+## 
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
 ## ----- Changes should only be made between the section blocks that identify where     ----- ##
 ## ----- these changes should be. The whole configuration process relies on this        ----- ##
@@ -37,8 +39,8 @@ set(SHORT_DESCRIPTION "AIS Radar view Plugin")
 set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar style view.")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
-set(VERSION_PATCH "7")
-set(VERSION_TWEAK "6")
+set(VERSION_PATCH "8")
+set(VERSION_TWEAK "0")
 set(VERSION_DATE "23-06-2021")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -73,7 +75,9 @@ option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(CMAKE_MACOSX_RPATH "ON")
+# set(CMAKE_MACOSX_RPATH "ON")
+# not needed anymore
+
 
 # Use local version of GLU library
 #set(USE_LOCAL_GLU TRUE)
@@ -95,7 +99,7 @@ message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 
 project(${PACKAGE})
 
-set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;")
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 #===================================
 include("PluginSetup")
@@ -132,7 +136,11 @@ SET(SRC_AISRADAR
 
 add_definitions(-DPLUGIN_USE_SVG)
 
+set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude libs/ocpn-api/)
+
 # include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
@@ -143,15 +151,16 @@ target_sources(${PACKAGE_NAME} PUBLIC ${SRC_AISRADAR})
 # add_library(${PACKAGE_NAME} SHARED ${SRC_AISRADAR})
 
 
-#if(NOT OCPN_FLATPAK_CONFIG)
+if(NOT OCPN_FLATPAK_CONFIG)
     # Build environment not available when flatpak is being configured so following statements will not work
     message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
 
-#    add_subdirectory(libs/tinyxml)
+    add_subdirectory(libs/tinyxml)
 
-#    target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
-#endif(NOT OCPN_FLATPAK_CONFIG)
+    target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
+endif(NOT OCPN_FLATPAK_CONFIG)
 
+add_definitions(-DTIXML_USE_STL)
 
 add_definitions(-DTIXML_USE_STL)
 
