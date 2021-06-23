@@ -5,18 +5,16 @@
   #include <wx/wx.h>
 #endif //precompiled headers
 #include <wx/mstream.h>
-
 #include <wx/filename.h>							  
-
 #include "icons.h"
 
 wxBitmap *_img_ais_pi;
 
 #ifdef PLUGIN_USE_SVG
 #include "ocpn_plugin.h"
-wxString _svg_aisradar;
-wxString _svg_aisradar_rollover;
-wxString _svg_aisradar_toggled;
+  wxString _svg_aisradar;
+  wxString _svg_aisradar_rollover;
+  wxString _svg_aisradar_toggled;
 #endif
 
 void initialize_images(void)
@@ -45,6 +43,6 @@ void initialize_images(void)
     return;
 }
 
-// void cleanup_images(void) {
-//    delete _img_ais_pi;
-//}
+void cleanup_images(void) {
+    delete _img_ais_pi;
+}
