@@ -1,6 +1,12 @@
 AIS Radar style View plug-in for OpenCPN
 ==================================
 
+Source Repository : https://github.com/Verezano/AISradar_pi
+
+Maintance Repository: https://github.com/rgleason/AISradar_pi/
+
+Please submit PR's to both repositories. Thank you.
+
 History
 -------
 This plugin was created in 2011 to show AIS targets in a radar style view. While there were no radar plugins at the time it was inadvertently named radar_pi. Over time this has been corrected to aisradar_pi and so is the repostory name. Since the plugin is packaged in some distributions its name aisradar_pi cannot be changed, because that would break things.
