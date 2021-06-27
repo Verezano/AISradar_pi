@@ -26,18 +26,20 @@ void initialize_images(void)
 	
 
 #ifdef PLUGIN_USE_SVG
-    wxFileName fn;
-    fn.SetPath(GetPluginDataDir("aisradar_pi"));
+
+	wxFileName fn;
+    wxString tmp_path;
+
+    tmp_path = GetPluginDataDir("aisradar_pi");
+    fn.SetPath(tmp_path);
     fn.AppendDir(_T("data"));
+
     fn.SetFullName(_T("aisradar.svg"));
     _svg_aisradar = fn.GetFullPath();
-    wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar);
-    fn.SetFullName(_T("aisradar_rollover.svg"));
-    _svg_aisradar_rollover = fn.GetFullPath();
-    wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar_rollover);	
     fn.SetFullName(_T("aisradar_toggled.svg"));
     _svg_aisradar_toggled = fn.GetFullPath();
-    wxLogMessage(_T("Loading toolbar icon: ") + _svg_aisradar_toggled); 
+
+
 #endif
 
     return;

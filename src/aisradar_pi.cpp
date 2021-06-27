@@ -91,11 +91,37 @@ aisradar_pi::aisradar_pi(void *ppimgr)
 {
 
     initialize_images();
+
+	wxFileName fn;
+
+    auto path = GetPluginDataDir("aisradar_pi");
+    fn.SetPath(path);
+    fn.AppendDir("data");
+    fn.SetFullName("aisradar.png");
+
+    path = fn.GetFullPath();
+
+    wxInitAllImageHandlers();
+
+    wxLogDebug(wxString("Using icon path: ") + path);
+    if (!wxImage::CanRead(path)) {
+        wxLogDebug("Initiating image handlers.");
+        wxInitAllImageHandlers();
+    }
+    wxImage panelIcon(path);
+    if (panelIcon.IsOk())
+        m_panelBitmap = wxBitmap(panelIcon);
+    else
+        wxLogWarning("aisradar panel icon has NOT been loaded");
+   // m_bShowShipDriver = false;
+
+/*
+
     wxString shareLocn = GetPluginDataDir("aisradar_pi") + 
         _T("data") + wxFileName::GetPathSeparator();
     wxImage panelIcon(  shareLocn + _T("aisradar.png"));
 	
-/*  OLD METHOD - Don't use anymore
+  OLD METHOD - Don't use anymore
   initialize_images();
 	wxString shareLocn = *GetpSharedDataLocation() +
         _T("plugins") + wxFileName::GetPathSeparator() +
@@ -150,6 +176,7 @@ int aisradar_pi::Init(void) {
     if(m_ais_show_icon) {
 
 // FOR SVG ICONS  - CMakeLists.txt line 72  PLUGIN_USE_SVG=ON
+		
 #ifdef PLUGIN_USE_SVG
       m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),
           _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, 
@@ -260,9 +287,16 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
          if(m_ais_show_icon != m_pAisShowIcon->GetValue()) {
               m_ais_show_icon= m_pAisShowIcon->GetValue();
               if(m_ais_show_icon) {
-                  m_leftclick_tool_id  = InsertPlugInTool(_T(""), &m_panelBitmap, &m_panelBitmap, wxITEM_NORMAL,
-                      _("Ais view"), _T(""), 0, AISVIEW_TOOL_POSITION,
-                      0, this);
+                 #ifdef PLUGIN_USE_SVG
+      m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),
+          _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, 
+          wxITEM_CHECK, _("AISradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
+#else
+       m_leftclick_tool_id  = InsertPlugInTool
+          (_T(""), _img_ais_pi, _img_ais_pi, wxITEM_CHECK, 
+		  _("AisView"), _T(""), NULL, 
+		  AISVIEW_TOOL_POSITION, 0, this);
+#endif
               } else {
                    RemovePlugInTool(m_leftclick_tool_id);
               }
