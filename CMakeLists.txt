@@ -3,7 +3,7 @@
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 ## ---------------------------------------------------------------------------
-## Frontend Author: Jon Gough  Frontend2 Version: 1.0.171.1  Date:27/06/2021  DD/MM/YYYY       
+## Frontend Author: Jon Gough  Frontend2 Version: 1.0.172.0  Date:27/06/2021  DD/MM/YYYY       
 ##  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
 ## 
@@ -39,7 +39,7 @@ set(SHORT_DESCRIPTION "AIS Radar view Plugin")
 set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar style view.")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
-set(VERSION_PATCH "9")
+set(VERSION_PATCH "10")
 set(VERSION_TWEAK "0")
 set(VERSION_DATE "27-06-2021")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
@@ -74,10 +74,6 @@ set(XML_DESCRIPTION ${LONG_DESCRIPTION})
 option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
 set(CMAKE_CXX_STANDARD 11)
-
-# set(CMAKE_MACOSX_RPATH "ON")
-# not needed anymore
-
 
 # Use local version of GLU library
 #set(USE_LOCAL_GLU TRUE)
