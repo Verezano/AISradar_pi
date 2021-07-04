@@ -3,7 +3,7 @@
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 ## ---------------------------------------------------------------------------
-## Frontend Author: Jon Gough  Frontend2 Version: 1.0.169  Date:20/06/2021  DD/MM/YYYY       
+## Frontend Author: Jon Gough  Frontend2 Version: 1.0.172.0  Date:27/06/2021  DD/MM/YYYY       
 ##  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
 ## 
@@ -39,9 +39,9 @@ set(SHORT_DESCRIPTION "AIS Radar view Plugin")
 set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar style view.")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
-set(VERSION_PATCH "8")
+set(VERSION_PATCH "10")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "23-06-2021")  #dd-mm-yyyy
+set(VERSION_DATE "27-06-2021")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -74,10 +74,6 @@ set(XML_DESCRIPTION ${LONG_DESCRIPTION})
 option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
 set(CMAKE_CXX_STANDARD 11)
-
-# set(CMAKE_MACOSX_RPATH "ON")
-# not needed anymore
-
 
 # Use local version of GLU library
 #set(USE_LOCAL_GLU TRUE)
@@ -139,6 +135,7 @@ add_definitions(-DPLUGIN_USE_SVG)
 set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude libs/ocpn-api/)
 
 # include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
