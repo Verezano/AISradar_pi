@@ -2,25 +2,16 @@
 
 This document is about AIS Radar View plugin (Ais-radar)
 
-* link:ais_radar_display.html#what_and_why[What and Why]
-* link:ais_radar_display.html#installation[Installation]
-* link:ais_radar_display.html#standard_actions[Standard Actions]
-* link:ais_radar_display.html#operation[Operation]
-* link:ais_radar_display.html#remarks[Remarks]
-
 === Links
 
-* Source: https://github.com/nohal/aisradar_pi[Github Repository - Nohal
-branch "Packaging"]
-* Source Original:https://github.com/Verezano/radar_pi[Original Github
-Repository]
+* Source: https://github.com/nohal/aisradar_pi
+* Source Original: https://github.com/Verezano/radar_pi
 * Forum:
-http://www.cruisersforum.com/forums/f134/ais-radar-plugin-missing-information-190125.html[AIS
-Radar Plugin]
+http://www.cruisersforum.com/forums/f134/ais-radar-plugin-missing-information-190125.html
 
 === What and Why
 
-A. *What does AIS Radar-pi do*
+*A. What does AIS Radar-pi do*
 
 AIS RADAR is a plugin that allows you to display AIS targets in the way
 ships are displayed on a radar screen.
@@ -28,20 +19,19 @@ ships are displayed on a radar screen.
 *Note*: Do not confuse this with the additional supplements that overlap
 the Ship's radar screen on the OpenCPN screen.
 
-B. *Why should I want it?*
+*B. Why should I want it?*
 
 If you want a simple screen, showing only the AIS targets, AIS Radar can
 be just what you are looking for.
 
-link:ais_radar_display.html[Back to top of page ↑]
-
+[#plugin_install_enable]
 === Installation
 
 *Note*: In this section the instructions are specifically for AIS
 Radar-pi, but there is a dedicated page in the manual with information
 about Downloading, Installing and Enabling Plugins in general. That
 dedicated page can be found here:
-link:../install_and_enable.html[Plugins - Install and Enable].
+xref:ais_radar_display.adoc#plugin_install_enable[Plugins - Install and Enable].
 
 AIS-Radar-pi can be downloaded from http://www.opencpn.org/index.html +
  +
@@ -104,8 +94,6 @@ Now the AIS Radar icon should appear somewhere in your OpenCPN Toolbar.
 
 image::ais_radar_icon.jpeg[]
 
-link:ais_radar_display.html[Back to top of page ↑] +
-
 === Standard actions
 
 When you click the AIS Radar-pi icon, you will see a radar-screen like
@@ -129,8 +117,6 @@ With EBL selected, a mouse-click on the AIS Radar screen will give you a
 bearing in degrees. That bearing is always in degrees relative to North,
 not relative to your course. +
 
-link:ais_radar_display.html[Back to top of page ↑] +
-
 === Operation
 
 Two operating modes are possible: +
@@ -144,8 +130,6 @@ hand top corner of the AIS Radar Screen. +
 If you do *not* select “North Up”, AIS Radar Screen will operate in
 “*COG* up” mode and you will see the text “Course Up” in the right hand
 top corner of the AIS Radar Screen. +
-
-link:ais_radar_display.html[Back to top of page ↑]
 
 === Mode "North up"
 
@@ -190,9 +174,7 @@ Any target that:
 * moves *towards* the center of the screen is a boat that can
 “potentially”, collide with the boat of the user.
 * moves *away* from the center of the screen, is a boat that presents no
-risk of collision with the boat of the user.
-
- 
+risk of collision with the boat of the user. 
 
 === Mode "Course Up" ("COG up")
 
@@ -223,8 +205,6 @@ Any target that:
 “potentially”, collide with the boat of the user.
 * moves *away* from the center of the screen, is a boat that presents no
 risk of collision with the boat of the user.
-
-link:ais_radar_display.html[Back to top of page ↑]
 
 === Remarks
 
@@ -260,5 +240,3 @@ plugin OpenCPN DRAW (ODraw).
 This is the info on the OpenCPN-screen with an *EBL made with ODraw*.
 
 image::ais_radar_ebl_od.jpeg[]
-
-link:ais_radar_display.html[Back to top of page ↑]
