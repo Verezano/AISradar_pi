@@ -5,7 +5,7 @@ This document is about AIS Radar View plugin (Ais-radar)
 === Links
 
 * Source: https://github.com/nohal/aisradar_pi
-* Source Original: https://github.com/Verezano/radar_pi
+* Source Original: https://github.com/Verezano/AISradar_pi
 * Forum:
 http://www.cruisersforum.com/forums/f134/ais-radar-plugin-missing-information-190125.html
 
