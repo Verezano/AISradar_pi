@@ -31,7 +31,7 @@ be just what you are looking for.
 Radar-pi, but there is a dedicated page in the manual with information
 about Downloading, Installing and Enabling Plugins in general. That
 dedicated page can be found
-link:https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual:plugins:install_and_enable[here]:
+xref:opencpn-plugins:misc:plugin-install.adoc[here]
 
 AIS-Radar-pi can be installed directly from the OpenCPN GUI.
 It can also be downloaded from http://www.opencpn.org/index.html which
