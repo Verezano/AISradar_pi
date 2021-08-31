@@ -1,15 +1,15 @@
-== AISradar View
+= AISradar View
 
 This document is about AIS Radar View plugin (Ais-radar)
 
-=== Links
+== Links
 
 * Source: https://github.com/nohal/aisradar_pi
-* Source Original: https://github.com/Verezano/radar_pi
+* Source Original: https://github.com/Verezano/AISradar_pi
 * Forum:
 http://www.cruisersforum.com/forums/f134/ais-radar-plugin-missing-information-190125.html
 
-=== What and Why
+== What and Why
 
 *A. What does AIS Radar-pi do*
 
@@ -25,30 +25,23 @@ If you want a simple screen, showing only the AIS targets, AIS Radar can
 be just what you are looking for.
 
 [#plugin_install_enable]
-=== Installation
+== Installation
 
 *Note*: In this section the instructions are specifically for AIS
 Radar-pi, but there is a dedicated page in the manual with information
 about Downloading, Installing and Enabling Plugins in general. That
-dedicated page can be found here:
-xref:ais_radar_display.adoc#plugin_install_enable[Plugins - Install and Enable].
+dedicated page can be found
+xref:opencpn-plugins:misc:plugin-install.adoc[here]
 
-AIS-Radar-pi can be downloaded from http://www.opencpn.org/index.html +
- +
-Click “*Downloads*”
+AIS-Radar-pi can be installed directly from the OpenCPN GUI.
+It can also be downloaded from http://www.opencpn.org/index.html which
+has download links for Windows and MacOSX.
 
-image::watchdog_19056_001_ocpn_downloads.jpeg[]
-
-Click “*Plugins for OpenCPN 4.2 & 4.4*”
-
-Look for “*AIS Radar View”*“
-
-image::ais_radar_download.jpeg[]
 
 *B. How to install the plug-in*
 
 Make sure you choose the file that is compatible with your
-computersystem. In this manual we presume it's Windows, so we choose the
+computer system. In this manual we presume it's Windows, so we choose the
 *Windows setup-package*. +
 Download the file (double-click).
 
@@ -61,7 +54,7 @@ Double-click the downloaded file and follow the set-up instructions.
 That's it. But before you can actually *use* the plug-in, you first have
 to *enable* that plug-in in OpenCPN.
 
-=== Enabling the plug-in in OpenCPN
+== Enabling the plug-in in OpenCPN
 
 Open (or restart) OpenCPN.
 
@@ -94,7 +87,7 @@ Now the AIS Radar icon should appear somewhere in your OpenCPN Toolbar.
 
 image::ais_radar_icon.jpeg[]
 
-=== Standard actions
+== Standard actions
 
 When you click the AIS Radar-pi icon, you will see a radar-screen like
 representation of the AIS-targets around you. +
@@ -117,7 +110,7 @@ With EBL selected, a mouse-click on the AIS Radar screen will give you a
 bearing in degrees. That bearing is always in degrees relative to North,
 not relative to your course. +
 
-=== Operation
+== Operation
 
 Two operating modes are possible: +
 
@@ -131,7 +124,7 @@ If you do *not* select “North Up”, AIS Radar Screen will operate in
 “*COG* up” mode and you will see the text “Course Up” in the right hand
 top corner of the AIS Radar Screen. +
 
-=== Mode "North up"
+== Mode "North up"
 
 image::ais_radar_ebl_north_up.jpeg[]
 
@@ -176,7 +169,7 @@ Any target that:
 * moves *away* from the center of the screen, is a boat that presents no
 risk of collision with the boat of the user. 
 
-=== Mode "Course Up" ("COG up")
+== Mode "Course Up" ("COG up")
 
 If you do not select “North Up”, AIS Radar Screen will operate in “COG
 up” mode and you will see the text “Course Up” in the right hand top
@@ -206,7 +199,7 @@ Any target that:
 * moves *away* from the center of the screen, is a boat that presents no
 risk of collision with the boat of the user.
 
-=== Remarks
+== Remarks
 
 Keep in mind that the plugin has advantages but also some things to be
 aware of. The big advantage of AIS Radar is that it is not very complex.
