@@ -1,4 +1,4 @@
-== AISradar View
+= AISradar View
 
 This document is about AIS Radar View plugin (Ais-radar)
 
@@ -8,7 +8,7 @@ This document is about AIS Radar View plugin (Ais-radar)
 * link:ais_radar_display.html#operation[Operation]
 * link:ais_radar_display.html#remarks[Remarks]
 
-=== Links
+== Links
 
 * Source: https://github.com/nohal/aisradar_pi[Github Repository - Nohal
 branch "Packaging"]
@@ -18,7 +18,7 @@ Repository]
 http://www.cruisersforum.com/forums/f134/ais-radar-plugin-missing-information-190125.html[AIS
 Radar Plugin]
 
-=== What and Why
+== What and Why
 
 A. *What does AIS Radar-pi do*
 
@@ -35,7 +35,7 @@ be just what you are looking for.
 
 link:ais_radar_display.html[Back to top of page ↑]
 
-=== Installation
+== Installation
 
 *Note*: In this section the instructions are specifically for AIS
 Radar-pi, but there is a dedicated page in the manual with information
@@ -71,7 +71,7 @@ Double-click the downloaded file and follow the set-up instructions.
 That's it. But before you can actually *use* the plug-in, you first have
 to *enable* that plug-in in OpenCPN.
 
-=== Enabling the plug-in in OpenCPN
+== Enabling the plug-in in OpenCPN
 
 Open (or restart) OpenCPN.
 
@@ -106,7 +106,7 @@ image::ais_radar_icon.jpeg[]
 
 link:ais_radar_display.html[Back to top of page ↑] +
 
-=== Standard actions
+== Standard actions
 
 When you click the AIS Radar-pi icon, you will see a radar-screen like
 representation of the AIS-targets around you. +
@@ -131,7 +131,7 @@ not relative to your course. +
 
 link:ais_radar_display.html[Back to top of page ↑] +
 
-=== Operation
+== Operation
 
 Two operating modes are possible: +
 
@@ -147,7 +147,7 @@ top corner of the AIS Radar Screen. +
 
 link:ais_radar_display.html[Back to top of page ↑]
 
-=== Mode "North up"
+== Mode "North up"
 
 image::ais_radar_ebl_north_up.jpeg[]
 
@@ -194,7 +194,7 @@ risk of collision with the boat of the user.
 
  
 
-=== Mode "Course Up" ("COG up")
+== Mode "Course Up" ("COG up")
 
 If you do not select “North Up”, AIS Radar Screen will operate in “COG
 up” mode and you will see the text “Course Up” in the right hand top
@@ -226,7 +226,7 @@ risk of collision with the boat of the user.
 
 link:ais_radar_display.html[Back to top of page ↑]
 
-=== Remarks
+== Remarks
 
 Keep in mind that the plugin has advantages but also some things to be
 aware of. The big advantage of AIS Radar is that it is not very complex.
