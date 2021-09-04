@@ -4,6 +4,7 @@ This document is about AIS Radar View plugin (Ais-radar)
 
 == Links
 
+
 * Source: https://github.com/nohal/aisradar_pi[Github Repository - Nohal branch]
 * Source Original: https://github.com/Verezano/aisradar_pi[Original Github Repository]
 * Maintenance Source: https://github.com/rgleason/aisradar_pi
@@ -22,8 +23,6 @@ the Ship's radar screen on the OpenCPN screen.
 === B. *Why should I want it?*
 
 If you want a simple screen, showing only the AIS targets, AIS Radar could be just what you need.
-
-
 
 [#plugin_install_enable]
 == Installation
