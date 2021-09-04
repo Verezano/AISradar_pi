@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>AISradar View :: AISradar Manual</title>
+    <link rel="canonical" href="https://nowhere.net/aisradar/0.1/index.html">
+    <meta name="generator" content="Antora 2.3.4">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <div class="navbar">
+    <div class="navbar-brand">
+      <div class="ocpn-logo"> </div>
+      <a class="navbar-title"
+         href="https://nowhere.net"
+      >
+        AISradar Manual
+        </a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+       <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://www.opencpn.org">OpenCPN.org</a>
+            <a class="navbar-item"
+               href="https://opencpn.org/wiki/dokuwiki/doku.php?id=opencpn:opencpn_user_manual"
+            >
+               User Manual
+               </a>
+            <a class="navbar-item" href="https://github.com/opencpn/OpenCPN">
+               Github Site
+               </a>
+            <a class="navbar-item" href="https://opencpn.org/flyspray/">
+               Bugtracker
+               </a>
+            <a class="navbar-item"
+                href="https://rasbats.github.io/opencpn-plugins-manual/">
+                    Plugin Manual (pre-alpha)
+               </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="aisradar" data-version="0.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-explore is-active" data-panel="explore">
+  <div class="context">
+    <span class="title">AISradar</span>
+    <span class="version">0.1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">AISradar</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">0.1</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+</nav>
+  <div class="edit-this-page"><a href="file:///C:/Users/Rick/documents/github/aisradar_pi/manual/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">AISradar View</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This document is about AIS Radar View plugin (Ais-radar)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_links"><a class="anchor" href="#_links"></a>Links</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Source: <a href="https://github.com/nohal/aisradar_pi">Github Repository - Nohal branch</a></p>
+</li>
+<li>
+<p>Source Original: <a href="https://github.com/Verezano/aisradar_pi">Original Github Repository</a></p>
+</li>
+<li>
+<p>Maintenance Source: <a href="https://github.com/rgleason/aisradar_pi" class="bare">https://github.com/rgleason/aisradar_pi</a></p>
+</li>
+<li>
+<p>Forum: <a href="http://www.cruisersforum.com/forums/f134/ais-radar-plugin-missing-information-190125.html">AIS Radar Plugin</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_and_why"><a class="anchor" href="#_what_and_why"></a>What and Why</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_a_what_does_ais_radar_pi_do"><a class="anchor" href="#_a_what_does_ais_radar_pi_do"></a>A. <strong>What does AIS Radar-pi do</strong></h3>
+<div class="paragraph">
+<p>AIS RADAR is a plugin that allows you to display AIS targets in the way
+ships are displayed on a radar screen.</p>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>: Do not confuse this with the additional supplements that overlap
+the Ship&#8217;s radar screen on the OpenCPN screen.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_b_why_should_i_want_it"><a class="anchor" href="#_b_why_should_i_want_it"></a>B. <strong>Why should I want it?</strong></h3>
+<div class="paragraph">
+<p>If you want a simple screen, showing only the AIS targets, AIS Radar could be just what you need.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="plugin_install_enable"><a class="anchor" href="#plugin_install_enable"></a>Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Note</strong>: In this section the instructions are specifically for AIS
+Radar-pi, but there is a dedicated page in the manual with information
+about Downloading, Installing and Enabling Plugins in general. That
+dedicated page can be found
+<a href="#opencpn-plugins:misc:plugin-install.adoc" class="page unresolved">here</a></p>
+</div>
+<div class="paragraph">
+<p>AIS-Radar-pi can be installed directly from the OpenCPN GUI.
+It can also be downloaded from <a href="http://www.opencpn.org/index.html" class="bare">http://www.opencpn.org/index.html</a> which
+has download links for Windows and MacOSX.</p>
+</div>
+<div class="paragraph">
+<p><strong>B. How to install the plug-in</strong></p>
+</div>
+<div class="paragraph">
+<p>Make sure you choose the file that is compatible with your
+computer system. In this manual we presume it&#8217;s Windows, so we choose the
+<strong>Windows setup-package</strong>.<br>
+Download the file (double-click).</p>
+</div>
+<div class="paragraph">
+<p>We assume you know where to find the files you download from the
+Internet (if you don&#8217;t: quit now and read the manual of your computer
+before doing anything else with it</p>
+</div>
+<div class="paragraph">
+<p>Double-click the downloaded file and follow the set-up instructions.</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it. But before you can actually <strong>use</strong> the plug-in, you first have
+to <strong>enable</strong> that plug-in in OpenCPN.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enabling_the_plug_in_in_opencpn"><a class="anchor" href="#_enabling_the_plug_in_in_opencpn"></a>Enabling the plug-in in OpenCPN</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Open (or restart) OpenCPN.</p>
+</div>
+<div class="paragraph">
+<p>Click <strong>Tools</strong>-<strong>Options</strong>-<strong>Plugins</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/object_search_04.jpeg" alt="object search 04">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/object_search_05.jpeg" alt="object search 05">
+</div>
+</div>
+<div class="paragraph">
+<p>Scroll down untill you see the AIS Radar-pi.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_enable.jpeg" alt="ais radar enable">
+</div>
+</div>
+<div class="paragraph">
+<p>Click “<strong>Enable</strong>” and then “<strong>Preferences</strong>”.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_preferences.jpeg" alt="ais radar preferences">
+</div>
+</div>
+<div class="paragraph">
+<p>The list of preferences is simple:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Show RADAR icon</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This box toggles displaying the icon in the OpenCPN icon bar.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use AIS as Radar Source.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Ticking this box will allow AIS Radar View to use the information
+from your AIS receiver (make sure your AIS receiver is set up in OpenCPN
+in “Tools”-“Options”-“Connections”).<br></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Click “<strong>OK</strong>”.</p>
+</div>
+<div class="paragraph">
+<p>Now the AIS Radar icon should appear somewhere in your OpenCPN Toolbar.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_icon.jpeg" alt="ais radar icon">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_standard_actions"><a class="anchor" href="#_standard_actions"></a>Standard actions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you click the AIS Radar-pi icon, you will see a radar-screen like
+representation of the AIS-targets around you.<br>
+They are represented by triangular ship-icons. Yellow if not fully
+recognized yet, green when fully recognized.</p>
+</div>
+<div class="paragraph">
+<p>When your own ship has not just an AIS-receiver, but an AIS
+<strong>transponder</strong> (and <strong>sends</strong> AIS signals), you will see such an icon in
+the centre of the screen. That&#8217;s you.</p>
+</div>
+<div class="paragraph">
+<p>On the bottom of the screen you can set some options. You can set
+different ranges in AIS Radar. From 0.25 nm to 32 nm.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_ranges.jpeg" alt="ais radar ranges">
+</div>
+</div>
+<div class="paragraph">
+<p>You can also choose “North Up” (when it&#8217;s not selected, the view will be
+“Course Up”) and you can select “EBL” (“Electronic Bearing Line”).</p>
+</div>
+<div class="paragraph">
+<p>With EBL selected, a mouse-click on the AIS Radar screen will give you a
+bearing in degrees. That bearing is always in degrees relative to North,
+not relative to your course.<br></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_operation"><a class="anchor" href="#_operation"></a>Operation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Two operating modes are possible:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>North</strong>-up,</p>
+</li>
+<li>
+<p><strong>COG</strong> up, or “Course Up”.<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can select “North Up” on the bottom of the screen.<br>
+If you select “North Up”, you will see the text “North Up” in the right
+hand top corner of the AIS Radar Screen.<br>
+If you do <strong>not</strong> select “North Up”, AIS Radar Screen will operate in
+“<strong>COG</strong> up” mode and you will see the text “Course Up” in the right hand
+top corner of the AIS Radar Screen.<br></p>
+</div>
+<div class="sect2">
+<h3 id="_mode_north_up"><a class="anchor" href="#_mode_north_up"></a>Mode "North up"</h3>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_ebl_north_up.jpeg" alt="ais radar ebl north up">
+</div>
+</div>
+<div class="paragraph">
+<p>“North Up” is selected. You will see the text “North Up” in the right
+hand top corner of the AIS Radar Screen.<br></p>
+</div>
+<div class="paragraph">
+<p>Also you will see the letters “<strong>N</strong>”, “<strong>E</strong>”, “<strong>S</strong>” and “<strong>W</strong>”. They
+indicate North, East, South and West.<br></p>
+</div>
+<div class="paragraph">
+<p>The range is set to 8 nautical miles.<br>
+The <strong>center</strong> of the screen, where the vertical and the horizontal axes
+cross, <strong>is your own position</strong>.<br></p>
+</div>
+<div class="paragraph">
+<p>All vessels with an AIS transmitter, Class A or B, within the chosen
+distance, will be displayed on the screen (“AIS-targets”) and their
+positions will be updated as they (and/or you) move.<br></p>
+</div>
+<div class="paragraph">
+<p>There is no ship-icon in the middle. That is because in this example you
+are only receiving AIS-signals and not sending them.<br>
+If you would be transmitting AIS-signals, you would see a ship-icon (us)
+in the middle of the screen. If your boat does <strong>not</strong> send AIS-signals
+but you <strong>do</strong> see a ship-icon in the middle of the screen, you have
+rammed another ship! (<strong>maybe you should have set a Watchdog-alarm?</strong>)</p>
+</div>
+<div class="paragraph">
+<p><strong>Note</strong>: the AIS Radar relies not only on the other ships sending
+AIS-signals, but also on your equipment receiving those signals!</p>
+</div>
+<div class="paragraph">
+<p>“<strong>EBL</strong>” (Electronic Bearing Line) is also selected.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_ebl.jpeg" alt="ais radar ebl">
+</div>
+</div>
+<div class="paragraph">
+<p>In the top left quadrant of the screen you see an AIS Target. It is the
+<em>“Princ Zadra”</em> coming from the North West. By putting the mouse-cursor
+on that ship and clicking, the EBL will tell you the true bearing of
+that ship from your position. In this case that true bearing is 312
+degrees. It&#8217;s true, believe us.</p>
+</div>
+<div class="paragraph">
+<p>Any target that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>moves <strong>towards</strong> the center of the screen is a boat that can
+“potentially”, collide with the boat of the user.</p>
+</li>
+<li>
+<p>moves <strong>away</strong> from the center of the screen, is a boat that presents no
+risk of collision with the boat of the user.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mode_course_up_cog_up"><a class="anchor" href="#_mode_course_up_cog_up"></a>Mode "Course Up" ("COG up")</h3>
+<div class="paragraph">
+<p>If you do not select “North Up”, AIS Radar Screen will operate in “COG
+up” mode and you will see the text “Course Up” in the right hand top
+corner of the AIS Radar Screen.<br></p>
+</div>
+<div class="paragraph">
+<p>The next screenshot is the same situation as described in the part ”
+Mode “North up”, but now in “Course Up” mode.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_ebl_course_up.jpeg" alt="ais radar ebl course up">
+</div>
+</div>
+<div class="paragraph">
+<p>Note that the numerical value displayed at the top of the vertical axis
+gives your COG. In this case that numerical value is 306 degrees. That
+means you are heading North West.</p>
+</div>
+<div class="paragraph">
+<p>Also note that on the screen the <em>“Princ Zadra”</em> (which is coming from
+the North West) is now coming almost straight “down” towards you.<br>
+Theoretically, in “COG up” the targets directly in front of your ship
+should be permanently oriented towards the top of the screen. BUT, also
+note that with each variation of your own COG, the entire screen rotates
+either in one direction or the other. It&#8217;s movements are non-existent if
+you follow a constant heading.<br></p>
+</div>
+<div class="paragraph">
+<p>Any target that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>moves <strong>towards</strong> the center of the screen is a boat that can
+“potentially”, collide with the boat of the user.</p>
+</li>
+<li>
+<p>moves <strong>away</strong> from the center of the screen, is a boat that presents no
+risk of collision with the boat of the user.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remarks"><a class="anchor" href="#_remarks"></a>Remarks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Keep in mind that the plugin has advantages but also some things to be
+aware of. The big advantage of AIS Radar is that it is not very complex.
+But keep in mind that the information on the screen is sometimes less
+than the information you will get in the “normal” AIS Target Information
+on the main screen of OpenCPN.</p>
+</div>
+<div class="paragraph">
+<p>We will illustrate that with a few screenshots of a ship approaching us
+from our port quarter.</p>
+</div>
+<div class="paragraph">
+<p>It&#8217;s a ship called “<em>Eemshorn</em>”.</p>
+</div>
+<div class="paragraph">
+<p>Looking at the AIS Radar screen you might think she is just an ordinary
+ship like any other ship.</p>
+</div>
+<div class="paragraph">
+<p>This is the info on the <strong>AIS Radar</strong> screen.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_noparticulars.jpeg" alt="ais radar noparticulars">
+</div>
+</div>
+<div class="paragraph">
+<p>But the AIS Target Information on the main screen of OpenCPN would give
+you some important additional information. In this case that she is a
+dredger and restricted in her manoeuverability.</p>
+</div>
+<div class="paragraph">
+<p>This is the info on the <strong>OpenCPN</strong> screen.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_particulars.jpeg" alt="ais radar particulars">
+</div>
+</div>
+<div class="paragraph">
+<p>And instead of the EBL in AIS Radar you could use an EBL made with the
+plugin OpenCPN DRAW (ODraw).</p>
+</div>
+<div class="paragraph">
+<p>This is the info on the OpenCPN-screen with an <strong>EBL made with ODraw</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ais_radar_ebl_od.jpeg" alt="ais radar ebl od">
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.
+     Sources: https://gitlab.com/leamas/antora-ui-default
+  </p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
