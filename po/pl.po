@@ -89,7 +89,6 @@ msgstr "W"
 #: src/aisradar.cpp:358
 msgid "E"
 msgstr "E"
-
 #: src/aisradar.cpp:360
 msgid "Course Up"
 msgstr ""

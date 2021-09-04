@@ -15,7 +15,6 @@ msgstr ""
 "X-Crowdin-Project: opencpn\n"
 "X-Crowdin-Language: zh-TW\n"
 "X-Crowdin-File: /plugins/aisradar_pi/po/aisradar_pi.pot\n"
-
 #: src/aisradar_pi.cpp:92 src/aisradar_pi.cpp:137 src/aisradar_pi.cpp:217
 msgid "AIS Radar view"
 msgstr ""
