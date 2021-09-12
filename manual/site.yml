@@ -1,7 +1,7 @@
 site:
   title: AIS Radar  Plugin Manual
   url:  https://nowhere.net
-  start_page: ais_radar_display:ROOT:ais_radar_display.adoc
+  start_page: ais_radar_display::index.adoc
 
 content:
   sources:
