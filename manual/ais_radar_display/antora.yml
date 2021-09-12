@@ -1,4 +1,4 @@
 name: ais_radar_display
-title: ais_radar_display
+title: AIS Radar Display
 version: '0.1'
-start_page: ROOT:ais_radar_display.adoc 
+start_page: ais_radar_display:ROOT:ais_radar_display.adoc 
