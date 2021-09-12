@@ -20,7 +20,7 @@ Radar Plugin]
 
 === What and Why
 
-A. *What does AIS Radar-pi do*
+*What does AIS Radar-pi do*
 
 AIS RADAR is a plugin that allows you to display AIS targets in the way
 ships are displayed on a radar screen.
@@ -28,7 +28,7 @@ ships are displayed on a radar screen.
 *Note*: Do not confuse this with the additional supplements that overlap
 the Ship's radar screen on the OpenCPN screen.
 
-B. *Why should I want it?*
+*Why should I want it?*
 
 If you want a simple screen, showing only the AIS targets, AIS Radar can
 be just what you are looking for.
