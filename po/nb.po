@@ -97,4 +97,3 @@ msgstr "Kurs opp"
 #: src/aisradar.h:102
 msgid "Radar Display"
 msgstr "Radarskjerm"
-

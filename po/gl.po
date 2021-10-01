@@ -97,4 +97,3 @@ msgstr "Rumbo arriba"
 #: src/aisradar.h:102
 msgid "Radar Display"
 msgstr "Pantalla Radar"
-

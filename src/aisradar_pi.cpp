@@ -287,7 +287,7 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
          if(m_ais_show_icon != m_pAisShowIcon->GetValue()) {
               m_ais_show_icon= m_pAisShowIcon->GetValue();
               if(m_ais_show_icon) {
-                 #ifdef PLUGIN_USE_SVG
+ #ifdef PLUGIN_USE_SVG
       m_leftclick_tool_id = InsertPlugInToolSVG(_T( "AISradar" ),
           _svg_aisradar,  _svg_aisradar_toggled, _svg_aisradar_toggled, 
           wxITEM_CHECK, _("AISradar"), _T( "" ), NULL, AISVIEW_TOOL_POSITION, 0, this);
