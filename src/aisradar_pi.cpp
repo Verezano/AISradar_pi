@@ -304,6 +304,8 @@ void aisradar_pi::ShowPreferencesDialog( wxWindow* parent ) {
          m_ais_use_ais    = m_pAisUseAis->GetValue();
          SaveConfig();
     }
+
+    delete dialog;
 }
 
 
