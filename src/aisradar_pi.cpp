@@ -192,11 +192,11 @@ int aisradar_pi::Init(void) {
 
     AisTargets = GetAISTargetArray();
     return (WANTS_TOOLBAR_CALLBACK | INSTALLS_TOOLBAR_TOOL |
-         WANTS_CONFIG | WANTS_PREFERENCES | WANTS_AIS_SENTENCES  |
+         WANTS_CONFIG | WANTS_AIS_SENTENCES  |
          WANTS_NMEA_EVENTS | WANTS_PLUGIN_MESSAGING | USES_AUI_MANAGER
     );
 }
-
+// Removed WANTS_PREFERENCES | before AIS
 
 bool aisradar_pi::DeInit(void) {
     if(m_pAisFrame) {

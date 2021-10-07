@@ -3,7 +3,7 @@
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 ## ---------------------------------------------------------------------------
-## Frontend Author: Jon Gough  Frontend2 Version: 1.0.175.4  Date:02/10/2021  DD/MM/YYYY       
+## Frontend Author: Jon Gough  Frontend2 Version: 1.0.176  Date:04/10/2021  DD/MM/YYYY       
 ##  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
 ## 
@@ -40,7 +40,7 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "11")
-set(VERSION_TWEAK "0")
+set(VERSION_TWEAK "4")
 set(VERSION_DATE "02-10-2021")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
@@ -117,7 +117,7 @@ include("PluginConfigure")
 
 add_definitions(-DUSE_S57)
 
-SET(SRC_AISRADAR
+SET(SRCS
       src/aisradar_pi.h
       src/aisradar_pi.cpp
       src/aisview.h
@@ -135,17 +135,17 @@ add_definitions(-DPLUGIN_USE_SVG)
 set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude libs/ocpn-api/)
 
 # include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
 
 #===================================
-target_sources(${PACKAGE_NAME} PUBLIC ${SRC_AISRADAR})
+target_sources(${PACKAGE_NAME} PUBLIC ${SRCS})
 #===================================
-# add_library(${PACKAGE_NAME} SHARED ${SRC_AISRADAR})
+
 
 
 if(NOT OCPN_FLATPAK_CONFIG)
@@ -159,7 +159,7 @@ endif(NOT OCPN_FLATPAK_CONFIG)
 
 add_definitions(-DTIXML_USE_STL)
 
-add_definitions(-DTIXML_USE_STL)
+# Not testing JSON Schema Validation
 
 ## ----- Change above to match project requirements ----- ##
 ## ----- do not change next section - needed to configure build process ----- ##

@@ -7,12 +7,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="32"
-   height="32"
-   version="1.1"
-   id="svg10"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    sodipodi:docname="aisradar.svg"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+   id="svg10"
+   version="1.1"
+   height="32"
+   width="32">
   <metadata
      id="metadata16">
     <rdf:RDF>
@@ -21,69 +21,69 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <defs
      id="defs14" />
   <sodipodi:namedview
-     inkscape:document-rotation="0"
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     id="namedview12"
-     showgrid="false"
-     inkscape:zoom="26.25"
-     inkscape:cx="26.052722"
-     inkscape:cy="13.159764"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:current-layer="svg10"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg10" />
+     inkscape:window-y="-9"
+     inkscape:window-x="-9"
+     inkscape:cy="13.159764"
+     inkscape:cx="26.052722"
+     inkscape:zoom="26.25"
+     showgrid="false"
+     id="namedview12"
+     inkscape:window-height="1011"
+     inkscape:window-width="1920"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     inkscape:document-rotation="0" />
   <rect
-     style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#00001c;fill-opacity:1;fill-rule:evenodd;stroke:#c7c8be;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
-     id="rect843"
-     width="32.190475"
-     height="31.923809"
+     y="0.076190479"
      x="0"
-     y="0.076190479" />
+     height="31.923809"
+     width="32.190475"
+     id="rect843"
+     style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#4d4d4d;fill-opacity:1;fill-rule:evenodd;stroke:#c7c8be;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1" />
   <path
-     id="circle2"
+     d="M 31,16 A 15,15 0 0 1 16,31 15,15 0 0 1 1,16 15,15 0 0 1 16,1 15,15 0 0 1 31,16"
      style="display:inline;fill:#0c0000;fill-opacity:1;stroke:#c7c8be;stroke-width:2;stroke-opacity:1"
-     d="M 31,16 A 15,15 0 0 1 16,31 15,15 0 0 1 1,16 15,15 0 0 1 16,1 15,15 0 0 1 31,16" />
+     id="circle2" />
   <circle
-     cx="16"
-     cy="16"
-     r="5"
-     stroke="#008000"
-     stroke-width="2"
-     fill="transparent"
+     style="display:inline;fill:#191919;fill-opacity:1;stroke:#adada9;stroke-opacity:1"
      id="circle4"
-     style="display:inline;fill:#555555;fill-opacity:1;stroke:#adada9;stroke-opacity:1" />
-  <polygon
-     points="8,7 25,11 8,14 "
+     fill="transparent"
+     stroke-width="2"
      stroke="#008000"
-     stroke-width="1"
-     fill="#008000"
-     id="polygon6"
-     style="display:inline;fill:#7b7b7b;fill-opacity:1;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none" />
+     r="5"
+     cy="16"
+     cx="16" />
   <polygon
-     points="24,18 24,25 7,21 "
-     stroke="#ff0000"
+     style="display:inline;fill:#7b7b7b;fill-opacity:1;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+     id="polygon6"
+     fill="#008000"
      stroke-width="1"
-     fill="#ff0000"
+     stroke="#008000"
+     points="25,11 8,14 8,7 " />
+  <polygon
+     style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
      id="polygon8"
-     style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none" />
+     fill="#ff0000"
+     stroke-width="1"
+     stroke="#ff0000"
+     points="24,25 7,21 24,18 " />
   <path
-     style="display:inline;fill:#080803;fill-opacity:0;stroke:#0d0d0b;stroke-width:0;stroke-opacity:1"
+     id="path845"
      d="m 20.628571,31.333366 c 2.270219,-0.69795 4.198485,-1.768445 5.942858,-3.299234 0.474699,-0.416576 1.320407,-1.278931 1.69849,-1.731923 1.547638,-1.854267 2.633185,-3.968817 3.236463,-6.30435 l 0.167284,-0.647619 0.0013,6.066667 0.0013,6.066666 -5.761904,-0.0019 -5.761905,-0.0019 0.47619,-0.146399 z"
-     id="path845" />
+     style="display:inline;fill:#080803;fill-opacity:0;stroke:#0d0d0b;stroke-width:0;stroke-opacity:1" />
 </svg>
