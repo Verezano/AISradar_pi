@@ -4,7 +4,7 @@
    height="32"
    version="1.1"
    id="svg10"
-   sodipodi:docname="aisradar_toggled.svg"
+   sodipodi:docname="aisradar_panel.svg"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -41,7 +41,7 @@
      id="namedview12"
      showgrid="false"
      inkscape:zoom="26.25"
-     inkscape:cx="12.32381"
+     inkscape:cx="11.904762"
      inkscape:cy="16.190476"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
@@ -49,36 +49,37 @@
      inkscape:current-layer="svg10"
      inkscape:pagecheckerboard="0" />
   <rect
-     style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#333333;fill-opacity:1;fill-rule:evenodd;stroke:#c7c8be;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
+     style="font-variation-settings:normal;display:inline;opacity:1;vector-effect:none;fill:#e6e6e6;fill-opacity:1;fill-rule:evenodd;stroke:#c7c8be;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;stop-color:#000000;stop-opacity:1"
      id="rect843"
-     width="32.190475"
-     height="31.923809"
-     x="5e-07"
-     y="0.076190479"
+     width="31.999998"
+     height="31.924034"
+     x="0.09523873"
+     y="0.07596501"
      inkscape:export-filename="C:\Users\fcgle\source\aisradar_pi\data\aisradar_panel.png"
      inkscape:export-xdpi="95.537201"
      inkscape:export-ydpi="95.537201" />
   <path
      id="circle2"
-     style="display:inline;fill:#545454;fill-opacity:1;stroke:#cdcdcb;stroke-width:2;stroke-opacity:1"
-     d="M 31,16 A 15,15 0 0 1 16,31 15,15 0 0 1 1.0000005,16 15,15 0 0 1 16,1 15,15 0 0 1 31,16"
+     style="display:inline;fill:#d5d5d5;fill-opacity:1;stroke:#60605d;stroke-width:1.99408;stroke-opacity:1"
+     d="M 30.911806,15.999887 A 14.911242,15.000106 0 0 1 16.000564,30.999993 14.911242,15.000106 0 0 1 1.0893216,15.999887 14.911242,15.000106 0 0 1 16.000564,0.99978106 14.911242,15.000106 0 0 1 30.911806,15.999887"
      inkscape:export-filename="C:\Users\fcgle\source\aisradar_pi\data\aisradar_panel.png"
      inkscape:export-xdpi="95.537201"
      inkscape:export-ydpi="95.537201" />
-  <circle
-     cx="16"
-     cy="16"
-     r="5"
+  <ellipse
+     cx="16.000563"
+     cy="15.999887"
      stroke="#008000"
-     stroke-width="2"
+     stroke-width="1.99408"
      fill="transparent"
      id="circle4"
-     style="display:inline;fill:#ababab;fill-opacity:1;stroke:#cdcdcb;stroke-opacity:1"
+     style="display:inline;fill:#808080;fill-opacity:1;stroke:#81817c;stroke-opacity:1"
      inkscape:export-filename="C:\Users\fcgle\source\aisradar_pi\data\aisradar_panel.png"
      inkscape:export-xdpi="95.537201"
-     inkscape:export-ydpi="95.537201" />
+     inkscape:export-ydpi="95.537201"
+     rx="4.9704142"
+     ry="5.0000353" />
   <polygon
-     points="8,7 25,11 8,14 "
+     points="25,11 8,14 8,7 "
      stroke="#008000"
      stroke-width="1"
      fill="#008000"
@@ -86,9 +87,10 @@
      style="display:inline;fill:#b3b3b3;fill-opacity:1;stroke:#00800c;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
      inkscape:export-filename="C:\Users\fcgle\source\aisradar_pi\data\aisradar_panel.png"
      inkscape:export-xdpi="95.537201"
-     inkscape:export-ydpi="95.537201" />
+     inkscape:export-ydpi="95.537201"
+     transform="matrix(0.99408283,0,0,1.0000071,0.09523823,-2.2600491e-4)" />
   <polygon
-     points="24,18 24,25 7,21 "
+     points="24,25 7,21 24,18 "
      stroke="#ff0000"
      stroke-width="1"
      fill="#ff0000"
@@ -96,10 +98,11 @@
      style="display:inline;fill:#ffffff;fill-opacity:1;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
      inkscape:export-filename="C:\Users\fcgle\source\aisradar_pi\data\aisradar_panel.png"
      inkscape:export-xdpi="95.537201"
-     inkscape:export-ydpi="95.537201" />
+     inkscape:export-ydpi="95.537201"
+     transform="matrix(0.99408283,0,0,1.0000071,0.09523823,-2.2600491e-4)" />
   <path
      style="display:inline;fill:#080803;fill-opacity:0;stroke:#0d0d0b;stroke-width:0;stroke-opacity:1"
-     d="m 20.628571,31.333366 c 2.270219,-0.69795 4.198485,-1.768445 5.942858,-3.299234 0.4747,-0.416576 1.320407,-1.278931 1.69849,-1.731923 1.547638,-1.854267 2.633186,-3.968817 3.236463,-6.30435 l 0.167284,-0.647619 0.0013,6.066667 0.0013,6.066666 -5.761904,-0.0019 -5.761905,-0.0019 0.47619,-0.146399 z"
+     d="m 20.601747,31.333361 c 2.256785,-0.697955 4.173641,-1.768457 5.907693,-3.299257 0.471891,-0.416579 1.312594,-1.27894 1.688439,-1.731935 1.538481,-1.85428 2.617605,-3.968845 3.217313,-6.304395 l 0.166294,-0.647623 0.0013,6.066709 0.0013,6.066709 -5.727809,-0.0019 -5.727811,-0.0019 0.473372,-0.1464 z"
      id="path845"
      inkscape:export-filename="C:\Users\fcgle\source\aisradar_pi\data\aisradar_panel.png"
      inkscape:export-xdpi="95.537201"

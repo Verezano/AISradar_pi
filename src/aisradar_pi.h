@@ -64,6 +64,9 @@ public:
     wxString GetCommonName();
     wxString GetShortDescription();
     wxString GetLongDescription();
+    wxBitmap m_panelBitmap;
+	//from shipdriver for panel icon
+	  
 
     void SetDefaults(void);
     int  GetToolbarToolCount(void);
@@ -118,7 +121,7 @@ private:
     bool              m_ais_north_up;
     wxCheckBox       *m_pAisShowIcon;
     wxCheckBox       *m_pAisUseAis;
-	wxBitmap          m_panelBitmap;
+//	wxBitmap          m_panelBitmap;
 };
 
 #endif

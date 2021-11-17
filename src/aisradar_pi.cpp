@@ -92,12 +92,13 @@ aisradar_pi::aisradar_pi(void *ppimgr)
 
     initialize_images();
 
-	wxFileName fn;
-
+	// Create the PlugIn icons  -from shipdriver
+    // loads png file for the listing panel icon
+    wxFileName fn;
     auto path = GetPluginDataDir("aisradar_pi");
     fn.SetPath(path);
     fn.AppendDir("data");
-    fn.SetFullName("aisradar.png");
+    fn.SetFullName("aisradar_panel.png");
 
     path = fn.GetFullPath();
 
@@ -112,9 +113,11 @@ aisradar_pi::aisradar_pi(void *ppimgr)
     if (panelIcon.IsOk())
         m_panelBitmap = wxBitmap(panelIcon);
     else
-        wxLogWarning("aisradar panel icon has NOT been loaded");
-   // m_bShowShipDriver = false;
+        wxLogWarning("AISradar Panel icon has NOT been loaded");
+// End of from Shipdriver	
 
+
+	
 /*
 
     wxString shareLocn = GetPluginDataDir("aisradar_pi") + 
@@ -140,11 +143,11 @@ aisradar_pi::aisradar_pi(void *ppimgr)
 */		
 
 // SHOW THE TOOLBAR  BITMAP	IF SHOW ICON CHECKBOX IS CHECKED, DISPLAYS THE img_ais_pi bitmap
-    if(panelIcon.IsOk())
-        m_panelBitmap = wxBitmap(panelIcon); 
-    else
-        wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
-        m_panelBitmap = *_img_ais_pi;
+//   if(panelIcon.IsOk())
+//        m_panelBitmap = wxBitmap(panelIcon); 
+//    else
+//        wxLogMessage(_T(" AISVIEW panel icon NOT loaded"));
+//        m_panelBitmap = *_img_ais_pi;
 }
 
 aisradar_pi::~aisradar_pi() {
@@ -225,11 +228,9 @@ int aisradar_pi::GetPlugInVersionMinor() {
     return PLUGIN_VERSION_MINOR;
 }
 
-
-wxBitmap *aisradar_pi::GetPlugInBitmap() {
-	return &m_panelBitmap;
-}
-
+// Shipdriver uses the climatology_panel.png file to make the bitmap.
+wxBitmap *aisradar_pi::GetPlugInBitmap()  { return &m_panelBitmap; }
+// End of shipdriver process
 
 wxString aisradar_pi::GetCommonName() {
    return _T(PLUGIN_COMMON_NAME);
