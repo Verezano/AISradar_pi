@@ -9,18 +9,13 @@ set -xe
 
 pwd
 
-#not needed for CI built, the workflow starts up already in "project" directory.
-# but required for local build.
-#cd project
-
 ls -la
-
 
 sudo apt-get -q update
 sudo apt-get -y install git cmake gettext unzip
 
 # Get the OCPN Android build support package.
-#NOT REQUIRED FOR LOCAL BUILD
+# FOR LOCAL BUILD - have a local version to avoid big download each run - need to stage it but not commit it. DO NOT COMMIT AND PUSH master.zip
 echo "CIRCLECI_LOCAL: $CIRCLECI_LOCAL"
 if [ -z "$CIRCLECI_LOCAL" ]; then
    wget https://github.com/bdbcat/OCPNAndroidCommon/archive/master.zip
@@ -30,9 +25,6 @@ unzip -qq -o master.zip
 pwd
 ls -la
 
-#change this for local build, so as not to overwrite any other generic build.
-#mkdir -p build_android_64_ci
-#cd build_android_64_ci
 mkdir -p build
 cd build
 
@@ -47,7 +39,7 @@ cmake  \
   -DCMAKE_CXX_COMPILER=$COMPDIR/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang++ \
   -DCMAKE_C_COMPILER=$COMPDIR/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android21-clang \
   -DOCPN_Android_Common=OCPNAndroidCommon-master \
-  -DPREFIX=/ \
+  -DCMAKE_INSTALL_PREFIX=/ \
   ..
 
 # Get number of processors and use this on make to speed up build

@@ -3,7 +3,7 @@
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 ## ---------------------------------------------------------------------------
-## Frontend Author: Jon Gough  Frontend2 Version: 1.0.172.0  Date:27/06/2021  DD/MM/YYYY       
+## Frontend Author: Jon Gough  Frontend2 Version: 1.0.180  Date:17/11/2021  DD/MM/YYYY       
 ##  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
 ## 
@@ -18,12 +18,14 @@
 set(CMLOC "CMakeLists: ")
 
 # define minimum cmake version
-cmake_minimum_required(VERSION 3.1.1)
+cmake_minimum_required(VERSION 3.5.1)
 if(COMMAND cmake_policy)
     if(POLICY CMP0043)
         cmake_policy(SET CMP0043 NEW)
     endif(POLICY CMP0043)
     cmake_policy(SET CMP0048 NEW)
+# Need cmake 3.13 to implement this, but raspbian builds are at 3.7.2 and bionic at 3.10 and xenial builds at 3.5.1
+#    cmake_policy(SET CMP0076 NEW)
     if(POLICY CMP0077)
         cmake_policy(SET CMP0077 NEW)
     endif(POLICY CMP0077)
@@ -39,9 +41,9 @@ set(SHORT_DESCRIPTION "AIS Radar view Plugin")
 set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar style view.")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
-set(VERSION_PATCH "10")
+set(VERSION_PATCH "17")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "27-06-2021")  #dd-mm-yyyy
+set(VERSION_DATE "17-11-2021")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -117,7 +119,7 @@ include("PluginConfigure")
 
 add_definitions(-DUSE_S57)
 
-SET(SRC_AISRADAR
+SET(SRCS
       src/aisradar_pi.h
       src/aisradar_pi.cpp
       src/aisview.h
@@ -130,22 +132,80 @@ SET(SRC_AISRADAR
       src/Target.cpp
     )
 
+#set(OCPNSRC
+#    ocpnsrc/cutil.cpp
+#    ocpnsrc/TexFont.cpp
+#)
+
+#set(OCPNHDRS
+#    ocpninclude/cutil.h
+#    ocpninclude/ocpn_plugin.h
+#    ocpninclude/pluginmanager.h
+#    ocpninclude/shaders.h
+#    ocpninclude/TexFont.h
+#    ocpninclude/vector2D.h
+#    libs/ocpn-api/ocpn_plugin.h
+#)
+
+#set(EXTSRC
+#)
+
+#set(EXTINCLUDE
+#    extinclude/ODAPI.h
+#    extinclude/ODJSONSchemas.h
+#)
+
+#set(LIBSSRC libs/wxJSON/src/jsonreader.cpp libs/wxJSON/src/jsonval.cpp libs/wxJSON/src/jsonwriter.cpp)
+
+#set(LIBHDRS
+#    libs/GL/gl.h
+#    libs/GL/gl_private.h
+#    libs/GL/glext.h
+#    libs/GL/glu.h
+#    libs/wxJSON/include/json_defs.h
+#    libs/wxJSON/include/jsonreader.h
+#    libs/wxJSON/include/jsonval.h
+#    libs/wxJSON/include/jsonwriter.h)
+
+
 add_definitions(-DPLUGIN_USE_SVG)
 
 set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude libs/ocpn-api/)
+#
+# ----- If using JSON validation in plugin section below is needed ----- ##
+#
+
+# Not using JSON Validation
+
+#
+# ----- If using JSON validation in plugin section above is needed ----- ##
+#
 
 # include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
+# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wx/include)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
+
+#
+# ----- Change below to match project requirements for android build ----- ##
+#
+if(QT_ANDROID)
+    include_directories( ${PROJECT_SOURCE_DIR}/extinclude/GLES2)
+endif(QT_ANDROID)
+
+##
+## ----- Change above to match project requirements for android build ----- ##
+##
 
 #===================================
-target_sources(${PACKAGE_NAME} PUBLIC ${SRC_AISRADAR})
+target_sources(${PACKAGE_NAME} PUBLIC ${SRCS})
 #===================================
-# add_library(${PACKAGE_NAME} SHARED ${SRC_AISRADAR})
+
+# target_sources(${PACKAGE_NAME} PUBLIC ${SRCS} ${HDRS} ${OCPNSRC} ${EXTSRC} ${LIBSSRC})
 
 
 if(NOT OCPN_FLATPAK_CONFIG)
@@ -159,7 +219,14 @@ endif(NOT OCPN_FLATPAK_CONFIG)
 
 add_definitions(-DTIXML_USE_STL)
 
-add_definitions(-DTIXML_USE_STL)
+#
+# ----- If using JSON validation in plugin section below is needed ----- ##
+#
+
+# Not testing JSON Schema Validation
+#
+# ----- If using JSON validation in plugin section above is needed ----- ##
+#
 
 ## ----- Change above to match project requirements ----- ##
 ## ----- do not change next section - needed to configure build process ----- ##
