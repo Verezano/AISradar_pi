@@ -63,17 +63,17 @@ BEGIN_EVENT_TABLE ( AisFrame, wxDialog )
 
 END_EVENT_TABLE()
 
-AisFrame::AisFrame() 
-: pParent(0), 
-    pPlugIn(0), 
-    m_Timer(0), 
-    m_pCanvas(0), 
-    m_pNorthUp(0), 
+AisFrame::AisFrame()
+: pParent(0),
+    pPlugIn(0),
+    m_Timer(0),
+    m_pCanvas(0),
+    m_pNorthUp(0),
     m_pRange(0),
-    m_pBearingLine(0), 
+    m_pBearingLine(0),
     m_BgColour(),
-    m_Ebl(0.0),  
-    m_Range(0), 
+    m_Ebl(0.0),
+    m_Range(0),
     m_pViewState(0)
 {
     Init();
@@ -90,7 +90,7 @@ void AisFrame::Init() {
 
 
 bool AisFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
-                              const wxString& caption, 
+                              const wxString& caption,
                               const wxPoint& pos, const wxSize& size )
 {
     pParent = parent;
@@ -124,7 +124,7 @@ bool AisFrame::Create ( wxWindow *parent, aisradar_pi *ppi, wxWindowID id,
     cbox->FitInside(m_pCanvas);
     canvas->Add(m_pCanvas, 1, wxEXPAND);
     vbox->Add(canvas, 1, wxALL | wxEXPAND, 5);
-  
+
     // Add controls
     wxStaticBox    *sb=new wxStaticBox(panel,wxID_ANY, _("Options"));
     wxStaticBoxSizer *controls = new wxStaticBoxSizer(sb, wxHORIZONTAL);
@@ -176,7 +176,7 @@ void AisFrame::OnClose ( wxCloseEvent& event ) {
     // Stop timer if still running
     m_Timer->Stop();
     delete m_Timer;
-    
+
     // Save window size
     pPlugIn->SetAisFrameX(m_pViewState->GetPos().x);
     pPlugIn->SetAisFrameY(m_pViewState->GetPos().y);
@@ -264,7 +264,8 @@ void AisFrame::OnSize ( wxSizeEvent& event ) {
     if( m_pCanvas )
     {
         wxClientDC dc(m_pCanvas);
-        m_pViewState->SetCanvasSize(dc.GetSize());
+        wxSize cs = m_pCanvas->GetClientSize();
+        m_pViewState->SetCanvasSize(cs);
         m_pViewState->SetWindowSize(GetSize());
         render(dc);
     }
@@ -287,7 +288,7 @@ void AisFrame::render(wxDC& dc)     {
     wxSize       size(width, height);
     wxPoint      center(width/2, height/2);
     int radius = std::max((std::min(width,height)/2),MIN_RADIUS);
-    
+
     //    m_pCanvas->SetBackgroundColour (m_BgColour);
     renderRange(dc, center, size, radius);
     ArrayOfPlugIn_AIS_Targets *AisTargets = pPlugIn->GetAisTargets();
@@ -332,7 +333,7 @@ void AisFrame::renderBoats(wxDC& dc, wxPoint &center, wxSize &size, int radius, 
         t        = *it;
         // Only display well defined targets
         if (t->Range_NM>0.0 && t->Brg>0.0) {
-            if (m_ShowMoored 
+            if (m_ShowMoored
                 || t->Class == AIS_BASE
                 ||(!m_ShowMoored && t->SOG > m_MooredSpeed)
             ) {
@@ -372,7 +373,7 @@ void AisFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) 
     int fh=fnt.GetPointSize();
     dc.SetFont(fnt);
     float Range=RangeData[m_pRange->GetSelection()];
-    dc.DrawText(wxString::Format(wxT("%s %2.2f"), _("Range"),Range  ), 0, 0); 
+    dc.DrawText(wxString::Format(wxT("%s %2.2f"), _("Range"),Range  ), 0, 0);
 
     // Draw the orientation info
     wxString dir;
@@ -385,7 +386,7 @@ void AisFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) 
         dc.DrawText(_("W"), 5, size.GetHeight()/2 - dc.GetCharHeight());
         dc.DrawText(_("E"), size.GetWidth() - 7 - dc.GetCharWidth(), size.GetHeight()/2 - dc.GetCharHeight());
     } else {
-        dir=_("Course Up"); 
+        dir=_("Course Up");
         // Display our own course at to top
         double offset=pPlugIn->GetCog();
         dc.SetTextForeground(wxColour(128,128,128));
@@ -393,7 +394,7 @@ void AisFrame::renderRange(wxDC& dc, wxPoint &center, wxSize &size, int radius) 
         dc.DrawText(wxString::Format(_T("%3.0f\u00B0"),offset), size.GetWidth()/2 - dc.GetCharWidth()*2, cpos);
     }
     dc.SetTextForeground(wxColour(0,0,0));
-    dc.DrawText(dir,  size.GetWidth()-dc.GetCharWidth()*dir.Len()-fh-TEXT_MARGIN, 0); 
+    dc.DrawText(dir,  size.GetWidth()-dc.GetCharWidth()*dir.Len()-fh-TEXT_MARGIN, 0);
     if (m_pBearingLine->GetValue()) {
         // Display and estimated bearing line
         int x = center.x;
