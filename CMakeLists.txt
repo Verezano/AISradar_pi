@@ -3,7 +3,7 @@
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 ## ---------------------------------------------------------------------------
-## Frontend Author: Jon Gough  Frontend2 Version: 1.0.185.0 08/12/2021  Date:17/11/2021  DD/MM/YYYY       
+## Frontend Author: Jon Gough  Frontend2 Version: 1.0.193.0 02/17/2022  Date:17/11/2021  DD/MM/YYYY       
 ##  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
 ## 
@@ -42,8 +42,8 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "19")
-set(VERSION_TWEAK "0")
-set(VERSION_DATE "11-12-2021")  #dd-mm-yyyy
+set(VERSION_TWEAK "1")
+set(VERSION_DATE "2-27-2022")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -183,7 +183,6 @@ set(EXTINCLUDE_DIR ${EXTINCLUDE_DIR} extinclude libs/ocpn-api/)
 
 # include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 # include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-# include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpnsrc/glu/include)
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
 include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
 #include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
