@@ -3,7 +3,7 @@
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 ## ---------------------------------------------------------------------------
-## Frontend Author: Jon Gough  Frontend2 Version: 1.0.193.0 02/17/2022  Date:17/11/2021  DD/MM/YYYY       
+## Frontend Author: Jon Gough  Frontend2 Version: 1.0.194.0  09/03/2022  Date:17/11/2021  DD/MM/YYYY       
 ##  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
 ## 
@@ -42,8 +42,8 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "2")
 set(VERSION_PATCH "19")
-set(VERSION_TWEAK "1")
-set(VERSION_DATE "2-27-2022")  #dd-mm-yyyy
+set(VERSION_TWEAK "3")
+set(VERSION_DATE "3-10-2022")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
@@ -57,8 +57,8 @@ set(PARENT "opencpn")
 #set(GIT_REPOSITORY_SERVER "github.com")
 
 # Specifies cloudsmith repository suffixes
-set(PROD "prod") # Standard Repos
-set(BETA "beta") # Standard Repos
+set(PROD "prod")   # Standard Repos
+set(BETA "beta")   # Standard Repos
 set(ALPHA "alpha") # Standard Repos
 
 # set this if your cloudsmith repository name does not match your git repository name set(CLOUDSMITH_BASE_REPOSITORY "testplugin_pi")
@@ -79,10 +79,10 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Use local version of GLU library
 #set(USE_LOCAL_GLU TRUE)
-# Prefer libGL.so to libOpenGL.so, see CMP0072
-set(OpenGL_GL_PREFERENCE "LEGACY")
 # Don't use local version of GLU library
 set(USE_LOCAL_GLU FALSE)
+# Prefer libGL.so to libOpenGL.so, see CMP0072
+set(OpenGL_GL_PREFERENCE "LEGACY")
 
 option(USE_GL "Enable OpenGL support" OFF)
 message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
