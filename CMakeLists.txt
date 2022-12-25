@@ -3,7 +3,7 @@
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 ## ---------------------------------------------------------------------------
-## Frontend Author: Jon Gough  Frontend2 Version: 1.0.213.1  16/06/2022  DD/MM/YYYY       
+## Frontend Author: Jon Gough  Frontend2 Version: 1.0.222.1  25/12/2022  DD/MM/YYYY       
 ##  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
 ## 
@@ -40,10 +40,10 @@ set(PACKAGE "aisradar")
 set(SHORT_DESCRIPTION "AIS Radar view Plugin")
 set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar style view.")
 set(VERSION_MAJOR "1")
-set(VERSION_MINOR "2")
-set(VERSION_PATCH "23")
+set(VERSION_MINOR "3")
+set(VERSION_PATCH "0")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "17-06-2022")  #dd-mm-yyyy
+set(VERSION_DATE "25-12-2022")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov50")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
