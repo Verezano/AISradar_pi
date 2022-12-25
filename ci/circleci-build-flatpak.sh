@@ -12,11 +12,38 @@
 
 # bailout on errors and echo commands.
 set -xe
+
+if [ "${CIRCLECI_LOCAL,,}" = "true" ]; then
+    if [[ -d ~/circleci-cache ]]; then
+        if [[ -f ~/circleci-cache/apt-proxy ]]; then
+            cat ~/circleci-cache/apt-proxy | sudo tee -a /etc/apt/apt.conf.d/00aptproxy
+            cat /etc/apt/apt.conf.d/00aptproxy
+        fi
+    fi
+fi
+
 sudo apt-get -q -y --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages update
 
 #PLUGIN=bsb4
 
 sudo apt --allow-unauthenticated --allow-downgrades --allow-remove-essential --allow-change-held-packages install flatpak flatpak-builder
+
+# Install extra build libs
+ME=$(echo ${0##*/} | sed 's/\.sh//g')
+EXTRA_LIBS=./ci/extras/extra_libs.txt
+if test -f "$EXTRA_LIBS"; then
+    sudo apt update
+    while read line; do
+        sudo apt-get install $line
+    done < $EXTRA_LIBS
+fi
+EXTRA_LIBS=./ci/extras/${ME}_extra_libs.txt
+if test -f "$EXTRA_LIBS"; then
+    sudo apt update
+    while read line; do
+        sudo apt-get install $line
+    done < $EXTRA_LIBS
+fi
 
 if [ -n "$CI" ]; then
     sudo apt update
@@ -24,8 +51,13 @@ if [ -n "$CI" ]; then
     # Avoid using outdated TLS certificates, see #210.
     sudo apt install --reinstall  ca-certificates
 
-    # Install flatpak and flatpak-builder
+    # Use updated flatpak workaround
+    sudo add-apt-repository -y ppa:alexlarsson/flatpak
+    sudo apt update
+
+    # Install flatpak and flatpak-builder - obsoleted by flathub
     sudo apt install flatpak flatpak-builder
+
 fi
 
 flatpak remote-add --user --if-not-exists \
