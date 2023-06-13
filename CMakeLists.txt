@@ -2,9 +2,9 @@
 ## Author:    Johan van der Sman      hannes@andcrew.nl           
 ## License:   GNUGLv3
 ## License:   wxWidgets License
-## ---------------------------------------------------------------------------
-## Frontend Author: Jon Gough  Frontend2 Version: 1.0.222.1  25/12/2022  DD/MM/YYYY       
-##  buildCI:yes useODAPI:no validateJSON:no  
+#-----------------------------------------------------------------------------
+# CI-CMake: v1.0.238.0 09/06/2023  # DD/MM/YYYY format  CI-CMake Author: Jon Gough
+#  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
 ## 
 ## ----- When changing this file do NOT change the order in which sections occur        ----- ##
@@ -41,13 +41,13 @@ set(SHORT_DESCRIPTION "AIS Radar view Plugin")
 set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar style view.")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "3")
-set(VERSION_PATCH "1")
+set(VERSION_PATCH "2")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "25-12-2022")  #dd-mm-yyyy
-set(OCPN_MIN_VERSION "ov50")
+set(VERSION_DATE "13-06-2023")  #dd-mm-yyyy
+set(OCPN_MIN_VERSION "ov58")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
-set(TP_COMMENT "  * Release for O5 using CI")
+set(TP_COMMENT "  * Release for O58 using CI")
 
 set(PARENT "opencpn")
 
@@ -88,7 +88,7 @@ option(USE_GL "Enable OpenGL support" OFF)
 message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "")
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" FORCE)
+    set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build" FORCE)
 endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
 message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
