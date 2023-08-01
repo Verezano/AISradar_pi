@@ -3,7 +3,7 @@
 ## License:   GNUGLv3
 ## License:   wxWidgets License
 #-----------------------------------------------------------------------------
-# CI-CMake: v1.0.238.0 09/06/2023  # DD/MM/YYYY format  CI-CMake Author: Jon Gough
+# CI-CMake: v1.0.238.1 31/07/2023  # DD/MM/YYYY format  CI-CMake Author: Jon Gough
 #  buildCI:yes useODAPI:no validateJSON:no  
 ## ---------------------------------------------------------------------------
 ## 
@@ -41,9 +41,9 @@ set(SHORT_DESCRIPTION "AIS Radar view Plugin")
 set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar style view.")
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "3")
-set(VERSION_PATCH "3")
+set(VERSION_PATCH "4")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "13-06-2023")  #dd-mm-yyyy
+set(VERSION_DATE "31-07-2023")  #dd-mm-yyyy
 set(OCPN_MIN_VERSION "ov58")
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
