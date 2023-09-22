@@ -1,10 +1,24 @@
 ##---------------------------------------------------------------------------
 ## Author:    Johan van der Sman      hannes@andcrew.nl           
-## License:   GNUGLv3
-## License:   wxWidgets License
-#-----------------------------------------------------------------------------
+##***************************************************************************
+## *   Copyright (C) by Johan van der Sman
+## *   License:  GNUGLv3  wxWidgets License
+## *   This program is free software; you can redistribute it and/or modify  *
+## *   it under the terms of the GNU General Public License as published by  *
+## *   the Free Software Foundation; either version 2 of the License, or     *
+## *   (at your option) any later version.                                   *
+## *                                                                         *
+## *   This program is distributed in the hope that it will be useful,       *
+## *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+## *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+## *   GNU General Public License for more details.                          *
+## *                                                                         *
+## *   You should have received a copy of the GNU General Public License     *
+## *   along with this program; if not, write to the                         *
+## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
+## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx      #-----------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough 
-# Testplugn(TP) v1.0.254.0 09/09/2023 DD/MM/YYYY format
+# Testplugn(TP) v1.0.256.0 17/09/2023 DD/MM/YYYY format
 # buildCI:yes useODAPI:no validateJSON:no
 # ---------------------------------------------------------------------------
 ## -- When changing this file do NOT change the order of the sections.    -- ##
@@ -40,13 +54,14 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "4")
-set(VERSION_PATCH "0")
+set(VERSION_PATCH "1")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE "07/09/2023")  #DD/MM/YYYY format
+set(VERSION_DATE  "19/09/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
+
 set(OCPN_API_VERSION_MAJOR "1")
 set(OCPN_API_VERSION_MINOR "16")
-set(TP_COMMENT "  * Release for O58 using CI")
+set(TP_COMMENT "  * Release using CI")
 
 set(PARENT "opencpn")
 
@@ -72,8 +87,8 @@ set(XML_INFO_URL "https://opencpn.org/OpenCPN/plugins/aisradarview.html")
 set(XML_SUMMARY ${SHORT_DESCRIPTION})
 set(XML_DESCRIPTION ${LONG_DESCRIPTION})
 
-## ----- Modify section above to include all the details for your plugin ----- ##
-## ----- Modify section below if there are special requirements for the plugin ----- ##
+## ----- Modify section above to include all the details for your plugin ------- ##
+## ----- Modify section below if there are special requirements for the plugin --##
 
 option(PLUGIN_USE_SVG "Use SVG graphics" ON)
 
@@ -100,23 +115,30 @@ project(${PACKAGE})
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
-#========================================================
+##========================================================
+
 include("PluginSetup")
-#========================================================
-## ----- Above used to setup standard variables required by CMAKE process - Do not remove ----- ##
-## ----- Modify section below if there are special requirements for the plugin ----- ##
+
+##========================================================
+## ----- Above sets up standard variables required by CMAKE - Do not remove -----##
+## ----- Modify section below if there are special requirements for the plugin --##
 
 set(CMAKE_VERBOSE_MAKEFILE "Activate verbose mode for make files" ON)
 
 option(Plugin_CXX11 "Use c++11" OFF)
 
-## ----- Modify section above if there are special requirements for the plugin ----- ##
-## ----- do not change next section - needed to configure build process ----- ##
-#===========================================================
+## ----- Modify section above if there are special requirements for the plugin --##
+## ----- Do not change next section - needed to configure build process ---------##
+##===========================================================
+
+## --Below needed for build process.
+##===========================================================
+
 include("PluginConfigure")
-#===========================================================
-## ----- do not change section above - needed to configure build process ----- ##
-## ----- Change below to match project requirements for source, headers, etc. ----- ##
+
+##===========================================================
+## ----- Do not change section above - needed to configure build process --------##
+## ----- Change below to match project requirements for source, headers, etc. ---##
 
 add_definitions(-DUSE_S57)
 
@@ -135,92 +157,87 @@ SET(SRCS
       src/Target.cpp
     )
 
-#set(LIBSSRC 
-#    libs/wxJSON/src/jsonreader.cpp
-#    libs/wxJSON/src/jsonval.cpp
-#    libs/wxJSON/src/jsonwriter.cpp)
-
-#set(LIBHDRS
-#    libs/GL/gl.h
-#    libs/GL/gl_private.h
-#    libs/GL/glext.h
-#    libs/GL/glu.h
-#    libs/wxJSON/include/json_defs.h
-#    libs/wxJSON/include/jsonreader.h
-#    libs/wxJSON/include/jsonval.h
-#    libs/wxJSON/include/jsonwriter.h)
 
 add_definitions(-DPLUGIN_USE_SVG)
 
-## ----- Section above - Add your project SET(SRCS and SET(HDRS  etc..
-## ----- If using JSON validation in plugin section below is needed ----- ##
+## ----- Section above - Add your project SET(SRCS and SET(HDRS  etc.-------##
+## ----- If using JSON validation in plugin section below is needed --------##
 
 # Do not need Json Schema Validation
 
-## ----- If using JSON validation in plugin section above is needed ----- ##
+## ----- If using JSON validation in plugin section above is needed --------##
 
-##================================================================================
+##=============================================================
 ## Change as required to collect all the set( headers and SRCS
 ## This add_library  can be used in conditionals below.
-##================================================================================
+##=============================================================
 
-SET(SRC ${SRCS} ${HDRS} ${LIBSSRC} )
+SET(SRC ${SRCS} ${HDRS} )
 
 ##=============================================================
 ## Modify/configure 'Include' Directories below for the Plugin
 ##=============================================================
 
+include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 
 # include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 # include_directories(BEFORE ${PROJECT_SOURCE_DIR}/ocpninclude)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/${EXTINCLUDE_DIR})
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/GL)
-include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
-#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/wxJSON/include)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/)
+#include_directories(BEFORE ${PROJECT_SOURCE_DIR}/libs/ocpn-api)
+
 
 
 ## Change target_sources to match your project needs.
-##=================================================
+##==============================================================
+
 target_sources(${PACKAGE_NAME} PUBLIC ${SRC} )
-##=================================================
+
+##==============================================================
 
 if(NOT OCPN_FLATPAK_CONFIG)
-    # Build environment not available when flatpak is being configured so following statements will not work
+    # Build environment not available when flatpak is being configured 
+	# so following statements will not work
     message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
 
-    add_subdirectory(libs/tinyxml)
-    add_subdirectory(libs/pluginDC)
+    add_subdirectory(opencpn-libs/WindowsHeaders)
+    target_link_libraries(${PACKAGE_NAME} windows::headers)
 
+    add_subdirectory(opencpn-libs/api-16)
+    target_link_libraries(${PACKAGE_NAME} ocpn::api)
+
+    add_subdirectory(opencpn-libs/tinyxml)
     target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
-    target_link_libraries(${PACKAGE_NAME} ocpn::pluginDC)
+
+    add_subdirectory(opencpn-libs/plugingl)
+    target_link_libraries(${PACKAGE_NAME} ocpn::plugingl)
+
 endif(NOT OCPN_FLATPAK_CONFIG)
 
 add_definitions(-DTIXML_USE_STL)
 
 ##
-## ----- If using JSON validation section below is needed ----- ##
+## ----- If using JSON validation section below is needed ---------------##
 ##
 
 # Do not need Json Schema Validation
 
-##
-## ----- Do not change next section - needed to configure build process ----- ##
-##
-##------- Change below to match project requirements --------------
+
+##------- Change below to match project requirements --------------------##
 
 # Needed for android builds
 if(QT_ANDROID)
     include_directories(BEFORE ${qt_android_include})
 endif(QT_ANDROID)
 
-## Needed for all builds Do not change - needed to build app --- ##
-#========================================================
+## Needed for all builds Do not change - needed to build app -------------##
+##===============================================================
+
 include("PluginInstall")
 include("PluginLocalization")
 include("PluginPackage")
-#========================================================
-## ----- Do not change section above - needed to configure build process ----- ##
+
+##================================================================
+## ----- Do not change section above - needed to configure build process --##
 
 message(STATUS "${CMLOC}include directories: ")
 get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
