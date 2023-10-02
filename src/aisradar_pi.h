@@ -46,7 +46,7 @@
 
 #define AISVIEW_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class aisradar_pi : public opencpn_plugin_116
+class aisradar_pi : public opencpn_plugin_117
 {
 public:
     aisradar_pi(void *ppimgr);
@@ -60,6 +60,8 @@ public:
     int GetAPIVersionMinor();
     int GetPlugInVersionMajor();
     int GetPlugInVersionMinor();
+    int GetPlugInVersionPatch();
+    int GetPlugInVersionPost();
     wxBitmap *GetPlugInBitmap();
     wxString GetCommonName();
     wxString GetShortDescription();
