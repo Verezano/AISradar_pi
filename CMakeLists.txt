@@ -55,9 +55,9 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "4")
-set(VERSION_PATCH "7")
+set(VERSION_PATCH "10")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE  "09/10/2023")#DD/MM/YYYY format
+set(VERSION_DATE  "10/10/2023")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
@@ -97,7 +97,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 # Use local version of GLU library
 # requires libs/glu directory
-set(USE_LOCAL_GLU FALSE) # Don't use local version of GLU library
+set(USE_LOCAL_GLU TRUE) # use local version of GLU library
 # Prefer libGL.so to libOpenGL.so, see CMP0072
 set(OpenGL_GL_PREFERENCE "LEGACY")   #not operational
 
