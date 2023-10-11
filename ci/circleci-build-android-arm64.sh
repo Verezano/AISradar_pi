@@ -9,6 +9,8 @@ set -xe
 
 pwd
 
+git submodule update --init opencpn-libs
+
 ls -la
 
 # FOR LOCAL BUILD - have a local version to avoid big download each run - need to stage it but not commit it. DO NOT COMMIT AND PUSH master.zip
@@ -72,10 +74,10 @@ cmake  \
   ..
 
 # Get number of processors and use this on make to speed up build
-procs=$(awk -F- '{print $2}' /sys/fs/cgroup/cpuset/cpuset.cpus)
-procs=$((procs + 1))
-make_cmd="make -j"$procs
-eval $make_cmd
+#procs=$(awk -F- '{print $2}' /sys/fs/cgroup/cpuset/cpuset.cpus)
+#procs=$((procs + 1))
+#make_cmd="make -j"$procs
+#eval $make_cmd
 make package
 
 #  All below for local docker build

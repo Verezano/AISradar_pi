@@ -65,7 +65,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) {
 //---------------------------------------------------------------------------------------------------------
 
 aisradar_pi::aisradar_pi(void *ppimgr)
-: opencpn_plugin_116(ppimgr),
+: opencpn_plugin_117(ppimgr),
     m_pconfig(0),
     m_parent_window(0),
     m_pAisFrame(0),
@@ -226,6 +226,14 @@ int aisradar_pi::GetPlugInVersionMajor() {
 
 int aisradar_pi::GetPlugInVersionMinor() {
     return PLUGIN_VERSION_MINOR;
+}
+
+int aisradar_pi::GetPlugInVersionPatch() {
+    return PLUGIN_VERSION_PATCH;
+}
+
+int aisradar_pi::GetPlugInVersionPost() {
+    return PLUGIN_VERSION_TWEAK;
 }
 
 // Shipdriver uses the climatology_panel.png file to make the bitmap.

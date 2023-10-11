@@ -13,6 +13,10 @@ This plugin was created in 2011 to show AIS targets in a radar style view. While
 All references to radar in the code have been changed to ais or aisview to reflect the real purpose of this plugin.
 As suggested by r.gleason the repository is renamed to AISradar_pi.git
 
+Plugin Manager
+--------------
+This plugin is easily available from within OpenCPN using Options > Plugin Manager for many supported OS.
+
 Compiling
 ---------
 ```
