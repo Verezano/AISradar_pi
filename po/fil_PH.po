@@ -5,40 +5,39 @@ msgstr ""
 "POT-Creation-Date: 2013-02-23 14:30-0600\n"
 "PO-Revision-Date: 2023-10-04 18:33\n"
 "Last-Translator: \n"
-"Language-Team: Portuguese\n"
-"Language: pt_PT\n"
+"Language-Team: Filipino\n"
+"Language: fil_PH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Crowdin-Project: opencpn\n"
 "X-Crowdin-Project-ID: 49843\n"
-"X-Crowdin-Language: pt-PT\n"
+"X-Crowdin-Language: fil\n"
 "X-Crowdin-File: /plugins/aisradar_pi/po/aisradar_pi.pot\n"
 "X-Crowdin-File-ID: 106\n"
 
 #: src/aisradar_pi.cpp:92 src/aisradar_pi.cpp:137 src/aisradar_pi.cpp:217
 msgid "AIS Radar view"
-msgstr "Vista Radar do AIS"
+msgstr "Tingnan ang AIS Radar"
 
 #: src/aisradar_pi.cpp:142
 msgid "AIS Radar view PlugIn"
-msgstr "Plugin de vista Radar do AIS"
+msgstr "Tingnan ang AIS Radar na Panaksak"
 
 #: src/aisradar_pi.cpp:147
 msgid "Radar PlugIn for OpenCPN\n"
 "Shows AIS targets in a radar style view \n\n"
-msgstr "O plugin de vista Radar do\n"
-"AIS mostra os alvos no\n"
-"estilo Radar \n\n"
+msgstr "Panaksak sa Radar para sa OpenCPN\n"
+"Nagpakita sa mga AIS target sa tanawin ng istilo ng radar\n\n"
 
 #: src/aisradar_pi.cpp:155
 msgid "AIS Radar"
-msgstr "Radar AIS"
+msgstr "Ang AIS na Radar"
 
 #: src/aisradar_pi.cpp:168
 msgid "Radar Preferences"
-msgstr "Preferências do Radar"
+msgstr "Mga Sanggunian ng Radar"
 
 #: src/aisradar_pi.cpp:179 src/aisradar_pi.cpp:201
 msgid "Radar"
@@ -46,27 +45,27 @@ msgstr "Radar"
 
 #: src/aisradar_pi.cpp:183
 msgid "Show RADAR icon:"
-msgstr "Mostrar ícone do RADAR:"
+msgstr "Ipakita ang RADAR na bulto:"
 
 #: src/aisradar_pi.cpp:187
 msgid "Use AIS as radar source:"
-msgstr "Usar o AIS como fonte de radar:"
+msgstr "Gamitin ang AIS bilang pinagmulan ng radar:"
 
 #: src/aisradar.cpp:116
 msgid "Controls"
-msgstr "Controlos"
+msgstr "Mga Kontrol"
 
 #: src/aisradar.cpp:118 src/aisradar.cpp:347
 msgid "Range"
-msgstr "Alcance"
+msgstr "Ang Saklaw"
 
 #: src/aisradar.cpp:133
 msgid "Miles"
-msgstr "Milhas"
+msgstr "Mga Milya"
 
 #: src/aisradar.cpp:136 src/aisradar.cpp:352
 msgid "North Up"
-msgstr "Norte para cima"
+msgstr "Hilagang Papataas"
 
 #: src/aisradar.cpp:140
 msgid "EBL"
@@ -74,7 +73,7 @@ msgstr "EBL"
 
 #: src/aisradar.cpp:348
 msgid "Ring "
-msgstr "Campainha "
+msgstr "Ang Argulya "
 
 #: src/aisradar.cpp:355
 msgid "N"
@@ -94,9 +93,9 @@ msgstr "E"
 
 #: src/aisradar.cpp:360
 msgid "Course Up"
-msgstr "Rumo para cima"
+msgstr "Papataas na Kurso"
 
 #: src/aisradar.h:102
 msgid "Radar Display"
-msgstr "Ecrã de Radar"
+msgstr "Ipakita ang Radar"
 
