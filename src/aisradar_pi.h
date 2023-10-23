@@ -67,9 +67,11 @@ public:
     wxString GetShortDescription() override;
     wxString GetLongDescription() override;
     wxBitmap m_panelBitmap;
-	//from shipdriver for panel icon
-	  
+    const char *GetPlugInVersionPre() override { return ""; }
+    const char *GetPlugInVersionBuild() override { return ""; }
+        // FIXME: Add real build info such as git hash and/or build number
 
+    // from shipdriver for panel icon
     void SetDefaults(void) override;
     int  GetToolbarToolCount(void) override;
     void ShowPreferencesDialog( wxWindow* parent ) override;
