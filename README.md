@@ -20,7 +20,7 @@ This plugin is easily available from within OpenCPN using Options > Plugin Manag
 Compiling
 ---------
 ```
-git clone https://github.com/Verezano/AISradar_pi.git
+git clone --recurse-submodules https://github.com/rgleason/AISradar_pi.git
 ```
 
 ###Build:
