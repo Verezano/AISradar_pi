@@ -16,7 +16,7 @@ dir %SCRIPTDIR%
 dir %SCRIPTDIR%..
 dir %SCRIPTDIR%..\msvc
 call %SCRIPTDIR%..\msvc\win_deps.bat %wx_vers%
-path %SCRIPTDIR%.local\bin;%PATH%;"C:\Program Files\CMake\bin"
+path %SCRIPTDIR%.local\bin;%PATH%;"C:\Program Files\CMake\bin";"C:\Program Files (x86)\Poedit\Gettexttools"
 call "%SCRIPTDIR%..\cache\wx-config.bat"
 echo USING wxWidgets_LIB_DIR: %wxWidgets_LIB_DIR%
 echo USING wxWidgets_ROOT_DIR: %wxWidgets_ROOT_DIR%
