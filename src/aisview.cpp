@@ -185,8 +185,8 @@ void AisFrame::OnClose ( wxCloseEvent& event ) {
 
     // Cleanup
     RequestRefresh(pParent);
-    Destroy();
     pPlugIn->OnAisFrameClose();
+    Destroy();
 }
 
 
