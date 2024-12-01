@@ -217,7 +217,7 @@ jobs:
             DEPLOY-USE-ORB: false
     build-flatpak-arm64-2208:
         machine:
-            image: ubuntu-2004:202101-01
+            image: ubuntu-2204:2024.05.1
         resource_class: arm.medium
         environment:
         - OCPN_TARGET:  flatpak-arm64
@@ -233,7 +233,7 @@ jobs:
         - deploy-code
     build-flatpak-x86-2208:
         machine:
-            image: ubuntu-2004:202010-01
+            image: ubuntu-2204:2024.05.1
         environment:
         - OCPN_TARGET:  flatpak
         - FLATPAK_BRANCH: beta
@@ -249,7 +249,7 @@ jobs:
         - deploy-code
     build-debian-arm64-12-bookworm:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         environment:
         - OCPN_TARGET=bookworm-arm64
         - DOCKER_IMAGE=arm64v8/debian:bookworm
@@ -267,7 +267,7 @@ jobs:
         - deploy-code
     build-debian-armhf-12-bookworm:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         resource_class: arm.medium
         environment:
         - OCPN_TARGET=bookworm-armhf
@@ -286,7 +286,7 @@ jobs:
         - deploy-code
     build-debian-x86_64-12-bookworm:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         environment:
         - OCPN_TARGET: bookworm
         - BUILD_GTK3: true
@@ -303,7 +303,7 @@ jobs:
         - deploy-code
     build-debian-armhf-11-bullseye:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         environment:
         - OCPN_TARGET=bullseye-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:bullseye
@@ -320,7 +320,7 @@ jobs:
         - deploy-code
     build-debian-arm64-11-bullseye:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         environment:
         - OCPN_TARGET=bullseye-arm64
         - DOCKER_IMAGE=arm64v8/debian:bullseye-backports
@@ -413,7 +413,7 @@ jobs:
             DEPLOY-USE-ORB: false
     build-debian-armhf-10-buster:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:buster
@@ -429,7 +429,7 @@ jobs:
         - deploy-code
     build-debian-armhf-10-buster-gtk3:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/debian-armhf:buster
@@ -446,7 +446,7 @@ jobs:
         - deploy-code
     build-debian-arm64-10-buster:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         resource_class: arm.medium
         environment:
         - OCPN_TARGET=buster-arm64
@@ -486,7 +486,7 @@ jobs:
 ## KEEP needed for Raspbian OpenCPN v5.6
     build-ubuntu-armhf-1804-buster:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         environment:
         - OCPN_TARGET=buster-armhf
         - DOCKER_IMAGE=jongough/ubuntu-armhf:18.04
@@ -540,7 +540,7 @@ jobs:
         - deploy-code
     build-ubuntu-armhf-2004-focal-gtk3:
         machine:
-            image: ubuntu-2004:202104-01
+            image: ubuntu-2204:2024.05.1
         environment:
         - OCPN_TARGET=focal-armhf
         - OCPN_BRANCH=master
