@@ -184,7 +184,7 @@ void AisFrame::OnClose ( wxCloseEvent& event ) {
     pPlugIn->SetAisFrameSizeY(m_pViewState->GetSize().GetHeight());
 
     // Cleanup
-    RequestRefresh(pParent);
+    //RequestRefresh(pParent);
     pPlugIn->OnAisFrameClose();
     Destroy();
 }
