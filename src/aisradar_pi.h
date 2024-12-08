@@ -53,31 +53,33 @@ public:
     ~aisradar_pi();
 
 // The required PlugIn Methods
-    int Init(void);
-    bool DeInit(void);
+    int Init(void) override;
+    bool DeInit(void) override;
 
-    int GetAPIVersionMajor();
-    int GetAPIVersionMinor();
-    int GetPlugInVersionMajor();
-    int GetPlugInVersionMinor();
-    int GetPlugInVersionPatch();
-    int GetPlugInVersionPost();
-    wxBitmap *GetPlugInBitmap();
-    wxString GetCommonName();
-    wxString GetShortDescription();
-    wxString GetLongDescription();
+    int GetAPIVersionMajor() override;
+    int GetAPIVersionMinor() override;
+    int GetPlugInVersionMajor() override;
+    int GetPlugInVersionMinor() override;
+    int GetPlugInVersionPatch() override;
+    int GetPlugInVersionPost() override;
+    wxBitmap *GetPlugInBitmap() override;
+    wxString GetCommonName() override;
+    wxString GetShortDescription() override;
+    wxString GetLongDescription() override;
     wxBitmap m_panelBitmap;
-	//from shipdriver for panel icon
-	  
+    const char *GetPlugInVersionPre() override { return ""; }
+    const char *GetPlugInVersionBuild() override { return ""; }
+        // FIXME: Add real build info such as git hash and/or build number
 
-    void SetDefaults(void);
-    int  GetToolbarToolCount(void);
-    void ShowPreferencesDialog( wxWindow* parent );
-    void OnToolbarToolCallback(int id);
-    void SetAISSentence(wxString &sentence);
-    void SetPositionFix(PlugIn_Position_Fix &pfix);
-    void SetPluginMessage(wxString &message_id, wxString &message_body);
-    void SetColorScheme(PI_ColorScheme cs);
+    // from shipdriver for panel icon
+    void SetDefaults(void) override;
+    int  GetToolbarToolCount(void) override;
+    void ShowPreferencesDialog( wxWindow* parent ) override;
+    void OnToolbarToolCallback(int id) override;
+    void SetAISSentence(wxString &sentence) override;
+    void SetPositionFix(PlugIn_Position_Fix &pfix) override;
+    void SetPluginMessage(wxString &message_id, wxString &message_body) override;
+    void SetColorScheme(PI_ColorScheme cs) override;
 
 // Other public methods
     void             SetAisFrameX      (int x)  { m_ais_frame_x  = x;   }

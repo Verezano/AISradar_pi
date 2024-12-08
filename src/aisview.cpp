@@ -184,7 +184,7 @@ void AisFrame::OnClose ( wxCloseEvent& event ) {
     pPlugIn->SetAisFrameSizeY(m_pViewState->GetSize().GetHeight());
 
     // Cleanup
-    RequestRefresh(pParent);
+    //RequestRefresh(pParent);
     Destroy();
     pPlugIn->OnAisFrameClose();
 }
@@ -267,7 +267,7 @@ void AisFrame::OnSize ( wxSizeEvent& event ) {
         wxSize cs = m_pCanvas->GetClientSize();
         m_pViewState->SetCanvasSize(cs);
         m_pViewState->SetWindowSize(GetSize());
-        render(dc);
+        if (wxWindow::IsShown()) render(dc);
     }
 }
 
