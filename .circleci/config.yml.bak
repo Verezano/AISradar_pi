@@ -151,7 +151,7 @@ jobs:
         - run: bash ci/circleci-build-macos.sh
         - deploy-code:
             deploy_use_orb: false
-            install_python: false
+            install_pythob: false
     build-macos-universal:
         macos:
             xcode: "14.2"
@@ -207,7 +207,7 @@ jobs:
             image: ubuntu-2204:current
             resource_class: arm.medium
         environment:
-        - OCPN_TARGET:  flatpak
+        - OCPN_TARGET:  flatpak-arm64
         - FLATPAK_BRANCH: stable
         - CLOUDSMITH_PKG_EXT: gz
         - SDK_VER: 22.08
@@ -240,7 +240,7 @@ jobs:
             image: ubuntu-2204:current
             resource_class: arm.medium
         environment:
-        - OCPN_TARGET:  flatpak
+        - OCPN_TARGET:  flatpak-arm64
         - FLATPAK_BRANCH: stable
         - CLOUDSMITH_PKG_EXT: gz
         - SDK_VER: 24.08
