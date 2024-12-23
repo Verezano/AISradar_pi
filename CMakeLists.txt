@@ -19,7 +19,7 @@
 ## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
 #-----------------------------------------------------------------------------
 # Frontend2 Author: Jon Gough 
-# Testplugin(TP) v1.0.317.5 13/12/2024 DD/MM/YYYY format
+# Testplugin(TP) v1.0.318.0 21/12/2024 DD/MM/YYYY
 # buildCI:yes useODAPI:no validateJSON:no
 # ---------------------------------------------------------------------------
 ## -- When changing this file do NOT change the order of the sections.    -- ##
@@ -59,9 +59,9 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "4")
-set(VERSION_PATCH "15")
+set(VERSION_PATCH "16")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE  "12/17/2024")#DD/MM/YYYY format
+set(VERSION_DATE  "23/12/2024")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
@@ -105,13 +105,20 @@ set(OpenGL_GL_PREFERENCE "LEGACY")   #not operational
 option(USE_GL "Enable OpenGL support" OFF)
 message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "")
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" FORCE)
-endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE
+      "Release"
+      CACHE STRING "Choose the type of build" FORCE
+  )
+endif ("${CMAKE_BUILD_TYPE}" STREQUAL "")
+set_property(
+  CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo"
+                                  "MinSizeRel"
+)
 message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 
-## ----- Statements below used to setup standard variables required by the CMAKE process -- Do not remove - ##
+# ----- Statements below used to setup standard variables required by the CMAKE  -##
+# ----- process -- Do not remove -##
 
 project(${PACKAGE})
 
@@ -141,7 +148,7 @@ include("PluginConfigure")
 
 add_definitions(-DUSE_S57)
 
-## ---- Section Below - Add your project SET(SRCS and SET(HDRS  etc..
+## ----- Section above - Add your project SET(SRCS and SET(HDRS  etc.-------##
 
 SET(SRCS
       src/aisradar_pi.h
