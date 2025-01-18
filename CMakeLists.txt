@@ -1,26 +1,26 @@
 ##---------------------------------------------------------------------------
 ## Author:    Johan van der Sman      hannes@andcrew.nl           
-##***************************************************************************
-## *   Copyright (C) by Johan van der Sman
-## *   License:  GNUGLv3  wxWidgets License
-## *   This program is free software; you can redistribute it and/or modify  *
-## *   it under the terms of the GNU General Public License as published by  *
-## *   the Free Software Foundation; either version 2 of the License, or     *
-## *   (at your option) any later version.                                   *
-## *                                                                         *
-## *   This program is distributed in the hope that it will be useful,       *
-## *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-## *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-## *   GNU General Public License for more details.                          *
-## *                                                                         *
-## *   You should have received a copy of the GNU General Public License     *
-## *   along with this program; if not, write to the                         *
-## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
-## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
-#-----------------------------------------------------------------------------
-# Frontend2 Author: Jon Gough 
-# Testplugin(TP) v1.0.319.0 23/12/2024 DD/MM/YYYY
-# buildCI:yes useODAPI:no validateJSON:no
+# License
+# ---------------------------------------------------------------------------
+# - Copyright (C)  by Jon Gough                            *
+# - License:     GPLv3+
+# - This program is free software; you can redistribute it and/or modify  *
+# - it under the terms of the GNU General Public License as published by  *
+# - the Free Software Foundation; either version 2 of the License, or     *
+# - (at your option) any later version.                                   *
+# - *
+# - This program is distributed in the hope that it will be useful,       *
+# - but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+# - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+# - GNU General Public License for more details.                          *
+# - *
+# - You should have received a copy of the GNU General Public License     *
+# - along with this program; if not, write to the                         *
+# - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
+# - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
+# -----------------------------------------------------------------------------
+# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.326.0 18/01/2025 DD/MM/YYYY
+# format buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 ## -- When changing this file do NOT change the order of the sections.    -- ##
 ## -- Make changes only between the section blocks identified             -- ##
