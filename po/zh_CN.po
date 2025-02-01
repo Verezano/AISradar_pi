@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: opencpn\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-23 14:30-0600\n"
-"PO-Revision-Date: 2023-10-04 18:32\n"
+"POT-Creation-Date: 2025-01-19 08:29+0100\n"
+"PO-Revision-Date: 2025-01-28 18:01\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Language: zh_CN\n"
@@ -17,84 +17,71 @@ msgstr ""
 "X-Crowdin-File: /plugins/aisradar_pi/po/aisradar_pi.pot\n"
 "X-Crowdin-File-ID: 106\n"
 
-#: src/aisradar_pi.cpp:92 src/aisradar_pi.cpp:137 src/aisradar_pi.cpp:217
-msgid "AIS Radar view"
+#: src/aisradar_pi.cpp:186 src/aisradar_pi.cpp:302
+msgid "AISradar"
 msgstr ""
 
-#: src/aisradar_pi.cpp:142
-msgid "AIS Radar view PlugIn"
+#: src/aisradar_pi.cpp:190 src/aisradar_pi.cpp:306
+msgid "AisView"
 msgstr ""
 
-#: src/aisradar_pi.cpp:147
-msgid "Radar PlugIn for OpenCPN\n"
-"Shows AIS targets in a radar style view \n\n"
+#: src/aisradar_pi.cpp:268
+msgid "AIS view Preferences"
 msgstr ""
 
-#: src/aisradar_pi.cpp:155
-msgid "AIS Radar"
+#: src/aisradar_pi.cpp:279
+msgid "Ais"
 msgstr ""
 
-#: src/aisradar_pi.cpp:168
-msgid "Radar Preferences"
+#: src/aisradar_pi.cpp:283
+msgid "Show Ais icon:"
 msgstr ""
 
-#: src/aisradar_pi.cpp:179 src/aisradar_pi.cpp:201
-msgid "Radar"
-msgstr ""
-
-#: src/aisradar_pi.cpp:183
-msgid "Show RADAR icon:"
-msgstr ""
-
-#: src/aisradar_pi.cpp:187
+#: src/aisradar_pi.cpp:287
 msgid "Use AIS as radar source:"
 msgstr ""
 
-#: src/aisradar.cpp:116
-msgid "Controls"
+#: src/aisview.cpp:129
+msgid "Options"
 msgstr ""
 
-#: src/aisradar.cpp:118 src/aisradar.cpp:347
+#: src/aisview.cpp:131 src/aisview.cpp:376
 msgid "Range"
 msgstr ""
 
-#: src/aisradar.cpp:133
-msgid "Miles"
+#: src/aisview.cpp:146
+msgid "Nautical Miles"
 msgstr ""
 
-#: src/aisradar.cpp:136 src/aisradar.cpp:352
+#: src/aisview.cpp:149 src/aisview.cpp:381
 msgid "North Up"
 msgstr ""
 
-#: src/aisradar.cpp:140
+#: src/aisview.cpp:153
 msgid "EBL"
 msgstr ""
 
-#: src/aisradar.cpp:348
-msgid "Ring "
-msgstr ""
-
-#: src/aisradar.cpp:355
+#: src/aisview.cpp:384
 msgid "N"
 msgstr ""
 
-#: src/aisradar.cpp:356
+#: src/aisview.cpp:385
 msgid "S"
 msgstr ""
 
-#: src/aisradar.cpp:357
+#: src/aisview.cpp:386
 msgid "W"
 msgstr ""
 
-#: src/aisradar.cpp:358
+#: src/aisview.cpp:387
 msgid "E"
 msgstr ""
 
-#: src/aisradar.cpp:360
+#: src/aisview.cpp:389
 msgid "Course Up"
 msgstr ""
 
-#: src/aisradar.h:102
-msgid "Radar Display"
+#: src/aisview.h:102
+msgid "Ais Display"
 msgstr ""
 
