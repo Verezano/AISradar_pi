@@ -65,7 +65,7 @@ extern "C" DECL_EXP void destroy_pi(opencpn_plugin* p) {
 //---------------------------------------------------------------------------------------------------------
 
 aisradar_pi::aisradar_pi(void *ppimgr)
-: opencpn_plugin_117(ppimgr),
+: opencpn_plugin_118(ppimgr),
     m_pconfig(0),
     m_parent_window(0),
     m_pAisFrame(0),

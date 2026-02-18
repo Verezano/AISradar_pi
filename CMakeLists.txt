@@ -1,26 +1,26 @@
 ##---------------------------------------------------------------------------
 ## Author:    Johan van der Sman      hannes@andcrew.nl           
-##***************************************************************************
-## *   Copyright (C) by Johan van der Sman
-## *   License:  GNUGLv3  wxWidgets License
-## *   This program is free software; you can redistribute it and/or modify  *
-## *   it under the terms of the GNU General Public License as published by  *
-## *   the Free Software Foundation; either version 2 of the License, or     *
-## *   (at your option) any later version.                                   *
-## *                                                                         *
-## *   This program is distributed in the hope that it will be useful,       *
-## *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
-## *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
-## *   GNU General Public License for more details.                          *
-## *                                                                         *
-## *   You should have received a copy of the GNU General Public License     *
-## *   along with this program; if not, write to the                         *
-## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
-## *   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
-#-----------------------------------------------------------------------------
-# Frontend2 Author: Jon Gough 
-# Testplugin(TP) v1.0.304.5 20/09/2024 DD/MM/YYYY format
-# buildCI:yes useODAPI:no validateJSON:no
+# License
+# ---------------------------------------------------------------------------
+# - Copyright (C)  by Jon Gough                            *
+# - License:     GPLv3+
+# - This program is free software; you can redistribute it and/or modify  *
+# - it under the terms of the GNU General Public License as published by  *
+# - the Free Software Foundation; either version 2 of the License, or     *
+# - (at your option) any later version.                                   *
+# - *
+# - This program is distributed in the hope that it will be useful,       *
+# - but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+# - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+# - GNU General Public License for more details.                          *
+# - *
+# - You should have received a copy of the GNU General Public License     *
+# - along with this program; if not, write to the                         *
+# - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx,                                       *
+# - xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                       *
+# -----------------------------------------------------------------------------
+# Frontend2 Author: Jon Gough Testplugin(TP) v1.0.358.1 21/01/2026 DD/MM/YYYY
+# format buildCI:yes useODAPI:yes validateJSON:yes
 # ---------------------------------------------------------------------------
 ## -- When changing this file do NOT change the order of the sections.    -- ##
 ## -- Make changes only between the section blocks identified             -- ##
@@ -59,13 +59,13 @@ set(LONG_DESCRIPTION "Radar PlugIn for OpenCPN Shows AIS targets in a radar styl
 
 set(VERSION_MAJOR "1")
 set(VERSION_MINOR "4")
-set(VERSION_PATCH "14")
+set(VERSION_PATCH "21")
 set(VERSION_TWEAK "0")
-set(VERSION_DATE  "01/10/2024")#DD/MM/YYYY format
+set(VERSION_DATE  "25/01/2026")#DD/MM/YYYY format
 set(OCPN_MIN_VERSION "ov58")
 
 set(OCPN_API_VERSION_MAJOR "1")
-set(OCPN_API_VERSION_MINOR "17")
+set(OCPN_API_VERSION_MINOR "18")
 set(TP_COMMENT "  * Release using CI")
 
 set(PARENT "opencpn")
@@ -105,13 +105,20 @@ set(OpenGL_GL_PREFERENCE "LEGACY")   #not operational
 option(USE_GL "Enable OpenGL support" OFF)
 message(STATUS "${CMLOC}USE_GL: ${USE_GL}")
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "")
-    set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Choose the type of build" FORCE)
-endif("${CMAKE_BUILD_TYPE}" STREQUAL "")
-set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
+if ("${CMAKE_BUILD_TYPE}" STREQUAL "")
+  set(CMAKE_BUILD_TYPE
+      "Release"
+      CACHE STRING "Choose the type of build" FORCE
+  )
+endif ("${CMAKE_BUILD_TYPE}" STREQUAL "")
+set_property(
+  CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "" "Debug" "Release" "RelWithDebInfo"
+                                  "MinSizeRel"
+)
 message(STATUS "${CMLOC}Build type: ${CMAKE_BUILD_TYPE}")
 
-## ----- Statements below used to setup standard variables required by the CMAKE process -- Do not remove - ##
+# ----- Statements below used to setup standard variables required by the CMAKE  -##
+# ----- process -- Do not remove -##
 
 project(${PACKAGE})
 
@@ -141,7 +148,7 @@ include("PluginConfigure")
 
 add_definitions(-DUSE_S57)
 
-## ---- Section Below - Add your project SET(SRCS and SET(HDRS  etc..
+## ----- Section above - Add your project SET(SRCS and SET(HDRS  etc.-------##
 
 SET(SRCS
       src/aisradar_pi.h
@@ -171,7 +178,7 @@ add_definitions(-DPLUGIN_USE_SVG)
 ## This add_library  can be used in conditionals below.
 ##=============================================================
 
-SET(SRC ${SRCS} ${HDRS} )
+set(SRC ${SRCS} ${HDRS})
 
 ##=============================================================
 ## Modify/configure 'Include' Directories below for the Plugin
@@ -182,30 +189,30 @@ include_directories(BEFORE ${PROJECT_SOURCE_DIR}/include)
 ## Change target_sources to match your project needs.
 ##==============================================================
 
-target_sources(${PACKAGE_NAME} PUBLIC ${SRC} )
+target_sources(${PACKAGE_NAME} PUBLIC ${SRC})
 
 ##==============================================================
 
-if(NOT OCPN_FLATPAK_CONFIG)
-    # Build environment not available when flatpak is being configured 
-	# so following statements will not work
-    message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
+if (NOT OCPN_FLATPAK_CONFIG)
+  # Build environment not available when flatpak is being configured so
+  # following statements will not work
+  message(STATUS "${CMLOC}Adding target link libraries to ${PACKAGE_NAME}")
 
-    if (WIN32)
-        add_subdirectory(opencpn-libs/WindowsHeaders)
-        target_link_libraries(${PACKAGE_NAME} windows::headers)
-    endif (WIN32)
+  if (WIN32)
+    add_subdirectory(opencpn-libs/WindowsHeaders)
+    target_link_libraries(${PACKAGE_NAME} windows::headers)
+  endif (WIN32)
 
-    add_subdirectory(opencpn-libs/api-17)
-    target_link_libraries(${PACKAGE_NAME} ocpn::api)
+  add_subdirectory(opencpn-libs/api-18)
+  target_link_libraries(${PACKAGE_NAME} ocpn::api)
 
-    add_subdirectory(opencpn-libs/tinyxml)
-    target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
+  add_subdirectory(opencpn-libs/tinyxml)
+  target_link_libraries(${PACKAGE_NAME} ocpn::tinyxml)
 
-    add_subdirectory(opencpn-libs/plugin_dc)
-    target_link_libraries(${PACKAGE_NAME} ocpn::plugin-dc)
+  add_subdirectory(opencpn-libs/plugin_dc)
+  target_link_libraries(${PACKAGE_NAME} ocpn::plugin-dc)
 
-endif(NOT OCPN_FLATPAK_CONFIG)
+endif (NOT OCPN_FLATPAK_CONFIG)
 
 add_definitions(-DTIXML_USE_STL)
 
@@ -219,9 +226,9 @@ add_definitions(-DTIXML_USE_STL)
 ##------- Change below to match project requirements --------------------##
 
 # Needed for android builds
-if(QT_ANDROID)
-    include_directories(BEFORE ${qt_android_include})
-endif(QT_ANDROID)
+if (QT_ANDROID)
+  include_directories(BEFORE ${qt_android_include})
+endif (QT_ANDROID)
 
 ## Needed for all builds Do not change - needed to build app -------------##
 ##===============================================================
@@ -234,8 +241,11 @@ include("PluginPackage")
 ## ----- Do not change section above - needed to configure build process --##
 
 message(STATUS "${CMLOC}include directories: ")
-get_property(dirs DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY INCLUDE_DIRECTORIES)
-foreach(dir ${dirs})
-    message(STATUS "${CMLOC}dir='${dir}'")
-endforeach()
-
+get_property(
+  dirs
+  DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+  PROPERTY INCLUDE_DIRECTORIES
+)
+foreach (dir ${dirs})
+  message(STATUS "${CMLOC}dir='${dir}'")
+endforeach ()

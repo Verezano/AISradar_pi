@@ -46,7 +46,7 @@
 
 #define AISVIEW_TOOL_POSITION    -1          // Request default positioning of toolbar tool
 
-class aisradar_pi : public opencpn_plugin_117
+class aisradar_pi : public opencpn_plugin_118
 {
 public:
     aisradar_pi(void *ppimgr);
